@@ -15,8 +15,8 @@ public class CharacterGameObject : MonoBehaviour
     [Header("State")]
     [SerializeField] bool isInit = false;
     [SerializeField] public CharacterState state;
+    [SerializeField] public ContactFilter2D filter;
 
-    Transform target;
     AI_Base thisAI;
 
     private void Start()
@@ -30,6 +30,7 @@ public class CharacterGameObject : MonoBehaviour
         switch (index)
         {
             case 0: // bounty hunter
+                thisAI = new BountyHunter(this);
                 break;
             case 1: // occultist
                 break;
@@ -56,14 +57,8 @@ public class CharacterGameObject : MonoBehaviour
                 break;
             case CharacterState.MOVE:
                 #region MOVE
-                if (target == null)
-                {
-                    state = CharacterState.IDLE;
-                    return;
-                }
-
-                thisAI.MoveToTarget(target);
-                if (thisAI.IsArriveAtTarget(target))
+                thisAI.MoveToTarget();
+                if (thisAI.IsArriveAtTarget())
                 {
                     state = CharacterState.ATTACK;
                 }
@@ -81,11 +76,6 @@ public class CharacterGameObject : MonoBehaviour
         }
     }
 
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
-        state = CharacterState.MOVE;
-    }
     public void Attack()
     {
         thisAI.GiveDamage();

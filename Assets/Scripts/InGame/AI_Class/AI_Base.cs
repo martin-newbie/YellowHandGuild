@@ -10,6 +10,7 @@ public enum AttackType
 
 public abstract class AI_Base
 {
+    // components
     protected CharacterGameObject characterSubject;
     protected GameObject gameobject;
     protected Transform transform;
@@ -18,8 +19,14 @@ public abstract class AI_Base
 
     // state
     protected AttackType atkType;
+    protected float criticalChance;
     protected float attackRange;
+    protected float attackDelay;
     protected float moveSpeed;
+    protected int damage;
+
+    // enemies
+    protected MonsterGameObject targeted;
 
     public AI_Base(CharacterGameObject character)
     {
@@ -33,34 +40,56 @@ public abstract class AI_Base
     // abstract method
     public abstract void Attack();
     public abstract void GiveDamage();
+    public abstract void Cancel();
 
     // virtual method
     public virtual void Idle()
     {
         animator.Play("Idle");
+
+        var target = FindNearEnemy();
+        if(target != null)
+        {
+            targeted = target;
+            if(NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            {
+                characterSubject.state = CharacterState.MOVE;
+            }
+            else
+            {
+                characterSubject.state = CharacterState.ATTACK;
+            }
+        }
     }
-    public virtual void MoveToTarget(Transform target)
+
+    public virtual void MoveToTarget()
     {
         animator.Play("Move");
 
-        if (NeedMoveToTargetX(target))
+        if(targeted == null)
         {
-            int dir = transform.position.x < target.position.x ? 1 : -1;
+            characterSubject.state = CharacterState.IDLE;
+            return;
+        }
 
-            SetRotation(transform.position, target.position);
+        if (NeedMoveToTargetX(targeted.transform))
+        {
+            int dir = transform.position.x < targeted.transform.position.x ? 1 : -1;
+
+            SetRotation(transform.position, targeted.transform.position);
             transform.Translate(Vector3.right * dir * moveSpeed * Time.deltaTime);
         }
 
-        if (NeedMoveToTargetY(target))
+        if (NeedMoveToTargetY(targeted.transform))
         {
-            int dir = transform.position.y < target.position.y ? 1 : -1;
+            int dir = transform.position.y < targeted.transform.position.y ? 1 : -1;
 
             transform.Translate(Vector3.up * dir * moveSpeed * Time.deltaTime);
         }
     }
-    public virtual bool IsArriveAtTarget(Transform target)
+    public virtual bool IsArriveAtTarget()
     {
-        return !NeedMoveToTargetX(target) && !NeedMoveToTargetY(target);
+        return !NeedMoveToTargetX(targeted.transform) && !NeedMoveToTargetY(targeted.transform);
     }
     public virtual bool NeedMoveToTargetX(Transform target)
     {
@@ -81,7 +110,7 @@ public abstract class AI_Base
     {
         bool result = false;
 
-        if(Mathf.Abs(transform.position.y- target.position.y) < 0.1f)
+        if (Mathf.Abs(transform.position.y - target.position.y) < 0.1f)
         {
             result = true;
         }
@@ -98,9 +127,21 @@ public abstract class AI_Base
 
         model.transform.rotation = Quaternion.Euler(rot);
     }
+    protected virtual MonsterGameObject FindNearEnemy()
+    {
+        return null;
+    }
 
     protected Coroutine StartCoroutine(IEnumerator enumerator)
     {
-        return InGameManager.Instance.StartCoroutine(enumerator);
+        return characterSubject.StartCoroutine(enumerator);
+    }
+    protected void StopCoroutine(Coroutine routine)
+    {
+        characterSubject.StopCoroutine(routine);
+    }
+    protected bool IsCritical()
+    {
+        return Random.Range(0f, 1f) <= criticalChance;
     }
 }

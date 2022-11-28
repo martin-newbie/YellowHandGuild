@@ -13,6 +13,8 @@ public class InGameManager : MonoBehaviour
     }
 
     public AttackColliderManager attackColManager;
+    public SkillManager skillManager;
 
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
+    public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
 }

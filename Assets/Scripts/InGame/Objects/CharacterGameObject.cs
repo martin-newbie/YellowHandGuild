@@ -80,6 +80,11 @@ public class CharacterGameObject : MonoBehaviour
     {
         thisAI.GiveDamage();
     }
+
+    public void OnDamage(int damage)
+    {
+
+    }
 }
 
 public enum CharacterState

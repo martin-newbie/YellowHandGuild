@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum AttackType
@@ -17,7 +18,8 @@ public abstract class AI_Base
     protected Animator animator;
     protected SpriteRenderer model;
 
-    // state
+    // static state
+    protected int keyIndex;
     protected AttackType atkType;
     protected float criticalChance;
     protected float attackRange;
@@ -26,7 +28,7 @@ public abstract class AI_Base
     protected int damage;
 
     // enemies
-    protected MonsterGameObject targeted;
+    protected HostileGameObject targeted;
 
     public AI_Base(CharacterGameObject character)
     {
@@ -48,10 +50,10 @@ public abstract class AI_Base
         animator.Play("Idle");
 
         var target = FindNearEnemy();
-        if(target != null)
+        if (target != null)
         {
             targeted = target;
-            if(NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
             {
                 characterSubject.state = CharacterState.MOVE;
             }
@@ -66,7 +68,7 @@ public abstract class AI_Base
     {
         animator.Play("Move");
 
-        if(targeted == null)
+        if (targeted == null || !targeted.gameObject.activeInHierarchy)
         {
             characterSubject.state = CharacterState.IDLE;
             return;
@@ -95,7 +97,7 @@ public abstract class AI_Base
     {
         bool result = false;
 
-        if (atkType == AttackType.SHORT && Mathf.Abs(target.position.x - transform.position.x) != attackRange)
+        if (atkType == AttackType.SHORT && Mathf.Abs(Mathf.Abs(target.position.x - transform.position.x) - attackRange) > 0.1f)
         {
             result = true;
         }
@@ -110,7 +112,7 @@ public abstract class AI_Base
     {
         bool result = false;
 
-        if (Mathf.Abs(transform.position.y - target.position.y) < 0.1f)
+        if (Mathf.Abs(transform.position.y - target.position.y) > 0.1f)
         {
             result = true;
         }
@@ -127,9 +129,31 @@ public abstract class AI_Base
 
         model.transform.rotation = Quaternion.Euler(rot);
     }
-    protected virtual MonsterGameObject FindNearEnemy()
+    protected virtual HostileGameObject FindNearEnemy()
     {
-        return null;
+        var enemies = Object.FindObjectsOfType<HostileGameObject>().ToList();
+
+        if (enemies.Count <= 0) return null;
+
+        HostileGameObject result = null;
+        float dist = float.MaxValue;
+        foreach (var item in enemies)
+        {
+            float calc = Vector3.Distance(item.transform.position, transform.position);
+            if (calc < dist)
+            {
+                dist = calc;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+
+    public int GetDamage() => damage;
+    public bool IsCritical()
+    {
+        return Random.Range(0f, 1f) <= criticalChance;
     }
 
     protected Coroutine StartCoroutine(IEnumerator enumerator)
@@ -139,9 +163,5 @@ public abstract class AI_Base
     protected void StopCoroutine(Coroutine routine)
     {
         characterSubject.StopCoroutine(routine);
-    }
-    protected bool IsCritical()
-    {
-        return Random.Range(0f, 1f) <= criticalChance;
     }
 }

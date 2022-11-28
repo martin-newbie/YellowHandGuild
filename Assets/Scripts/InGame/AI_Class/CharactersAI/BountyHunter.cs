@@ -11,6 +11,13 @@ public class BountyHunter : AI_Base
     public BountyHunter(CharacterGameObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(0, transform);
+
+        atkType = AttackType.SHORT;
+        criticalChance = 0.15f;
+        attackRange = 1.5f;
+        attackDelay = 2f;
+        moveSpeed = 1.5f;
+        damage = 8;
     }
 
     public override void Attack()
@@ -28,7 +35,9 @@ public class BountyHunter : AI_Base
         List<Collider2D> enemies = new List<Collider2D>();
         Physics2D.OverlapCollider(atkCol, characterSubject.filter, enemies);
 
-        enemies[0].GetComponent<MonsterGameObject>().OnDamage(damage, IsCritical());
+        if (enemies.Count <= 0) return;
+
+        enemies[0].GetComponent<HostileGameObject>().OnDamage(damage, IsCritical());
     }
 
     IEnumerator AttackCor()

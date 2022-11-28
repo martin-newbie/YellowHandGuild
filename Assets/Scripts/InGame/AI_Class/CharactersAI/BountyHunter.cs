@@ -8,6 +8,8 @@ public class BountyHunter : AI_Base
     Collider2D atkCol;
     Coroutine atkCoroutine;
 
+    WaitForSeconds wait;
+
     public BountyHunter(CharacterGameObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(0, transform);
@@ -18,6 +20,8 @@ public class BountyHunter : AI_Base
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;
+
+        wait = new WaitForSeconds(attackDelay);
     }
 
     public override void Attack()
@@ -44,7 +48,7 @@ public class BountyHunter : AI_Base
     {
         animator.Play("Attack");
         characterSubject.state = CharacterState.STAND_BY;
-        yield return new WaitForSeconds(attackDelay);
+        yield return wait;
         characterSubject.state = CharacterState.IDLE;
     }
 }

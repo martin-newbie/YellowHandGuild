@@ -33,6 +33,7 @@ public class CharacterGameObject : MonoBehaviour
                 thisAI = new BountyHunter(this);
                 break;
             case 1: // occultist
+                thisAI = new Occultist(this);
                 break;
         }
 

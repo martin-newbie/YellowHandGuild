@@ -37,6 +37,9 @@ public abstract class AI_Base
         transform = character.transform;
         animator = character.animator;
         model = character.model;
+
+        keyIndex = character.charIdx;
+        animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
     }
 
     // abstract method
@@ -156,12 +159,21 @@ public abstract class AI_Base
         return Random.Range(0f, 1f) <= criticalChance;
     }
 
+    protected Object Instantiate(Object original, Transform parent)
+    {
+        return Object.Instantiate(original, parent);
+    }
+    protected Object Instantiate(Object original, Vector3 pos, Quaternion rot, Transform parent = null)
+    {
+        return Object.Instantiate(original, pos, rot, parent);
+    }
     protected Coroutine StartCoroutine(IEnumerator enumerator)
     {
         return characterSubject.StartCoroutine(enumerator);
     }
     protected void StopCoroutine(Coroutine routine)
     {
-        characterSubject.StopCoroutine(routine);
+        if (routine != null)
+            characterSubject.StopCoroutine(routine);
     }
 }

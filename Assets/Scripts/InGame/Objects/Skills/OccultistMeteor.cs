@@ -10,7 +10,7 @@ public class OccultistMeteor : SkillBase
 
     public void Init(Occultist occultist)
     {
-        atkCol.GetComponent<Collider2D>();
+        atkCol = GetComponent<Collider2D>();
         this.occultist = occultist;
     }
 
@@ -18,9 +18,17 @@ public class OccultistMeteor : SkillBase
     {
         List<Collider2D> hostiles = new List<Collider2D>();
         Physics2D.OverlapCollider(atkCol, filter, hostiles);
+
+        if (hostiles.Count <= 0) return;
+
         foreach (var item in hostiles)
         {
             item.GetComponent<HostileGameObject>().OnDamage(occultist.GetDamage(), occultist.IsCritical());
         }
+    }
+
+    void DestroyFrame()
+    {
+        Destroy(gameObject);
     }
 }

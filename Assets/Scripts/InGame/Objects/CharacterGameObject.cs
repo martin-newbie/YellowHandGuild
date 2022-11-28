@@ -51,9 +51,7 @@ public class CharacterGameObject : MonoBehaviour
                 break;
             case CharacterState.IDLE:
                 #region IDLE
-
                 thisAI.Idle();
-
                 #endregion
                 break;
             case CharacterState.MOVE:
@@ -68,9 +66,11 @@ public class CharacterGameObject : MonoBehaviour
             case CharacterState.ATTACK:
                 thisAI.Attack();
                 break;
-            case CharacterState.SKILL1:
+            case CharacterState.AutoSkill: // 자동으로 사용하는 스킬
+                thisAI.AutoSkill();
                 break;
-            case CharacterState.SKILL2:
+            case CharacterState.TargetSkill: // ui 에서 타겟팅하는 스킬
+                thisAI.TargetingSkill();
                 break;
             case CharacterState.DEAD:
                 break;
@@ -94,7 +94,7 @@ public enum CharacterState
     IDLE,
     MOVE,
     ATTACK,
-    SKILL1,
-    SKILL2,
+    AutoSkill,
+    TargetSkill,
     DEAD,
 }

@@ -25,11 +25,13 @@ public abstract class AI_Base
     protected float attackRange;
     protected float attackDelay;
     protected float moveSpeed;
+    protected float skillCooltime;
     protected int damage;
 
     // enemies
     protected HostileGameObject targeted;
 
+    // constructor
     public AI_Base(CharacterGameObject character)
     {
         characterSubject = character;
@@ -45,6 +47,9 @@ public abstract class AI_Base
     // abstract method
     public abstract void Attack();
     public abstract void GiveDamage();
+    public abstract void AutoSkill();
+    public abstract void TargetingSkill();
+
     public abstract void Cancel();
 
     // virtual method
@@ -66,7 +71,6 @@ public abstract class AI_Base
             }
         }
     }
-
     public virtual void MoveToTarget()
     {
         animator.Play("Move");
@@ -153,6 +157,7 @@ public abstract class AI_Base
         return result;
     }
 
+    // pure method
     public int GetDamage() => damage;
     public bool IsCritical()
     {

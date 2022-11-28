@@ -49,4 +49,12 @@ public class Occultist : AI_Base
     public override void GiveDamage()
     {
     }
+
+    public override void AutoSkill()
+    {
+    }
+
+    public override void TargetingSkill()
+    {
+    }
 }

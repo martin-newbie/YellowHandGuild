@@ -44,6 +44,14 @@ public class BountyHunter : AI_Base
         enemies[0].GetComponent<HostileGameObject>().OnDamage(damage, IsCritical());
     }
 
+    public override void AutoSkill()
+    {
+    }
+
+    public override void TargetingSkill()
+    {
+    }
+
     IEnumerator AttackCor()
     {
         animator.Play("Attack");

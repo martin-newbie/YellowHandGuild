@@ -137,6 +137,7 @@ public abstract class AI_Base
             if(curSkillCool >= skillCooltime)
             {
                 subject.state = CharacterState.AUTO_SKILL;
+                curSkillCool = 0f;
             }
         }
     }

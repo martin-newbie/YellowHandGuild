@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 728258698}
   - component: {fileID: 728258699}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 1846116009}
   m_Layer: 7
   m_Name: TempEnemy
-  m_TagString: Untagged
+  m_TagString: Hostile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,7 +391,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.75}
@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillObjects:
   - {fileID: 366484485462831544, guid: 3ce905c3a0483ee46897e136d02a487e, type: 3}
+  - {fileID: 7996550526973733380, guid: b97b29df61266de468566f03c7693e7a, type: 3}
 --- !u!1 &1950025711
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +575,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6635675314612057915, guid: 985ab91a138dd53479a0c37b6e6a43a8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6c6c4c8340665074f814ff1467646538, type: 2}
     - target: {fileID: 6635675315357233314, guid: 985ab91a138dd53479a0c37b6e6a43a8, type: 3}
       propertyPath: m_Name
       value: CharacterGameObject

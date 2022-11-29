@@ -7,12 +7,14 @@ public class BountyHunter : AI_Base
 
     Collider2D atkCol;
     Coroutine atkCoroutine;
+    BountyHunterHurlbat hurlbat;
 
     WaitForSeconds wait;
 
     public BountyHunter(CharacterGameObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(0, transform);
+        hurlbat = InGameManager.Instance.GetSkill(1) as BountyHunterHurlbat;
 
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
@@ -20,6 +22,7 @@ public class BountyHunter : AI_Base
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;
+        skillCooltime = 1f;
 
         wait = new WaitForSeconds(attackDelay);
     }
@@ -37,7 +40,7 @@ public class BountyHunter : AI_Base
     public override void GiveDamage()
     {
         List<Collider2D> enemies = new List<Collider2D>();
-        Physics2D.OverlapCollider(atkCol, characterSubject.filter, enemies);
+        Physics2D.OverlapCollider(atkCol, subject.filter, enemies);
 
         if (enemies.Count <= 0) return;
 
@@ -46,6 +49,9 @@ public class BountyHunter : AI_Base
 
     public override void AutoSkill()
     {
+        if (targeted == null) return;
+
+        atkCoroutine = StartCoroutine(AutoSkillCor());
     }
 
     public override void TargetingSkill()
@@ -55,8 +61,24 @@ public class BountyHunter : AI_Base
     IEnumerator AttackCor()
     {
         animator.Play("Attack");
-        characterSubject.state = CharacterState.STAND_BY;
+        subject.state = CharacterState.STAND_BY;
         yield return wait;
-        characterSubject.state = CharacterState.IDLE;
+        subject.state = CharacterState.IDLE;
+    }
+
+    IEnumerator AutoSkillCor()
+    {
+        // remove when animation ready
+        // animator.Play("Hurlbat");
+
+        var axe = Instantiate(hurlbat, transform.position, Quaternion.identity) as BountyHunterHurlbat;
+        var dir = (transform.position - targeted.transform.position).normalized;
+        axe.Init(dir, 5f, 15);
+
+        subject.state = CharacterState.STAND_BY;
+        // yield return new WaitForSeconds(2f);
+        subject.state = CharacterState.IDLE;
+
+        yield break;
     }
 }

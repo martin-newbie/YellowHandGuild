@@ -40,6 +40,10 @@ public class CharacterGameObject : MonoBehaviour
         attackFrame.Init(this);
         isInit = true;
     }
+    public bool SkillChargeAble()
+    {
+        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.STAND_BY;
+    }
 
     void Update()
     {
@@ -66,15 +70,16 @@ public class CharacterGameObject : MonoBehaviour
             case CharacterState.ATTACK:
                 thisAI.Attack();
                 break;
-            case CharacterState.AutoSkill: // 자동으로 사용하는 스킬
+            case CharacterState.AUTO_SKILL: // 자동으로 사용하는 스킬
                 thisAI.AutoSkill();
                 break;
-            case CharacterState.TargetSkill: // ui 에서 타겟팅하는 스킬
+            case CharacterState.TARGET_SKILL: // ui 에서 타겟팅하는 스킬
                 thisAI.TargetingSkill();
                 break;
             case CharacterState.DEAD:
                 break;
         }
+        thisAI.AutoSkillCharge();
     }
 
     public void Attack()
@@ -86,6 +91,7 @@ public class CharacterGameObject : MonoBehaviour
     {
 
     }
+
 }
 
 public enum CharacterState
@@ -94,7 +100,7 @@ public enum CharacterState
     IDLE,
     MOVE,
     ATTACK,
-    AutoSkill,
-    TargetSkill,
+    AUTO_SKILL,
+    TARGET_SKILL,
     DEAD,
 }

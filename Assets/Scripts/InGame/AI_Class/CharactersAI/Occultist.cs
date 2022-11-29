@@ -36,9 +36,9 @@ public class Occultist : AI_Base
 
         animator.Play("Attack");
 
-        characterSubject.state = CharacterState.STAND_BY;
+        subject.state = CharacterState.STAND_BY;
         yield return wait;
-        characterSubject.state = CharacterState.IDLE;
+        subject.state = CharacterState.IDLE;
     }
 
     public override void Cancel()

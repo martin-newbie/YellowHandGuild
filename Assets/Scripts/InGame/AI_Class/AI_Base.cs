@@ -12,7 +12,7 @@ public enum AttackType
 public abstract class AI_Base
 {
     // components
-    protected CharacterGameObject characterSubject;
+    protected CharacterGameObject subject;
     protected GameObject gameobject;
     protected Transform transform;
     protected Animator animator;
@@ -28,13 +28,16 @@ public abstract class AI_Base
     protected float skillCooltime;
     protected int damage;
 
+    // skill state
+    protected float curSkillCool;
+
     // enemies
     protected HostileGameObject targeted;
 
     // constructor
     public AI_Base(CharacterGameObject character)
     {
-        characterSubject = character;
+        subject = character;
         gameobject = character.gameObject;
         transform = character.transform;
         animator = character.animator;
@@ -49,7 +52,6 @@ public abstract class AI_Base
     public abstract void GiveDamage();
     public abstract void AutoSkill();
     public abstract void TargetingSkill();
-
     public abstract void Cancel();
 
     // virtual method
@@ -63,11 +65,11 @@ public abstract class AI_Base
             targeted = target;
             if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
             {
-                characterSubject.state = CharacterState.MOVE;
+                subject.state = CharacterState.MOVE;
             }
             else
             {
-                characterSubject.state = CharacterState.ATTACK;
+                subject.state = CharacterState.ATTACK;
             }
         }
     }
@@ -77,7 +79,7 @@ public abstract class AI_Base
 
         if (targeted == null || !targeted.gameObject.activeInHierarchy)
         {
-            characterSubject.state = CharacterState.IDLE;
+            subject.state = CharacterState.IDLE;
             return;
         }
 
@@ -125,6 +127,18 @@ public abstract class AI_Base
         }
 
         return result;
+    }
+    public virtual void AutoSkillCharge()
+    {
+        if (subject.SkillChargeAble() && skillCooltime > curSkillCool)
+        {
+            curSkillCool += Time.deltaTime;
+
+            if(curSkillCool >= skillCooltime)
+            {
+                subject.state = CharacterState.AUTO_SKILL;
+            }
+        }
     }
 
     protected virtual void SetRotation(Vector3 prev, Vector3 target)
@@ -174,11 +188,11 @@ public abstract class AI_Base
     }
     protected Coroutine StartCoroutine(IEnumerator enumerator)
     {
-        return characterSubject.StartCoroutine(enumerator);
+        return subject.StartCoroutine(enumerator);
     }
     protected void StopCoroutine(Coroutine routine)
     {
         if (routine != null)
-            characterSubject.StopCoroutine(routine);
+            subject.StopCoroutine(routine);
     }
 }

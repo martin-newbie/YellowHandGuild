@@ -42,7 +42,7 @@ public class CharacterGameObject : MonoBehaviour
     }
     public bool SkillChargeAble()
     {
-        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.STAND_BY;
+        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL;
     }
 
     void Update()

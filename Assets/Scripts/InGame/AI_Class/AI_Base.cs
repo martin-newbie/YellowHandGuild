@@ -77,7 +77,7 @@ public abstract class AI_Base
     {
         animator.Play("Move");
 
-        if (targeted == null || !targeted.gameObject.activeInHierarchy)
+        if (!CanTarget())
         {
             subject.state = CharacterState.IDLE;
             return;
@@ -133,12 +133,14 @@ public abstract class AI_Base
         if (subject.SkillChargeAble() && skillCooltime > curSkillCool)
         {
             curSkillCool += Time.deltaTime;
+        }
 
-            if(curSkillCool >= skillCooltime)
-            {
-                subject.state = CharacterState.AUTO_SKILL;
-                curSkillCool = 0f;
-            }
+        if (!CanTarget()) return;
+
+        if (curSkillCool >= skillCooltime)
+        {
+            subject.state = CharacterState.AUTO_SKILL;
+            curSkillCool = 0f;
         }
     }
 
@@ -195,5 +197,9 @@ public abstract class AI_Base
     {
         if (routine != null)
             subject.StopCoroutine(routine);
+    }
+    protected bool CanTarget()
+    {
+        return targeted != null && targeted.gameObject.activeInHierarchy;
     }
 }

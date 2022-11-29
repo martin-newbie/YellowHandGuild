@@ -40,8 +40,8 @@ public class BountyHunterHurlbat : SkillBase
         if (collision.CompareTag("Hostile"))
         {
             collision.GetComponent<HostileGameObject>().OnDamage(damage);
-
-            modelTR.rotation = Quaternion.Euler(Vector3.zero);
+/*
+            modelTR.rotation = Quaternion.Euler(Vector3.zero);*/
 
             transform.SetParent(collision.transform);
             isArrive = true;

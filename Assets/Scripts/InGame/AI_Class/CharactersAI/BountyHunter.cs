@@ -60,7 +60,7 @@ public class BountyHunter : AI_Base
 
     IEnumerator AttackCor()
     {
-        animator.Play("Attack");
+        Play("Attack");
         subject.state = CharacterState.STAND_BY;
         yield return wait;
         subject.state = CharacterState.IDLE;
@@ -68,17 +68,14 @@ public class BountyHunter : AI_Base
 
     IEnumerator AutoSkillCor()
     {
-        // remove when animation ready
-        // animator.Play("Hurlbat");
+        Play("Hurlbat");
+        subject.state = CharacterState.ON_ACTION;
+        yield return new WaitForSeconds(1f);
 
         var axe = Instantiate(hurlbat, transform.position + new Vector3(0, 1), Quaternion.identity) as BountyHunterHurlbat;
         var dir = ((transform.position + new Vector3(0, 1)) - (targeted.transform.position + new Vector3(0, 1))).normalized;
         axe.Init(dir, 5f, 15);
 
-        subject.state = CharacterState.STAND_BY;
-        // yield return new WaitForSeconds(2f);
         subject.state = CharacterState.IDLE;
-
-        yield break;
     }
 }

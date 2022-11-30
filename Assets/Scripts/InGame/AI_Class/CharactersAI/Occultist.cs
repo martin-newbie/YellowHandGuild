@@ -34,7 +34,7 @@ public class Occultist : AI_Base
         var obj = Instantiate(meteor, targeted.transform.position, Quaternion.identity) as OccultistMeteor;
         obj.Init(this);
 
-        animator.Play("Attack");
+        Play("Attack");
 
         subject.state = CharacterState.STAND_BY;
         yield return wait;

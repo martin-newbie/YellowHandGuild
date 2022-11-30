@@ -57,7 +57,7 @@ public abstract class AI_Base
     // virtual method
     public virtual void Idle()
     {
-        animator.Play("Idle");
+        Play("Idle");
 
         var target = FindNearEnemy();
         if (target != null)
@@ -75,7 +75,7 @@ public abstract class AI_Base
     }
     public virtual void MoveToTarget()
     {
-        animator.Play("Move");
+        Play("Move");
 
         if (!CanTarget())
         {
@@ -137,7 +137,7 @@ public abstract class AI_Base
 
         if (!CanTarget()) return;
 
-        if (curSkillCool >= skillCooltime)
+        if (curSkillCool >= skillCooltime && subject.state != CharacterState.STAND_BY)
         {
             subject.state = CharacterState.AUTO_SKILL;
             curSkillCool = 0f;
@@ -197,6 +197,10 @@ public abstract class AI_Base
     {
         if (routine != null)
             subject.StopCoroutine(routine);
+    }
+    protected void Play(string key)
+    {
+        animator.Play(key);
     }
     protected bool CanTarget()
     {

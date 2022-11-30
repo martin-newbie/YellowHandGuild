@@ -42,7 +42,7 @@ public class CharacterGameObject : MonoBehaviour
     }
     public bool SkillChargeAble()
     {
-        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL;
+        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
     }
 
     void Update()
@@ -52,6 +52,7 @@ public class CharacterGameObject : MonoBehaviour
         switch (state)
         {
             case CharacterState.STAND_BY: // do nothing
+            case CharacterState.ON_ACTION:
                 break;
             case CharacterState.IDLE:
                 #region IDLE
@@ -97,6 +98,7 @@ public class CharacterGameObject : MonoBehaviour
 public enum CharacterState
 {
     STAND_BY,
+    ON_ACTION,
     IDLE,
     MOVE,
     ATTACK,

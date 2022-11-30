@@ -12,6 +12,11 @@ public class InGameManager : MonoBehaviour
         instance = this;
     }
 
+    [Header("Characters")]
+    public List<CharacterGameObject> curCharacters = new List<CharacterGameObject>();
+    public List<HostileGameObject> curHostiles = new List<HostileGameObject>();
+
+    [Header("Managers")]
     public AttackColliderManager attackColManager;
     public SkillManager skillManager;
     public AnimatorManager animatorManager;
@@ -20,6 +25,5 @@ public class InGameManager : MonoBehaviour
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
     public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
     public RuntimeAnimatorController GetCharacterAnimator(int index) => animatorManager.GetCharacterAnimator(index);
-
     public ParticleSystem PlayEffect(int index, Vector3 pos) => effectManager.PlayEffect(index, pos);
 }

@@ -51,6 +51,7 @@ public class BountyHunter : AI_Base
     {
         if (targeted == null) return;
 
+        SetRotation(transform.position, targeted.transform.position);
         atkCoroutine = StartCoroutine(AutoSkillCor());
     }
 

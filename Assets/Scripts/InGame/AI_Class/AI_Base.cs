@@ -137,11 +137,7 @@ public abstract class AI_Base
 
         if (!CanTarget()) return;
 
-        if (curSkillCool >= skillCooltime && subject.state != CharacterState.STAND_BY)
-        {
-            subject.state = CharacterState.AUTO_SKILL;
-            curSkillCool = 0f;
-        }
+        UseAutoSkill();
     }
 
     protected virtual void SetRotation(Vector3 prev, Vector3 target)
@@ -172,6 +168,14 @@ public abstract class AI_Base
         }
 
         return result;
+    }
+    protected virtual void UseAutoSkill()
+    {
+        if (curSkillCool >= skillCooltime && subject.state != CharacterState.STAND_BY)
+        {
+            subject.state = CharacterState.AUTO_SKILL;
+            curSkillCool = 0f;
+        }
     }
 
     // pure method

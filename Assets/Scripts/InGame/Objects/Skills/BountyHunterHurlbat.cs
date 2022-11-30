@@ -40,11 +40,9 @@ public class BountyHunterHurlbat : SkillBase
         if (collision.CompareTag("Hostile"))
         {
             collision.GetComponent<HostileGameObject>().OnDamage(damage);
-/*
-            modelTR.rotation = Quaternion.Euler(Vector3.zero);*/
-
-            transform.SetParent(collision.transform);
+            InGameManager.Instance.PlayEffect(0, collision.transform.position + new Vector3(0, 1));
             isArrive = true;
+            Destroy(gameObject);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterGameObject : MonoBehaviour
 {
-    [Header("Test")]
+    [Header("Static")]
     public int charIdx;
 
     [Header("Components")]
@@ -19,13 +19,10 @@ public class CharacterGameObject : MonoBehaviour
 
     AI_Base thisAI;
 
-    private void Start()
-    {
-        InitCharacter(charIdx);
-    }
-
     public void InitCharacter(int index)
     {
+        charIdx = index;
+
         // for test
         switch (index)
         {
@@ -82,7 +79,11 @@ public class CharacterGameObject : MonoBehaviour
         }
         thisAI.AutoSkillCharge();
     }
-
+    private void FixedUpdate()
+    {
+        int order = (int)(1000f - transform.position.y * 100f);
+        model.sortingOrder = order;
+    }
     public void Attack()
     {
         thisAI.GiveDamage();

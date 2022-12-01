@@ -20,7 +20,8 @@ public class Occultist : AI_Base
         attackDelay = 1.5f;
         moveSpeed = 1f;
         damage = 5;
-    
+        skillCooltime = 15f;
+
         wait = new WaitForSeconds(attackDelay);
     }
 
@@ -52,6 +53,7 @@ public class Occultist : AI_Base
 
     public override void AutoSkill()
     {
+        subject.state = CharacterState.IDLE;
     }
 
     public override void TargetingSkill()

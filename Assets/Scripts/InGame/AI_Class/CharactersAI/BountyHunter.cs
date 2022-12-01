@@ -22,7 +22,7 @@ public class BountyHunter : AI_Base
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;
-        skillCooltime = 3f;
+        skillCooltime = 8f;
 
         wait = new WaitForSeconds(attackDelay);
     }
@@ -69,14 +69,21 @@ public class BountyHunter : AI_Base
 
     IEnumerator AutoSkillCor()
     {
-        Play("Hurlbat");
+        Play("Hurlbat_Ready");
         subject.state = CharacterState.ON_ACTION;
         yield return new WaitForSeconds(1f);
+
+        Play("Hurlbat_Attack");
 
         var axe = Instantiate(hurlbat, transform.position + new Vector3(0, 1), Quaternion.identity) as BountyHunterHurlbat;
         var dir = ((transform.position + new Vector3(0, 1)) - (targeted.transform.position + new Vector3(0, 1))).normalized;
         axe.Init(dir, 5f, 15);
 
+        yield return new WaitForSeconds(1f);
+
+        Play("Idle");
+
+        yield return new WaitForSeconds(1f);
         subject.state = CharacterState.IDLE;
     }
 }

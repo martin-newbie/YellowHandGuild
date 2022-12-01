@@ -85,7 +85,26 @@ public abstract class AI_Base
 
         if (NeedMoveToTargetX(targeted.transform))
         {
-            int dir = transform.position.x < targeted.transform.position.x ? 1 : -1;
+            int dir = 0;
+
+            float transX = transform.position.x;
+            float targetX = targeted.transform.position.x;
+            if(transX < targetX && targetX - transX > attackRange)
+            {
+                dir = 1;
+            }
+            else if(transX > targetX && transX - targetX < attackRange)
+            {
+                dir = 1;
+            }
+            else if(transX > targetX && transX - targetX > attackRange)
+            {
+                dir = -1;
+            }
+            else if(transX < targetX && targetX - transX < attackRange)
+            {
+                dir = -1;
+            }
 
             SetRotation(transform.position, targeted.transform.position);
             transform.Translate(Vector3.right * dir * moveSpeed * Time.deltaTime);

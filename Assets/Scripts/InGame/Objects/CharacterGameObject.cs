@@ -79,11 +79,6 @@ public class CharacterGameObject : MonoBehaviour
         }
         thisAI.AutoSkillCharge();
     }
-    private void FixedUpdate()
-    {
-        int order = (int)(1000f - transform.position.y * 100f);
-        model.sortingOrder = order;
-    }
 
     public void Attack()
     {

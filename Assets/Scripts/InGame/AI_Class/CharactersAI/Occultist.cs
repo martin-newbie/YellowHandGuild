@@ -20,7 +20,7 @@ public class Occultist : AI_Base
         attackDelay = 1.5f;
         moveSpeed = 1f;
         damage = 5;
-        skillCooltime = 15f;
+        autoSkillCool = 15f;
 
         wait = new WaitForSeconds(attackDelay);
     }

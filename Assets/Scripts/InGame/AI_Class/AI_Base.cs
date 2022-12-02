@@ -25,11 +25,13 @@ public abstract class AI_Base
     protected float attackRange;
     protected float attackDelay;
     protected float moveSpeed;
-    protected float skillCooltime;
+    protected float autoSkillCool;
+    public float targetSkillCool;
     protected int damage;
 
     // skill state
-    protected float curSkillCool;
+    protected float curAutoSkillCool;
+    public float curTargetSkillCool;
 
     // enemies
     protected HostileGameObject targeted;
@@ -89,19 +91,19 @@ public abstract class AI_Base
 
             float transX = transform.position.x;
             float targetX = targeted.transform.position.x;
-            if(transX < targetX && targetX - transX > attackRange)
+            if (transX < targetX && targetX - transX > attackRange)
             {
                 dir = 1;
             }
-            else if(transX > targetX && transX - targetX < attackRange)
+            else if (transX > targetX && transX - targetX < attackRange)
             {
                 dir = 1;
             }
-            else if(transX > targetX && transX - targetX > attackRange)
+            else if (transX > targetX && transX - targetX > attackRange)
             {
                 dir = -1;
             }
-            else if(transX < targetX && targetX - transX < attackRange)
+            else if (transX < targetX && targetX - transX < attackRange)
             {
                 dir = -1;
             }
@@ -147,12 +149,17 @@ public abstract class AI_Base
 
         return result;
     }
-    public virtual void AutoSkillCharge()
+    public virtual void SkillCharge()
     {
-        if (subject.SkillChargeAble() && skillCooltime > curSkillCool)
+        if (subject.SkillChargeAble())
         {
-            curSkillCool += Time.deltaTime;
+            if (autoSkillCool > curAutoSkillCool)
+                curAutoSkillCool += Time.deltaTime;
+
+            if (targetSkillCool > curTargetSkillCool)
+                curTargetSkillCool += Time.deltaTime;
         }
+
 
         if (!CanTarget()) return;
 
@@ -190,10 +197,10 @@ public abstract class AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curSkillCool >= skillCooltime && subject.state != CharacterState.STAND_BY)
+        if (curAutoSkillCool >= autoSkillCool && subject.state != CharacterState.STAND_BY)
         {
             subject.state = CharacterState.AUTO_SKILL;
-            curSkillCool = 0f;
+            curAutoSkillCool = 0f;
         }
     }
 

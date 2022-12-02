@@ -19,28 +19,6 @@ public class CharacterGameObject : MonoBehaviour
 
     AI_Base thisAI;
 
-    public void InitCharacter(int index)
-    {
-        charIdx = index;
-
-        // for test
-        switch (index)
-        {
-            case 0: // bounty hunter
-                thisAI = new BountyHunter(this);
-                break;
-            case 1: // occultist
-                thisAI = new Occultist(this);
-                break;
-        }
-
-        attackFrame.Init(this);
-        isInit = true;
-    }
-    public bool SkillChargeAble()
-    {
-        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
-    }
 
     void Update()
     {
@@ -77,9 +55,31 @@ public class CharacterGameObject : MonoBehaviour
             case CharacterState.DEAD:
                 break;
         }
-        thisAI.AutoSkillCharge();
+        thisAI.SkillCharge();
     }
 
+    public void InitCharacter(int index)
+    {
+        charIdx = index;
+
+        // for test
+        switch (index)
+        {
+            case 0: // bounty hunter
+                thisAI = new BountyHunter(this);
+                break;
+            case 1: // occultist
+                thisAI = new Occultist(this);
+                break;
+        }
+
+        attackFrame.Init(this);
+        isInit = true;
+    }
+    public bool SkillChargeAble()
+    {
+        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
+    }
     public void Attack()
     {
         thisAI.GiveDamage();
@@ -88,7 +88,10 @@ public class CharacterGameObject : MonoBehaviour
     {
 
     }
-
+    public float TargetingSkillFill()
+    {
+        return thisAI.curTargetSkillCool / thisAI.targetSkillCool;
+    }
 }
 
 public enum CharacterState
@@ -101,4 +104,11 @@ public enum CharacterState
     AUTO_SKILL,
     TARGET_SKILL,
     DEAD,
+}
+
+public enum SkillTargetType
+{
+    FRIENDLY,   // 아군 타겟팅 스킬
+    HOSTILE,    // 적군 타겟팅 스킬
+    FIELD,      // 장판 등 필드에 까는 스킬
 }

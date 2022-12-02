@@ -210,6 +210,11 @@ public abstract class AI_Base
     {
         return Random.Range(0f, 1f) <= criticalChance;
     }
+    public void SetTargetingSkillTarget(HostileGameObject target)
+    {
+        targeted = target;
+        subject.state = CharacterState.TARGET_SKILL;
+    }
 
     protected Object Instantiate(Object original, Transform parent)
     {

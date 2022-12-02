@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TouchType
-{
-    NONE,
-    SELECT,
-    DRAG,
-}
-
 public class SkillButtonUnit : MonoBehaviour
 {
     [HideInInspector] public CharacterGameObject targetObj;
     int curIndex;
-    TouchType touchType;
 
     [Header("UI")]
     public Image skillIcon;
@@ -54,28 +46,35 @@ public class SkillButtonUnit : MonoBehaviour
         }
     }
 
+    bool isTouch;
     public void OnTouch()
     {
-        UISkillPanel.Instance.OnButtonDragStart(curIndex);
-        touchType = TouchType.SELECT;
-    }
+        if (isTouch) return;
 
-    public void OnDragStart()
-    {
-        UISkillPanel.Instance.OnButtonDragStart(curIndex);
-        touchType = TouchType.DRAG;
+        isTouch = true;
     }
 
     public void OnDrag()
     {
-        if (touchType != TouchType.DRAG)
-            return;
-
-
+        if (isTouch)
+        {
+            isTouch = false;
+            UISkillPanel.Instance.OnButtonDragStart(curIndex, TouchType.DRAG);
+        }
     }
 
-    public void OnDragEnd()
+    public void OnPointerEnd()
     {
+        if (isTouch)
+        {
+            isTouch = false;
 
+            var unit = UISkillPanel.Instance.curUnit;
+            if (unit != null && unit.curIndex == curIndex)
+            {
+                UISkillPanel.Instance.CancelSkill();
+            }
+            else UISkillPanel.Instance.OnButtonDragStart(curIndex, TouchType.SELECT);
+        }
     }
 }

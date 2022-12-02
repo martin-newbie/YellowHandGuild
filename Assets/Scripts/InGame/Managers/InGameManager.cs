@@ -35,7 +35,12 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
+        InitCharsInfo();
         InitCharacters();
+    }
+    void InitCharsInfo()
+    {
+        // init charsindex and charsposindex
     }
     void InitCharacters()
     {

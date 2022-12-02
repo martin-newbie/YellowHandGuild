@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TouchType
+{
+    NONE,
+    SELECT,
+    DRAG,
+}
+
 public class UISkillPanel : MonoBehaviour
 {
     private static UISkillPanel instance = null;
@@ -11,11 +18,14 @@ public class UISkillPanel : MonoBehaviour
         instance = this;
     }
 
+    public TouchType touchType;
+
     public SkillButtonUnit unitPrefab;
     public Transform contentsParent;
+    public SkillInputImage inputImage;
 
     public List<SkillButtonUnit> unitList = new List<SkillButtonUnit>();
-    SkillButtonUnit curUnit;
+    public SkillButtonUnit curUnit;
 
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
@@ -33,8 +43,87 @@ public class UISkillPanel : MonoBehaviour
         }
     }
 
-    public void OnButtonDragStart(int index)
+    Coroutine setSkillCor;
+    public void OnButtonDragStart(int index, TouchType type)
     {
+        CancelSkill();
         curUnit = unitList[index];
+        touchType = type;
+
+        switch (touchType)
+        {
+            case TouchType.SELECT:
+                setSkillCor = StartCoroutine(SelectSkillCor());
+                break;
+            case TouchType.DRAG:
+                setSkillCor = StartCoroutine(DragSkillCor());
+                break;
+        }
+    }
+    public void CancelSkill()
+    {
+        EndSkill();
+        if (setSkillCor != null) StopCoroutine(setSkillCor);
+    }
+    void EndSkill()
+    {
+        touchType = TouchType.NONE;
+        curUnit = null;
+    }
+
+    IEnumerator DragSkillCor()
+    {
+        yield return null;
+        SearchNearest();
+
+        while (true)
+        {
+            if(inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
+            {
+                break;
+            }
+            else if(!inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
+            {
+                CancelSkill();
+                yield break;
+            }
+            yield return null;
+        }
+        // select nearest
+
+        EndSkill();
+        yield break;
+    }
+
+    IEnumerator SelectSkillCor()
+    {
+        yield return null;
+
+
+        yield return new WaitUntil(() => inputImage.isPointerDown && Input.GetMouseButtonDown(0));
+        SearchNearest();
+
+        yield return new WaitUntil(() => !inputImage.isPointerDown && Input.GetMouseButtonUp(0));
+        // select nearest
+
+        EndSkill();
+        yield break;
+    }
+
+    void SearchNearest()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+    void SelectNearest(HostileGameObject target)
+    {
+        touchType = TouchType.NONE;
+
+        if (target == null)
+        {
+            // print message
+            return;
+        }
+
+        curUnit.targetObj.thisAI.SetTargetingSkillTarget(target);
     }
 }

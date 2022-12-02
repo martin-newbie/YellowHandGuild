@@ -17,7 +17,7 @@ public class CharacterGameObject : MonoBehaviour
     [SerializeField] public CharacterState state;
     [SerializeField] public ContactFilter2D filter;
 
-    AI_Base thisAI;
+    [HideInInspector] public AI_Base thisAI;
 
 
     void Update()
@@ -76,21 +76,26 @@ public class CharacterGameObject : MonoBehaviour
         attackFrame.Init(this);
         isInit = true;
     }
-    public bool SkillChargeAble()
+    public void OnDamage(int damage)
     {
-        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
+
     }
     public void Attack()
     {
         thisAI.GiveDamage();
     }
-    public void OnDamage(int damage)
-    {
 
-    }
-    public float TargetingSkillFill()
+    public float GetTargetSkillGauge()
     {
         return thisAI.curTargetSkillCool / thisAI.targetSkillCool;
+    }
+    public bool SkillChargeAble()
+    {
+        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
+    }
+    public bool TargetSkillAble()
+    {
+        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool;
     }
 }
 

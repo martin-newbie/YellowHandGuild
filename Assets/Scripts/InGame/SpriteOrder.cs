@@ -13,7 +13,7 @@ public class SpriteOrder : MonoBehaviour
 
     void LateUpdate()
     {
-        int order = (int)(1000f - transform.position.y * 100f);
+        int order = (int)(-transform.position.y * 100f);
         sprite.sortingOrder = order;
     }
 }

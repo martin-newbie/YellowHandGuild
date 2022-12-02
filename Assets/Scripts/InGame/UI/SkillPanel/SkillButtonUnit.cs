@@ -53,7 +53,6 @@ public class SkillButtonUnit : MonoBehaviour
 
         isTouch = true;
     }
-
     public void OnDrag()
     {
         if (isTouch)
@@ -62,7 +61,6 @@ public class SkillButtonUnit : MonoBehaviour
             UISkillPanel.Instance.OnButtonDragStart(curIndex, TouchType.DRAG);
         }
     }
-
     public void OnPointerEnd()
     {
         if (isTouch)

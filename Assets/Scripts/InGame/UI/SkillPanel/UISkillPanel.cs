@@ -96,7 +96,6 @@ public class UISkillPanel : MonoBehaviour
         EndSkill();
         yield break;
     }
-
     IEnumerator SelectSkillCor()
     {
         yield return null;
@@ -118,7 +117,6 @@ public class UISkillPanel : MonoBehaviour
         EndSkill();
         yield break;
     }
-
     void SearchNearest()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

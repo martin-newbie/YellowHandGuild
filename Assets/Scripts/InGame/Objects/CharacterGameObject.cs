@@ -58,6 +58,10 @@ public class CharacterGameObject : MonoBehaviour
         thisAI.SkillCharge();
     }
 
+    public void SearchTargetSkill()
+    {
+
+    }
     public void InitCharacter(int index)
     {
         charIdx = index;
@@ -87,7 +91,7 @@ public class CharacterGameObject : MonoBehaviour
 
     public float GetTargetSkillGauge()
     {
-        return thisAI.curTargetSkillCool / thisAI.targetSkillCool;
+        return 1 - (thisAI.curTargetSkillCool / thisAI.targetSkillCool);
     }
     public bool SkillChargeAble()
     {

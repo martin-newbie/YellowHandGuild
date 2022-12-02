@@ -37,6 +37,7 @@ public class InGameManager : MonoBehaviour
     {
         InitCharsInfo();
         InitCharacters();
+        UISkillPanel.Instance.InitSkillIcons(curChars);
     }
     void InitCharsInfo()
     {

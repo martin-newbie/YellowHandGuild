@@ -39,10 +39,10 @@ public class SkillButtonUnit : MonoBehaviour
         chargingImg.gameObject.SetActive(!targetObj.TargetSkillAble());
         chargingTxt.gameObject.SetActive(!targetObj.TargetSkillAble());
 
-        if (targetObj.TargetSkillAble())
+        if (!targetObj.TargetSkillAble())
         {
             chargingImg.fillAmount = targetObj.GetTargetSkillGauge();
-            chargingTxt.text = string.Format("{0:0}", targetObj.thisAI.curTargetSkillCool);
+            chargingTxt.text = string.Format("{0:0}", targetObj.thisAI.targetSkillCool - targetObj.thisAI.curTargetSkillCool);
         }
     }
 

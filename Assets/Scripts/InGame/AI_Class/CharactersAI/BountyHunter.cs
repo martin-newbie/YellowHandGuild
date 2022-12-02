@@ -25,6 +25,7 @@ public class BountyHunter : AI_Base
         moveSpeed = 1.5f;
         damage = 8;
         autoSkillCool = 8f;
+        targetSkillCool = 15f;
 
         wait = new WaitForSeconds(attackDelay);
     }

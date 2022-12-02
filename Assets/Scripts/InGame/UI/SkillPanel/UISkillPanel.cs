@@ -25,7 +25,7 @@ public class UISkillPanel : MonoBehaviour
     public SkillInputImage inputImage;
 
     public List<SkillButtonUnit> unitList = new List<SkillButtonUnit>();
-    public SkillButtonUnit curUnit;
+    [HideInInspector] public SkillButtonUnit curUnit;
 
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
@@ -41,6 +41,7 @@ public class UISkillPanel : MonoBehaviour
             tempUnit.InitButton(idx, item);
             idx++;
         }
+        unitPrefab.gameObject.SetActive(false);
     }
 
     Coroutine setSkillCor;
@@ -74,15 +75,16 @@ public class UISkillPanel : MonoBehaviour
     IEnumerator DragSkillCor()
     {
         yield return null;
-        SearchNearest();
 
         while (true)
         {
-            if(inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
+            SearchNearest();
+
+            if (inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
             {
                 break;
             }
-            else if(!inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
+            else if (!inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
             {
                 CancelSkill();
                 yield break;
@@ -101,10 +103,17 @@ public class UISkillPanel : MonoBehaviour
 
 
         yield return new WaitUntil(() => inputImage.isPointerDown && Input.GetMouseButtonDown(0));
-        SearchNearest();
 
-        yield return new WaitUntil(() => !inputImage.isPointerDown && Input.GetMouseButtonUp(0));
-        // select nearest
+        while (true)
+        {
+            SearchNearest();
+
+            if(!inputImage.isPointerDown && Input.GetMouseButtonUp(0))
+            {
+                break;
+            }
+            yield return null;
+        }
 
         EndSkill();
         yield break;

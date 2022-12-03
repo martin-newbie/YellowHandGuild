@@ -22,17 +22,17 @@ public class SkillButtonUnit : MonoBehaviour
 
     private void Update()
     {
+        CharacterGameObject GetTarget() => InGameManager.GetCharacterObject(curIndex);
+
         try
         {
-            var targetObj = InGameManager.GetCharacterObject(curIndex);
+            chargingImg.gameObject.SetActive(!GetTarget().TargetSkillAble());
+            chargingTxt.gameObject.SetActive(!GetTarget().TargetSkillAble());
 
-            chargingImg.gameObject.SetActive(!targetObj.TargetSkillAble());
-            chargingTxt.gameObject.SetActive(!targetObj.TargetSkillAble());
-
-            if (!targetObj.TargetSkillAble())
+            if (!GetTarget().TargetSkillAble())
             {
-                chargingImg.fillAmount = targetObj.GetTargetSkillGauge();
-                chargingTxt.text = string.Format("{0:0}", targetObj.thisAI.targetSkillCool - targetObj.thisAI.curTargetSkillCool);
+                chargingImg.fillAmount = GetTarget().GetTargetSkillGauge();
+                chargingTxt.text = string.Format("{0:0}", GetTarget().thisAI.targetSkillCool - GetTarget().thisAI.curTargetSkillCool);
             }
         }
         catch (System.Exception)
@@ -71,4 +71,5 @@ public class SkillButtonUnit : MonoBehaviour
             else UISkillPanel.Instance.OnButtonDragStart(curIndex, TouchType.SELECT);
         }
     }
+
 }

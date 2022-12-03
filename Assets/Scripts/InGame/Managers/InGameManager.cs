@@ -58,6 +58,8 @@ public class InGameManager : MonoBehaviour
         }
     }
 
+    public static CharacterGameObject GetCharacterObject(int idx) => instance.curChars[idx];
+
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
     public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
     public RuntimeAnimatorController GetCharacterAnimator(int index) => animatorManager.GetCharacterAnimator(index);

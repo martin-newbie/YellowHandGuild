@@ -34,12 +34,12 @@ public class UISkillPanel : MonoBehaviour
             return;
         }
 
-        int idx = 0;
+        int btnIdx = 0;
         foreach (var item in chars)
         {
             var tempUnit = Instantiate(unitPrefab, contentsParent);
-            tempUnit.InitButton(idx, item);
-            idx++;
+            tempUnit.InitButton(btnIdx, item.charIdx);
+            btnIdx++;
         }
         unitPrefab.gameObject.SetActive(false);
     }
@@ -131,6 +131,6 @@ public class UISkillPanel : MonoBehaviour
             return;
         }
 
-        curUnit.targetObj.thisAI.SetTargetingSkillTarget(target);
+        InGameManager.GetCharacterObject(curUnit.curIndex).thisAI.SetTargetingSkillTarget(target);
     }
 }

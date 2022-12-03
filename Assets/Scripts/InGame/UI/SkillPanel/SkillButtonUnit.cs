@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class SkillButtonUnit : MonoBehaviour
 {
-    [HideInInspector] public CharacterGameObject targetObj;
-    int curIndex;
+    public int curIndex;
 
     [Header("UI")]
     public Image skillIcon;
@@ -15,34 +14,31 @@ public class SkillButtonUnit : MonoBehaviour
     public Image chargingImg;
     public Text chargingTxt;
 
-    public void InitButton(int idx, CharacterGameObject target = null)
+    public void InitButton(int btnIdx, int charIdx)
     {
-        targetObj = target;
-
-        if (targetObj == null)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
-
-        curIndex = idx;
-        skillIcon.sprite = SpriteManager.GetSkillSprites(targetObj.charIdx);
+        curIndex = btnIdx;
+        skillIcon.sprite = SpriteManager.GetSkillSprites(charIdx);
     }
 
     private void Update()
     {
-        if (targetObj == null)
+        try
         {
-            return;
+            var targetObj = InGameManager.GetCharacterObject(curIndex);
+
+            chargingImg.gameObject.SetActive(!targetObj.TargetSkillAble());
+            chargingTxt.gameObject.SetActive(!targetObj.TargetSkillAble());
+
+            if (!targetObj.TargetSkillAble())
+            {
+                chargingImg.fillAmount = targetObj.GetTargetSkillGauge();
+                chargingTxt.text = string.Format("{0:0}", targetObj.thisAI.targetSkillCool - targetObj.thisAI.curTargetSkillCool);
+            }
         }
-
-        chargingImg.gameObject.SetActive(!targetObj.TargetSkillAble());
-        chargingTxt.gameObject.SetActive(!targetObj.TargetSkillAble());
-
-        if (!targetObj.TargetSkillAble())
+        catch (System.Exception)
         {
-            chargingImg.fillAmount = targetObj.GetTargetSkillGauge();
-            chargingTxt.text = string.Format("{0:0}", targetObj.thisAI.targetSkillCool - targetObj.thisAI.curTargetSkillCool);
+            gameObject.SetActive(false);
+            return;
         }
     }
 

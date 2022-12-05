@@ -274,7 +274,7 @@ MonoBehaviour:
   animator: {fileID: 6635675314612057915}
   model: {fileID: 6635675314612057912}
   attackFrame: {fileID: 6635675314612057913}
-  focusModel: {fileID: 0}
+  focusModel: {fileID: 5813873223500550292}
   charIdx: 0
   isInit: 0
   state: 0

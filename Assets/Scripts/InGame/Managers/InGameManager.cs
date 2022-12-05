@@ -60,6 +60,33 @@ public class InGameManager : MonoBehaviour
 
     public static CharacterGameObject GetCharacterObject(int idx) => instance.curChars[idx];
 
+    // targeting
+    public void TargetFocusOnEnemy(Vector3 originPos, float radius)
+    {
+        foreach (var item in curHostiles)
+        {
+            if (Vector3.Distance(item.transform.position, originPos) <= radius) item.SetFocus(true);
+            else item.SetFocus(false);
+        }
+    }
+    public void TargetFocusOnFriendly()
+    {
+        curChars.ForEach((item) => item.SetFocus(true));
+    }
+    public void OffTargeting()
+    {
+        OffFriendlyTargetFocus();
+        OffHostileTargetFocus();
+    }
+    public void OffFriendlyTargetFocus()
+    {
+        curChars.ForEach((item) => item.SetFocus(false));
+    }
+    public void OffHostileTargetFocus()
+    {
+        curHostiles.ForEach((item) => item.SetFocus(false));
+    }
+
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
     public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
     public RuntimeAnimatorController GetCharacterAnimator(int index) => animatorManager.GetCharacterAnimator(index);

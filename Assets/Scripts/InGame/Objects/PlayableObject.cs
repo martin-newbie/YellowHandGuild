@@ -10,8 +10,13 @@ public abstract class PlayableObject : MonoBehaviour
     public CharacterAttackFrame attackFrame;
     public FocusSprite focusModel;
 
-    private void Start()
+    protected virtual void Start()
     {
         focusModel.StartInit(this);
+    }
+
+    public void SetFocus(bool active)
+    {
+        focusModel.SetFocus(active);
     }
 }

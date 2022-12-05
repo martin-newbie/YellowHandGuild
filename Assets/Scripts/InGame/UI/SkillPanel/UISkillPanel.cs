@@ -25,7 +25,7 @@ public class UISkillPanel : MonoBehaviour
     public SkillInputImage inputImage;
 
     public List<SkillButtonUnit> unitList = new List<SkillButtonUnit>();
-    [HideInInspector] public SkillButtonUnit curUnit;
+    [HideInInspector] public int curUnitIndex = -1;
 
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
@@ -48,7 +48,7 @@ public class UISkillPanel : MonoBehaviour
     public void OnButtonDragStart(int index, TouchType type)
     {
         CancelSkill();
-        curUnit = unitList[index];
+        curUnitIndex = index;
         touchType = type;
 
         switch (touchType)
@@ -69,7 +69,6 @@ public class UISkillPanel : MonoBehaviour
     void EndSkill()
     {
         touchType = TouchType.NONE;
-        curUnit = null;
     }
 
     IEnumerator DragSkillCor()
@@ -91,7 +90,7 @@ public class UISkillPanel : MonoBehaviour
             }
             yield return null;
         }
-        // select nearest
+        SelectNearest();
 
         EndSkill();
         yield break;
@@ -111,6 +110,11 @@ public class UISkillPanel : MonoBehaviour
             {
                 break;
             }
+            else if(inputImage.isPointerDown && Input.GetMouseButtonUp(0))
+            {
+                SelectNearest();
+                break;
+            }
             yield return null;
         }
 
@@ -119,18 +123,12 @@ public class UISkillPanel : MonoBehaviour
     }
     void SearchNearest()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
     }
-    void SelectNearest(HostileGameObject target)
+    void SelectNearest()
     {
         touchType = TouchType.NONE;
 
-        if (target == null)
-        {
-            // print message
-            return;
-        }
-
-        InGameManager.GetCharacterObject(curUnit.curIndex).thisAI.SetTargetingSkillTarget(target);
     }
 }

@@ -2,6 +2,7 @@ Shader "Custom/Mask"
 {
     Properties
     {
+        _MainTex ("Base (RGB), Alpha (A)", 2D) = "white" {}
     }
     SubShader
     {

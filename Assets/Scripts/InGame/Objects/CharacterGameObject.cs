@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterGameObject : MonoBehaviour
+public class CharacterGameObject : PlayableObject
 {
     [Header("Static")]
     public int charIdx;
-
-    [Header("Components")]
-    public Animator animator;
-    public SpriteRenderer model;
-    public CharacterAttackFrame attackFrame;
 
     [Header("State")]
     [SerializeField] bool isInit = false;

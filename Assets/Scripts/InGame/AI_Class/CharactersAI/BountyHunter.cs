@@ -26,6 +26,7 @@ public class BountyHunter : AI_Base
         damage = 8;
         autoSkillCool = 8f;
         targetSkillCool = 15f;
+        targetSkillRange = 20f;
 
         wait = new WaitForSeconds(attackDelay);
     }
@@ -60,6 +61,7 @@ public class BountyHunter : AI_Base
 
     public override void TargetingSkill()
     {
+
     }
 
     IEnumerator AttackCor()
@@ -88,5 +90,16 @@ public class BountyHunter : AI_Base
 
         yield return new WaitForSeconds(1f);
         subject.state = CharacterState.IDLE;
+    }
+
+    public override void SearchTargeting()
+    {
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, targetSkillRange);
+    }
+
+    public override void SelectTargeting()
+    {
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, targetSkillRange);
+        SetTargetingSkillTarget(target);
     }
 }

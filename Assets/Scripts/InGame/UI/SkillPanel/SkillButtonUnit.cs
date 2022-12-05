@@ -63,7 +63,7 @@ public class SkillButtonUnit : MonoBehaviour
         {
             isTouch = false;
 
-            if (UISkillPanel.Instance.curUnitIndex == curIndex)
+            if (UISkillPanel.Instance.curCharIndex == curIndex)
             {
                 UISkillPanel.Instance.CancelSkill();
             }

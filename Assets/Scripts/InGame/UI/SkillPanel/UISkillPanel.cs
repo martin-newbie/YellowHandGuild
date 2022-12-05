@@ -25,7 +25,7 @@ public class UISkillPanel : MonoBehaviour
     public SkillInputImage inputImage;
 
     public List<SkillButtonUnit> unitList = new List<SkillButtonUnit>();
-    [HideInInspector] public int curUnitIndex = -1;
+    [HideInInspector] public int curCharIndex = -1;
 
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
@@ -48,7 +48,7 @@ public class UISkillPanel : MonoBehaviour
     public void OnButtonDragStart(int index, TouchType type)
     {
         CancelSkill();
-        curUnitIndex = index;
+        curCharIndex = index;
         touchType = type;
 
         switch (touchType)
@@ -123,8 +123,7 @@ public class UISkillPanel : MonoBehaviour
     }
     void SearchNearest()
     {
-
-
+        InGameManager.Instance.SearchNearestTargetCharacter(curCharIndex);
     }
     void SelectNearest()
     {

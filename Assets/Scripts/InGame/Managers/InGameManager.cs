@@ -61,6 +61,72 @@ public class InGameManager : MonoBehaviour
     public static CharacterGameObject GetCharacterObject(int idx) => instance.curChars[idx];
 
     // targeting
+    public void SearchNearestTargetCharacter(int index)
+    {
+        curChars[index].SearchTargetSkill();
+    }
+    public void SelectNearestTargetCharacter(int index)
+    {
+
+    }
+
+    public HostileGameObject GetSelectHostileTargets(Vector3 pos, float radius)
+    {
+        List<HostileGameObject> hostiles = new List<HostileGameObject>();
+
+        foreach (var item in curHostiles)
+        {
+            if (Vector3.Distance(item.transform.position, pos) <= radius)
+            {
+                hostiles.Add(item);
+            }
+        }
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dist = float.MaxValue;
+        HostileGameObject result = null;
+
+        foreach (var item in hostiles)
+        {
+            float calc = Vector3.Distance(item.transform.position, mousePos);
+            if(calc < dist)
+            {
+                calc = dist;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+    public CharacterGameObject GetSelectCharacterTargets(Vector3 pos, float radius)
+    {
+        List<CharacterGameObject> hostiles = new List<CharacterGameObject>();
+
+        foreach (var item in curChars)
+        {
+            if (Vector3.Distance(item.transform.position, pos) <= radius)
+            {
+                hostiles.Add(item);
+            }
+        }
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dist = float.MaxValue;
+        CharacterGameObject result = null;
+
+        foreach (var item in hostiles)
+        {
+            float calc = Vector3.Distance(item.transform.position, mousePos);
+            if (calc < dist)
+            {
+                calc = dist;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+
     public void TargetFocusOnEnemy(Vector3 originPos, float radius)
     {
         foreach (var item in curHostiles)
@@ -89,6 +155,7 @@ public class InGameManager : MonoBehaviour
 
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
     public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
+    public SkillBase GetSpawnSkill(int index, Transform parent) => skillManager.SpawnSkillObject(index, parent);
     public RuntimeAnimatorController GetCharacterAnimator(int index) => animatorManager.GetCharacterAnimator(index);
     public ParticleSystem PlayEffect(int index, Vector3 pos) => effectManager.PlayEffect(index, pos);
 }

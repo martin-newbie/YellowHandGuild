@@ -27,6 +27,7 @@ public abstract class AI_Base
     protected float moveSpeed;
     protected float autoSkillCool;
     public float targetSkillCool;
+    protected float targetSkillRange;
     protected int damage;
 
     // skill state
@@ -55,6 +56,9 @@ public abstract class AI_Base
     public abstract void AutoSkill();
     public abstract void TargetingSkill();
     public abstract void Cancel();
+
+    public abstract void SearchTargeting();
+    public abstract void SelectTargeting();
 
     // virtual method
     public virtual void Idle()

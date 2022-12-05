@@ -55,7 +55,11 @@ public class CharacterGameObject : PlayableObject
 
     public void SearchTargetSkill()
     {
-
+        thisAI.SearchTargeting();
+    }
+    public void SelectTargetSkill()
+    {
+        thisAI.SelectTargeting();
     }
     public void InitCharacter(int index)
     {

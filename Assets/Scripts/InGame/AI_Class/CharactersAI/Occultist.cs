@@ -10,18 +10,22 @@ public class Occultist : AI_Base
 
     WaitForSeconds wait;
 
+    float targetSkillAtkRange;
+
     public Occultist(CharacterGameObject character) : base(character)
     {
         meteor = InGameManager.Instance.GetSkill(0).GetComponent<OccultistMeteor>();
 
         atkType = AttackType.LONG;
         criticalChance = 0.15f;
-        attackRange = 6f;
+        attackRange = 10f;
         attackDelay = 1.5f;
         moveSpeed = 1f;
         damage = 5;
         autoSkillCool = 15f;
         targetSkillCool = 25f;
+        targetSkillRange = 20f;
+        targetSkillAtkRange = 10f;
 
         wait = new WaitForSeconds(attackDelay);
     }
@@ -59,5 +63,15 @@ public class Occultist : AI_Base
 
     public override void TargetingSkill()
     {
+    }
+
+    public override void SearchTargeting()
+    {
+
+    }
+
+    public override void SelectTargeting()
+    {
+
     }
 }

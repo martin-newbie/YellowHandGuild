@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &53732560
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1111,7 +1111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &901056425
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1734,6 +1734,7 @@ MonoBehaviour:
   skillManager: {fileID: 1897945848}
   animatorManager: {fileID: 1309768545}
   effectManager: {fileID: 1563562871}
+  TargetingCanvasObj: {fileID: 53732559}
 --- !u!4 &1950025713
 Transform:
   m_ObjectHideFlags: 0
@@ -1947,7 +1948,7 @@ MonoBehaviour:
   inputImage: {fileID: 572417359}
   unitList:
   - {fileID: 1038702076}
-  curUnit: {fileID: 0}
+  curCharIndex: -1
 --- !u!1 &2130528858
 GameObject:
   m_ObjectHideFlags: 0

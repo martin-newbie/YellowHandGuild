@@ -33,6 +33,9 @@ public class InGameManager : MonoBehaviour
     public AnimatorManager animatorManager;
     public EffectManager effectManager;
 
+    [Header("UI")]
+    public GameObject TargetingCanvasObj;
+
     private void Start()
     {
         InitCharsInfo();
@@ -141,6 +144,7 @@ public class InGameManager : MonoBehaviour
     }
     public void OffTargeting()
     {
+        TargetingCanvasObj.SetActive(false);
         OffFriendlyTargetFocus();
         OffHostileTargetFocus();
     }

@@ -51,6 +51,7 @@ public class UISkillPanel : MonoBehaviour
         curCharIndex = index;
         touchType = type;
 
+        InGameManager.Instance.TargetingCanvasObj.SetActive(true);
         switch (touchType)
         {
             case TouchType.SELECT:
@@ -68,6 +69,7 @@ public class UISkillPanel : MonoBehaviour
     }
     void EndSkill()
     {
+        InGameManager.Instance.OffTargeting();
         touchType = TouchType.NONE;
     }
 

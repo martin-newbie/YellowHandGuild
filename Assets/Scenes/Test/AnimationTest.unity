@@ -912,7 +912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650779335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 728258698}
@@ -1570,7 +1570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846116005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.21, y: -1.7, z: 100}
+  m_LocalPosition: {x: 5.21, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 728258698}
@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  model: {fileID: 0}
+  model: {fileID: 728258699}
   attackFrame: {fileID: 0}
   focusModel: {fileID: 650779338}
 --- !u!61 &1846116008
@@ -1729,7 +1729,8 @@ MonoBehaviour:
   - {fileID: 475502164}
   charPrefab: {fileID: 6635675315357233312, guid: 985ab91a138dd53479a0c37b6e6a43a8, type: 3}
   curChars: []
-  curHostiles: []
+  curHostiles:
+  - {fileID: 1846116007}
   attackColManager: {fileID: 2051174624}
   skillManager: {fileID: 1897945848}
   animatorManager: {fileID: 1309768545}

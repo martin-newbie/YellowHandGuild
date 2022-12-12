@@ -8,6 +8,7 @@ public class BountyHunter : AI_Base
     Collider2D atkCol;
     Coroutine atkCoroutine;
     BountyHunterHurlbat hurlbat;
+    BountyHunterHook hook;
 
     WaitForSeconds wait;
 
@@ -61,7 +62,18 @@ public class BountyHunter : AI_Base
 
     public override void TargetingSkill()
     {
+        atkCoroutine = StartCoroutine(BountyHunt());
+    }
 
+    IEnumerator BountyHunt()
+    {
+        animator.Play("Hunt_Ready");
+        yield return new WaitForSeconds(1f);
+
+        animator.Play("Hunt_Throw");
+        yield return hook.HookAttack(targeted);
+
+        yield break;
     }
 
     IEnumerator AttackCor()

@@ -47,12 +47,17 @@ public class BountyHunter : AI_Base
 
     public override void GiveDamage()
     {
+        GetAttackColliderEnemy()?.OnDamage(damage, IsCritical());
+    }
+
+    HostileGameObject GetAttackColliderEnemy()
+    {
         List<Collider2D> enemies = new List<Collider2D>();
         Physics2D.OverlapCollider(atkCol, subject.filter, enemies);
 
-        if (enemies.Count <= 0) return;
+        if (enemies.Count <= 0) return null;
 
-        enemies[0].GetComponent<HostileGameObject>().OnDamage(damage, IsCritical());
+        return enemies[0].GetComponent<HostileGameObject>();
     }
 
     public override void AutoSkill()
@@ -71,6 +76,18 @@ public class BountyHunter : AI_Base
 
     IEnumerator BountyHunt()
     {
+        void nockbackAttack()
+        {
+            var enemy = GetAttackColliderEnemy();
+
+            if (enemy)
+            {
+                enemy.OnDamage(damage, IsCritical());
+                enemy.GiveKnockback(2f);
+            }
+        }
+
+
         subject.state = CharacterState.ON_ACTION;
         animator.Play("Hunt_Ready");
         yield return new WaitForSeconds(1f);
@@ -92,8 +109,7 @@ public class BountyHunter : AI_Base
             yield return new WaitForSeconds(0.7f);
 
             animator.Play("Hunt_Attack_2");
-            GiveDamage();
-            target.GiveKnockback(2f);
+            nockbackAttack();
             yield return new WaitForSeconds(1f);
         }
 

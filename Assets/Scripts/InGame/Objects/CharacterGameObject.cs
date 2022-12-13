@@ -102,17 +102,6 @@ public class CharacterGameObject : PlayableObject
     }
 }
 
-public enum CharacterState
-{
-    STAND_BY,
-    ON_ACTION,
-    IDLE,
-    MOVE,
-    ATTACK,
-    AUTO_SKILL,
-    TARGET_SKILL,
-    DEAD,
-}
 
 public enum SkillTargetType
 {

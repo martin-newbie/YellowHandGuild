@@ -130,6 +130,6 @@ public class UISkillPanel : MonoBehaviour
     void SelectNearest()
     {
         touchType = TouchType.NONE;
-
+        InGameManager.Instance.SelectNearestTargetCharacter(curCharIndex);
     }
 }

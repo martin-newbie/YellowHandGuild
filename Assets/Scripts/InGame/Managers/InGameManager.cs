@@ -70,7 +70,7 @@ public class InGameManager : MonoBehaviour
     }
     public void SelectNearestTargetCharacter(int index)
     {
-
+        curChars[index].SelectTargetSkill();
     }
 
     public HostileGameObject GetSelectHostileTargets(Vector3 pos, float radius)

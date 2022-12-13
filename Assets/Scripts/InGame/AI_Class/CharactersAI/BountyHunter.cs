@@ -18,6 +18,9 @@ public class BountyHunter : AI_Base
         atkCol.transform.SetParent(subject.model.transform);
 
         hurlbat = InGameManager.Instance.GetSkill(1) as BountyHunterHurlbat;
+        hook = InGameManager.Instance.GetSpawnSkill(2, transform) as BountyHunterHook;
+        hook.transform.localPosition = new Vector3(0.4f, 0.8f);
+        hook.gameObject.SetActive(false);
 
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
@@ -62,17 +65,39 @@ public class BountyHunter : AI_Base
 
     public override void TargetingSkill()
     {
+        StopCoroutine(atkCoroutine);
         atkCoroutine = StartCoroutine(BountyHunt());
     }
 
     IEnumerator BountyHunt()
     {
+        subject.state = CharacterState.ON_ACTION;
         animator.Play("Hunt_Ready");
         yield return new WaitForSeconds(1f);
 
+        hook.gameObject.SetActive(true);
         animator.Play("Hunt_Throw");
-        yield return hook.HookAttack(targeted);
+        yield return hook.HookThrow(targeted);
 
+        animator.Play("Hunt_Pull");
+        yield return hook.HookPull();
+        hook.gameObject.SetActive(false);
+
+        var target = hook.GetFinalTarget();
+
+        if (target)
+        {
+            animator.Play("Hunt_Attack_1");
+            GiveDamage();
+            yield return new WaitForSeconds(0.7f);
+
+            animator.Play("Hunt_Attack_2");
+            GiveDamage();
+            target.GiveKnockback(2f);
+            yield return new WaitForSeconds(1f);
+        }
+
+        subject.state = CharacterState.IDLE;
         yield break;
     }
 

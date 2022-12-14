@@ -4,9 +4,38 @@ using UnityEngine;
 
 public class HostileGameObject : PlayableObject
 {
+
+    private void Update()
+    {
+        switch (state)
+        {
+            case CharacterState.STAND_BY:
+                break;
+            case CharacterState.ON_ACTION:
+                break;
+            case CharacterState.IDLE:
+                break;
+            case CharacterState.MOVE:
+                break;
+            case CharacterState.ATTACK:
+                break;
+            case CharacterState.AUTO_SKILL:
+                break;
+            case CharacterState.TARGET_SKILL:
+                break;
+            case CharacterState.KNOCK_BACK:
+                break;
+            case CharacterState.STUN:
+                break;
+            case CharacterState.DEAD:
+                break;
+        }
+    }
+
     Coroutine knockbackCor;
     public void GiveKnockback(float pushed)
     {
+        if (knockbackCor != null) StopCoroutine(knockbackCor); 
         knockbackCor = StartCoroutine(KnockbackMove(pushed));
     }
 
@@ -33,11 +62,11 @@ public class HostileGameObject : PlayableObject
 
     public void SetKnockback()
     {
-
+        state = CharacterState.KNOCK_BACK;
     }
 
     public void FreeKnockback()
     {
-
+        state = CharacterState.IDLE;
     }
 }

@@ -12,7 +12,7 @@ public enum AttackType
 public abstract class AI_Base
 {
     // components
-    protected CharacterGameObject subject;
+    protected PlayableObject context;
     protected GameObject gameobject;
     protected Transform transform;
     protected Animator animator;
@@ -38,54 +38,23 @@ public abstract class AI_Base
     protected HostileGameObject targeted;
 
     // constructor
-    public AI_Base(CharacterGameObject character)
+    public AI_Base(PlayableObject character)
     {
-        subject = character;
+        context = character;
+
         gameobject = character.gameObject;
         transform = character.transform;
         animator = character.animator;
         model = character.model;
-
-        keyIndex = character.charIdx;
-        animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
     }
 
-    // abstract method
-    public abstract void Attack();
-    public abstract void GiveDamage();
-    public abstract void AutoSkill();
-    public abstract void TargetingSkill();
-    public abstract void Cancel();
-
-    public abstract void SearchTargeting();
-    public abstract void SelectTargeting();
-
-    // virtual method
-    public virtual void Idle()
-    {
-        Play("Idle");
-
-        var target = FindNearEnemy();
-        if (target != null)
-        {
-            targeted = target;
-            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
-            {
-                subject.state = CharacterState.MOVE;
-            }
-            else
-            {
-                subject.state = CharacterState.ATTACK;
-            }
-        }
-    }
     public virtual void MoveToTarget()
     {
         Play("Move");
 
         if (!CanTarget())
         {
-            subject.state = CharacterState.IDLE;
+            context.state = CharacterState.IDLE;
             return;
         }
 
@@ -153,6 +122,68 @@ public abstract class AI_Base
 
         return result;
     }
+
+    protected virtual void SetRotation(Vector3 prev, Vector3 target)
+    {
+        Vector3 rot = new Vector3(0, 0, 0)
+        {
+            y = prev.x < target.x ? 0 : 180
+        };
+
+        model.transform.rotation = Quaternion.Euler(rot);
+    }
+
+    // pure method
+    public int GetDamage() => damage;
+    public bool IsCritical()
+    {
+        return Random.Range(0f, 1f) <= criticalChance;
+    }
+
+    protected Object Instantiate(Object original, Transform parent)
+    {
+        return Object.Instantiate(original, parent);
+    }
+    protected Object Instantiate(Object original, Vector3 pos, Quaternion rot, Transform parent = null)
+    {
+        return Object.Instantiate(original, pos, rot, parent);
+    }
+    protected Coroutine StartCoroutine(IEnumerator enumerator)
+    {
+        return context.StartCoroutine(enumerator);
+    }
+    protected void StopCoroutine(Coroutine routine)
+    {
+        if (routine != null)
+            context.StopCoroutine(routine);
+    }
+    protected void Play(string key)
+    {
+        animator.Play(key);
+    }
+    protected bool CanTarget()
+    {
+        return targeted != null && targeted.gameObject.activeInHierarchy;
+    }
+}
+
+public abstract class CharacterAI : AI_Base
+{
+    protected CharacterGameObject subject;
+    protected CharacterAI(PlayableObject character) : base(character)
+    {
+        subject = character as CharacterGameObject;
+
+        keyIndex = subject.charIdx;
+        animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
+    }
+
+    // abstract method
+    public abstract void Attack();
+    public abstract void GiveDamage();
+    public abstract void AutoSkill();
+    public abstract void TargetingSkill();
+    public abstract void Cancel();
     public virtual void SkillCharge()
     {
         if (subject.SkillChargeAble())
@@ -170,14 +201,27 @@ public abstract class AI_Base
         UseAutoSkill();
     }
 
-    protected virtual void SetRotation(Vector3 prev, Vector3 target)
-    {
-        Vector3 rot = new Vector3(0, 0, 0)
-        {
-            y = prev.x < target.x ? 0 : 180
-        };
+    public abstract void SearchTargeting();
+    public abstract void SelectTargeting();
 
-        model.transform.rotation = Quaternion.Euler(rot);
+    // virtual method
+    public virtual void Idle()
+    {
+        Play("Idle");
+
+        var target = FindNearEnemy();
+        if (target != null)
+        {
+            targeted = target;
+            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            {
+                subject.state = CharacterState.MOVE;
+            }
+            else
+            {
+                subject.state = CharacterState.ATTACK;
+            }
+        }
     }
     protected virtual HostileGameObject FindNearEnemy()
     {
@@ -207,13 +251,6 @@ public abstract class AI_Base
             curAutoSkillCool = 0f;
         }
     }
-
-    // pure method
-    public int GetDamage() => damage;
-    public bool IsCritical()
-    {
-        return Random.Range(0f, 1f) <= criticalChance;
-    }
     public void SetTargetingSkillTarget(HostileGameObject target)
     {
         curTargetSkillCool = 0f;
@@ -221,29 +258,4 @@ public abstract class AI_Base
         subject.state = CharacterState.TARGET_SKILL;
     }
 
-    protected Object Instantiate(Object original, Transform parent)
-    {
-        return Object.Instantiate(original, parent);
-    }
-    protected Object Instantiate(Object original, Vector3 pos, Quaternion rot, Transform parent = null)
-    {
-        return Object.Instantiate(original, pos, rot, parent);
-    }
-    protected Coroutine StartCoroutine(IEnumerator enumerator)
-    {
-        return subject.StartCoroutine(enumerator);
-    }
-    protected void StopCoroutine(Coroutine routine)
-    {
-        if (routine != null)
-            subject.StopCoroutine(routine);
-    }
-    protected void Play(string key)
-    {
-        animator.Play(key);
-    }
-    protected bool CanTarget()
-    {
-        return targeted != null && targeted.gameObject.activeInHierarchy;
-    }
 }

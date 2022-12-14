@@ -10,6 +10,11 @@ public abstract class PlayableObject : MonoBehaviour
     public CharacterAttackFrame attackFrame;
     public FocusSprite focusModel;
 
+
+    [Header("State")]
+    [SerializeField] public CharacterState state;
+    [SerializeField] public ContactFilter2D filter;
+
     protected virtual void Start()
     {
         focusModel.StartInit(this);

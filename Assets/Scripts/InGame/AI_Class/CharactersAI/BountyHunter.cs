@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BountyHunter : AI_Base
+public class BountyHunter : CharacterAI
 {
 
     Collider2D atkCol;

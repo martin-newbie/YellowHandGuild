@@ -7,13 +7,8 @@ public class CharacterGameObject : PlayableObject
     [Header("Static")]
     public int charIdx;
 
-    [Header("State")]
-    [SerializeField] bool isInit = false;
-    [SerializeField] public CharacterState state;
-    [SerializeField] public ContactFilter2D filter;
-
-    [HideInInspector] public AI_Base thisAI;
-
+    [HideInInspector] public CharacterAI thisAI;
+    bool isInit = false;
 
     void Update()
     {

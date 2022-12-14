@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Occultist : AI_Base
+public class Occultist : CharacterAI
 {
 
     OccultistMeteor meteor;

@@ -47,6 +47,10 @@ public class CharacterGameObject : PlayableObject
             case CharacterState.TARGET_SKILL: // ui 에서 타겟팅하는 스킬
                 thisAI.TargetingSkill();
                 break;
+            case CharacterState.KNOCK_BACK:
+                break;
+            case CharacterState.STUN:
+                break;
             case CharacterState.DEAD:
                 break;
         }
@@ -94,7 +98,7 @@ public class CharacterGameObject : PlayableObject
     }
     public bool TargetSkillAble()
     {
-        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool;
+        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != CharacterState.KNOCK_BACK && state != CharacterState.DEAD && state != CharacterState.STUN && state != CharacterState.ON_ACTION;
     }
 }
 
@@ -104,4 +108,5 @@ public enum SkillTargetType
     FRIENDLY,   // 아군 타겟팅 스킬
     HOSTILE,    // 적군 타겟팅 스킬
     FIELD,      // 장판 등 필드에 까는 스킬
+    SELF,       // 스스로에게 사용
 }

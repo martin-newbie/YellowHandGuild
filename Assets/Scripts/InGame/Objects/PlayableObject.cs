@@ -35,6 +35,8 @@ public enum CharacterState
     ATTACK,
     AUTO_SKILL,
     TARGET_SKILL,
+    KNOCK_BACK,
+    STUN,
     DEAD,
 }
 

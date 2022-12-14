@@ -90,7 +90,7 @@ public class CharacterGameObject : PlayableObject
     }
     public bool SkillChargeAble()
     {
-        return state != CharacterState.DEAD && state != CharacterState.AUTO_SKILL && state != CharacterState.TARGET_SKILL && state != CharacterState.ON_ACTION;
+        return state != CharacterState.DEAD;
     }
     public bool TargetSkillAble()
     {

@@ -216,6 +216,7 @@ public abstract class AI_Base
     }
     public void SetTargetingSkillTarget(HostileGameObject target)
     {
+        curTargetSkillCool = 0f;
         targeted = target;
         subject.state = CharacterState.TARGET_SKILL;
     }

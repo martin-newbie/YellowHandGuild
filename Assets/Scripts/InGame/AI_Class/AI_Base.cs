@@ -257,5 +257,15 @@ public abstract class CharacterAI : AI_Base
         targeted = target;
         subject.state = CharacterState.TARGET_SKILL;
     }
+}
+
+public abstract class HostileAI : AI_Base
+{
+    protected HostileGameObject subject;
+    protected HostileAI(PlayableObject character) : base(character)
+    {
+
+    }
+
 
 }

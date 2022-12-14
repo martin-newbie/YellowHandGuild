@@ -5,8 +5,13 @@ using UnityEngine;
 public class HostileGameObject : PlayableObject
 {
 
+    public int hostileIdx;
+    bool isInit = false;
+
     private void Update()
     {
+        if (!isInit) return;
+
         switch (state)
         {
             case CharacterState.STAND_BY:
@@ -30,6 +35,19 @@ public class HostileGameObject : PlayableObject
             case CharacterState.DEAD:
                 break;
         }
+    }
+
+    public void HostileInit(int index)
+    {
+        hostileIdx = index;
+
+        switch (index)
+        {
+            default:
+                break;
+        }
+
+        isInit = true;
     }
 
     Coroutine knockbackCor;

@@ -201,7 +201,7 @@ public abstract class AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curAutoSkillCool >= autoSkillCool && subject.state != CharacterState.STAND_BY)
+        if (curAutoSkillCool >= autoSkillCool && subject.state != CharacterState.STAND_BY && subject.state != CharacterState.ON_ACTION)
         {
             subject.state = CharacterState.AUTO_SKILL;
             curAutoSkillCool = 0f;

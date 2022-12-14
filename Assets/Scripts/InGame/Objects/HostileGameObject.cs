@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class HostileGameObject : PlayableObject
 {
-    public void OnDamage(int damage, bool isCritical = false, bool isNockback = false)
-    {
-
-    }
-
     Coroutine knockbackCor;
     public void GiveKnockback(float pushed)
     {

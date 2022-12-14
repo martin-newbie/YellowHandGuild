@@ -79,10 +79,6 @@ public class CharacterGameObject : PlayableObject
         attackFrame.Init(this);
         isInit = true;
     }
-    public void OnDamage(int damage)
-    {
-
-    }
     public void Attack()
     {
         thisAI.GiveDamage();

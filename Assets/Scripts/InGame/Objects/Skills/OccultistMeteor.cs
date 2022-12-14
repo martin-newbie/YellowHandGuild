@@ -23,7 +23,7 @@ public class OccultistMeteor : SkillBase
 
         foreach (var item in hostiles)
         {
-            item.GetComponent<HostileGameObject>().OnDamage(occultist.GetDamage(), occultist.IsCritical());
+            item.GetComponent<HostileGameObject>().OnDamage(occultist.GetDamage(), AttackHitType.LONG_DISTANCE_ATK, occultist.IsCritical());
         }
     }
 

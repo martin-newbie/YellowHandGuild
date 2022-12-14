@@ -19,6 +19,11 @@ public abstract class PlayableObject : MonoBehaviour
     {
         focusModel.SetFocus(active);
     }
+
+    public virtual void OnDamage(int damage, AttackHitType type, bool isCritical = false)
+    {
+        
+    }
 }
 
 public enum CharacterState
@@ -31,4 +36,10 @@ public enum CharacterState
     AUTO_SKILL,
     TARGET_SKILL,
     DEAD,
+}
+
+public enum AttackHitType
+{
+    SHORT_DISTANCE_ATK,
+    LONG_DISTANCE_ATK,
 }

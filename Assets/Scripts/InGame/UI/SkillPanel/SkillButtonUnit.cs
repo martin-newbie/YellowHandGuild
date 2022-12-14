@@ -22,8 +22,6 @@ public class SkillButtonUnit : MonoBehaviour
 
     private void Update()
     {
-        CharacterGameObject GetTarget() => InGameManager.GetCharacterObject(curIndex);
-
         try
         {
             chargingImg.gameObject.SetActive(!GetTarget().TargetSkillAble());
@@ -45,6 +43,7 @@ public class SkillButtonUnit : MonoBehaviour
     bool isTouch;
     public void OnTouch()
     {
+        if (!GetTarget().TargetSkillAble()) return;
         if (isTouch) return;
 
         isTouch = true;
@@ -71,4 +70,5 @@ public class SkillButtonUnit : MonoBehaviour
         }
     }
 
+    CharacterGameObject GetTarget() => InGameManager.GetCharacterObject(curIndex);
 }

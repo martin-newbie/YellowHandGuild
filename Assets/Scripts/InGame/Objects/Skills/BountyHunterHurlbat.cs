@@ -39,7 +39,7 @@ public class BountyHunterHurlbat : SkillBase
     {
         if (collision.CompareTag("Hostile"))
         {
-            collision.GetComponent<HostileGameObject>().OnDamage(damage);
+            collision.GetComponent<HostileGameObject>().OnDamage(damage, AttackHitType.LONG_DISTANCE_ATK);
             InGameManager.Instance.PlayEffect(0, collision.transform.position + new Vector3(0, 1));
             isArrive = true;
             Destroy(gameObject);

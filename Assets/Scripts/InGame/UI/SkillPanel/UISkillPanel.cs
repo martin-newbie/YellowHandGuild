@@ -108,11 +108,11 @@ public class UISkillPanel : MonoBehaviour
         {
             SearchNearest();
 
-            if(!inputImage.isPointerDown && Input.GetMouseButtonUp(0))
+            if (!inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
             {
                 break;
             }
-            else if(inputImage.isPointerDown && Input.GetMouseButtonUp(0))
+            if (inputImage.isPointerFocus && Input.GetMouseButtonUp(0))
             {
                 SelectNearest();
                 break;

@@ -47,7 +47,7 @@ public class BountyHunter : AI_Base
 
     public override void GiveDamage()
     {
-        GetAttackColliderEnemy()?.OnDamage(damage, IsCritical());
+        GetAttackColliderEnemy()?.OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
     }
 
     HostileGameObject GetAttackColliderEnemy()
@@ -65,6 +65,8 @@ public class BountyHunter : AI_Base
         if (targeted == null) return;
 
         SetRotation(transform.position, targeted.transform.position);
+
+        StopCoroutine(atkCoroutine);
         atkCoroutine = StartCoroutine(AutoSkillCor());
     }
 
@@ -82,7 +84,7 @@ public class BountyHunter : AI_Base
 
             if (enemy)
             {
-                enemy.OnDamage(damage, IsCritical());
+                enemy.OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
                 enemy.GiveKnockback(2f);
             }
         }
@@ -106,7 +108,7 @@ public class BountyHunter : AI_Base
         {
             animator.Play("Hunt_Attack_1");
             GiveDamage();
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.35f);
 
             animator.Play("Hunt_Attack_2");
             nockbackAttack();

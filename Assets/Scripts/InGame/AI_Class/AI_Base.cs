@@ -35,7 +35,7 @@ public abstract class AI_Base
     public float curTargetSkillCool;
 
     // enemies
-    protected HostileGameObject targeted;
+    protected PlayableObject targeted;
 
     // constructor
     public AI_Base(PlayableObject character)
@@ -264,8 +264,37 @@ public abstract class HostileAI : AI_Base
     protected HostileGameObject subject;
     protected HostileAI(PlayableObject character) : base(character)
     {
+        subject = character as HostileGameObject;
 
+        keyIndex = subject.hostileIdx;
+        animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
+    }
+    
+    protected abstract CharacterGameObject FindTargetEnemy();
+
+    public virtual void Idle()
+    {
+        Play("Idle");
+
+        var target = FindTargetEnemy();
+        if(target != null)
+        {
+            targeted = target;
+
+            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            {
+                subject.state = CharacterState.MOVE;
+            }
+            else
+            {
+                subject.state = CharacterState.ATTACK;
+            }
+        }
     }
 
-
+    public abstract void Attack();
+    public virtual void Knockback()
+    {
+        animator.Play("Nockback");
+    }
 }

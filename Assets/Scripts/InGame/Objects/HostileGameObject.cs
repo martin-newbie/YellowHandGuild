@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HostileGameObject : PlayableObject
 {
-
+    HostileAI thisAI;
     public int hostileIdx;
     bool isInit = false;
 
@@ -19,16 +19,20 @@ public class HostileGameObject : PlayableObject
             case CharacterState.ON_ACTION:
                 break;
             case CharacterState.IDLE:
+                thisAI.Idle();
                 break;
             case CharacterState.MOVE:
+                thisAI.MoveToTarget();
+                if (thisAI.IsArriveAtTarget())
+                {
+                    state = CharacterState.ATTACK;
+                }
                 break;
             case CharacterState.ATTACK:
-                break;
-            case CharacterState.AUTO_SKILL:
-                break;
-            case CharacterState.TARGET_SKILL:
+                thisAI.Attack();
                 break;
             case CharacterState.KNOCK_BACK:
+                thisAI.Knockback();
                 break;
             case CharacterState.STUN:
                 break;

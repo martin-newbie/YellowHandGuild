@@ -15,10 +15,10 @@ public class BountyHunterHook : SkillBase
 
     [SerializeField] ContactFilter2D filter2D;
 
-    HostileGameObject targeted;
+    PlayableObject targeted;
     bool success;
 
-    public Coroutine HookThrow(HostileGameObject target)
+    public Coroutine HookThrow(PlayableObject target)
     {
         targeted = target;
         return StartCoroutine(ThrowCoroutine());
@@ -93,7 +93,7 @@ public class BountyHunterHook : SkillBase
         }
     }
 
-    public HostileGameObject GetFinalTarget()
+    public PlayableObject GetFinalTarget()
     {
         return targeted;
     }

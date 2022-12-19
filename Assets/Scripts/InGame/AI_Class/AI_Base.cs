@@ -24,15 +24,10 @@ public abstract class AI_Base
     protected float criticalChance;
     protected float attackRange;
     protected float attackDelay;
-    protected float moveSpeed;
-    protected float autoSkillCool;
-    public float targetSkillCool;
-    protected float targetSkillRange;
     protected int damage;
 
     // skill state
-    protected float curAutoSkillCool;
-    public float curTargetSkillCool;
+    protected float moveSpeed;
 
     // enemies
     protected PlayableObject targeted;
@@ -178,6 +173,12 @@ public abstract class CharacterAI : AI_Base
         animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
     }
 
+    protected float autoSkillCool;
+    public float targetSkillCool;
+    protected float targetSkillRange;
+    protected float curAutoSkillCool;
+    public float curTargetSkillCool;
+
     // abstract method
     public abstract void Attack();
     public abstract void GiveDamage();
@@ -225,23 +226,7 @@ public abstract class CharacterAI : AI_Base
     }
     protected virtual HostileGameObject FindNearEnemy()
     {
-        var enemies = Object.FindObjectsOfType<HostileGameObject>().ToList();
-
-        if (enemies.Count <= 0) return null;
-
-        HostileGameObject result = null;
-        float dist = float.MaxValue;
-        foreach (var item in enemies)
-        {
-            float calc = Vector3.Distance(item.transform.position, transform.position);
-            if (calc < dist)
-            {
-                dist = calc;
-                result = item;
-            }
-        }
-
-        return result;
+        return InGameManager.Instance.GetNearestHostile(transform.position);
     }
     protected virtual void UseAutoSkill()
     {
@@ -267,7 +252,7 @@ public abstract class HostileAI : AI_Base
         subject = character as HostileGameObject;
 
         keyIndex = subject.hostileIdx;
-        animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
+        animator.runtimeAnimatorController = InGameManager.Instance.GetHostileAnimator(keyIndex);
     }
     
     protected abstract CharacterGameObject FindTargetEnemy();
@@ -295,6 +280,6 @@ public abstract class HostileAI : AI_Base
     public abstract void Attack();
     public virtual void Knockback()
     {
-        animator.Play("Nockback");
+        animator.Play("Knockback");
     }
 }

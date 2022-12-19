@@ -8,6 +8,13 @@ public class HostileGameObject : PlayableObject
     public int hostileIdx;
     bool isInit = false;
 
+    protected override void Start()
+    {
+        base.Start();
+        // debug
+        HostileInit(0);
+    }
+
     private void Update()
     {
         if (!isInit) return;
@@ -47,6 +54,9 @@ public class HostileGameObject : PlayableObject
 
         switch (index)
         {
+            case 0:
+                thisAI = new Skeleton(this);
+                break;
             default:
                 break;
         }

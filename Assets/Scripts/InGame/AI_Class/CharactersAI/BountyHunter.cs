@@ -15,7 +15,6 @@ public class BountyHunter : CharacterAI
     public BountyHunter(CharacterGameObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(0, transform);
-        atkCol.transform.SetParent(subject.model.transform);
 
         hurlbat = InGameManager.Instance.GetSkill(1) as BountyHunterHurlbat;
         hook = InGameManager.Instance.GetSpawnSkill(2, transform) as BountyHunterHook;

@@ -157,9 +157,49 @@ public class InGameManager : MonoBehaviour
         curHostiles.ForEach((item) => item.SetFocus(false));
     }
 
+    public HostileGameObject GetNearestHostile(Vector3 pos)
+    {
+        if (curHostiles.Count <= 0) return null;
+
+        float dist = float.MaxValue;
+        HostileGameObject result = null;
+
+        foreach (var item in curHostiles)
+        {
+            float calc = Vector3.Distance(pos, item.transform.position);
+            if (calc < dist)
+            {
+                dist = calc;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+    public CharacterGameObject GetNearestCharacter(Vector3 pos)
+    {
+        if (curChars.Count <= 0) return null;
+
+        float dist = float.MaxValue;
+        CharacterGameObject result = null;
+
+        foreach (var item in curChars)
+        {
+            float calc = Vector3.Distance(pos, item.transform.position);
+            if(calc < dist)
+            {
+                dist = calc;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+
     public Collider2D GetAttackCollider(int index, Transform target) => attackColManager.GetAttackCollider(index, target);
     public SkillBase GetSkill(int index) => skillManager.GetSkillObject(index);
     public SkillBase GetSpawnSkill(int index, Transform parent) => skillManager.SpawnSkillObject(index, parent);
     public RuntimeAnimatorController GetCharacterAnimator(int index) => animatorManager.GetCharacterAnimator(index);
+    public RuntimeAnimatorController GetHostileAnimator(int index) => animatorManager.GetHostileAnimator(index);
     public ParticleSystem PlayEffect(int index, Vector3 pos) => effectManager.PlayEffect(index, pos);
 }

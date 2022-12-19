@@ -120,6 +120,7 @@ public class BountyHunter : CharacterAI
 
     IEnumerator AttackCor()
     {
+        GiveDamage();
         Play("Attack");
         subject.state = CharacterState.STAND_BY;
         yield return wait;

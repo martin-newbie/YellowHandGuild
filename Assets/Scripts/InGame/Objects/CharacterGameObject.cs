@@ -20,18 +20,14 @@ public class CharacterGameObject : PlayableObject
             case CharacterState.ON_ACTION:
                 break;
             case CharacterState.IDLE:
-                #region IDLE
                 thisAI.Idle();
-                #endregion
                 break;
             case CharacterState.MOVE:
-                #region MOVE
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
                     state = CharacterState.ATTACK;
                 }
-                #endregion
                 break;
             case CharacterState.ATTACK:
                 thisAI.Attack();
@@ -75,7 +71,6 @@ public class CharacterGameObject : PlayableObject
                 break;
         }
 
-        attackFrame.Init(this);
         isInit = true;
     }
     public void Attack()

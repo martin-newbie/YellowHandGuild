@@ -10,6 +10,15 @@ public class CharacterGameObject : PlayableObject
     [HideInInspector] public CharacterAI thisAI;
     bool isInit = false;
 
+    [HideInInspector] public int gameActive = 0;
+    Vector3 startPos;
+
+    protected override void Start()
+    {
+        base.Start();
+        startPos = transform.position;
+    }
+
     void Update()
     {
         if (!isInit) return;
@@ -23,6 +32,12 @@ public class CharacterGameObject : PlayableObject
                 thisAI.Idle();
                 break;
             case CharacterState.MOVE:
+                if(gameActive == 0)
+                {
+                    thisAI.MoveToPosition(startPos);
+                    break;
+                }
+
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {

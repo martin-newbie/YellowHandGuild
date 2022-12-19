@@ -12,7 +12,7 @@ public enum AttackType
 public abstract class AI_Base
 {
     // components
-    protected PlayableObject context;
+    protected PlayableObject subject;
     protected GameObject gameobject;
     protected Transform transform;
     protected Animator animator;
@@ -35,7 +35,7 @@ public abstract class AI_Base
     // constructor
     public AI_Base(PlayableObject character)
     {
-        context = character;
+        subject = character;
 
         gameobject = character.gameObject;
         transform = character.transform;
@@ -49,7 +49,7 @@ public abstract class AI_Base
 
         if (!CanTarget())
         {
-            context.state = CharacterState.IDLE;
+            subject.state = CharacterState.IDLE;
             return;
         }
 
@@ -118,6 +118,19 @@ public abstract class AI_Base
         return result;
     }
 
+    public virtual void MoveToPosition(Vector3 target)
+    {
+        if (Vector3.Distance(target, transform.position) < 0.1f)
+        {
+            subject.state = CharacterState.IDLE;
+            return;
+        }
+
+        Play("Move");
+        var dir = (transform.position - target).normalized;
+        transform.Translate(moveSpeed * Time.deltaTime * dir);
+    }
+
     protected virtual void SetRotation(Vector3 prev, Vector3 target)
     {
         Vector3 rot = new Vector3(0, 0, 0)
@@ -145,12 +158,12 @@ public abstract class AI_Base
     }
     protected Coroutine StartCoroutine(IEnumerator enumerator)
     {
-        return context.StartCoroutine(enumerator);
+        return subject.StartCoroutine(enumerator);
     }
     protected void StopCoroutine(Coroutine routine)
     {
         if (routine != null)
-            context.StopCoroutine(routine);
+            subject.StopCoroutine(routine);
     }
     protected void Play(string key)
     {

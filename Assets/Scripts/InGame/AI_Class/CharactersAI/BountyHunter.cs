@@ -31,7 +31,7 @@ public class BountyHunter : CharacterAI
         targetSkillCool = 15f;
         targetSkillRange = 20f;
 
-        wait = new WaitForSeconds(attackDelay);
+        wait = new WaitForSeconds(attackDelay / 2f);
     }
 
     public override void Attack()
@@ -120,9 +120,13 @@ public class BountyHunter : CharacterAI
 
     IEnumerator AttackCor()
     {
+        subject.state = CharacterState.STAND_BY;
+
+        // attack standby
+        yield return new WaitForSeconds(0.3f);
+
         GiveDamage();
         Play("Attack");
-        subject.state = CharacterState.STAND_BY;
         yield return wait;
         subject.state = CharacterState.IDLE;
     }

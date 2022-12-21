@@ -9,10 +9,11 @@ public class Skeleton : HostileAI
     public Skeleton(PlayableObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(1, transform);
+        atkCol.transform.SetParent(model.transform);
 
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
-        attackRange = 1.5f;
+        maxRange = 1.5f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;

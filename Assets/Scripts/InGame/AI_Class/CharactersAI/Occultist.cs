@@ -18,7 +18,7 @@ public class Occultist : CharacterAI
 
         atkType = AttackType.LONG;
         criticalChance = 0.15f;
-        attackRange = 10f;
+        maxRange = 10f;
         attackDelay = 1.5f;
         moveSpeed = 1f;
         damage = 5;

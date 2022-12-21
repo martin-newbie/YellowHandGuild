@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SkeletonCrossbow : HostileAI
 {
-    float minDist;
     Collider2D atkCol;
     SkeletonCrossbowArrow arrowPref;
 
@@ -12,13 +11,14 @@ public class SkeletonCrossbow : HostileAI
     {
         arrowPref = InGameManager.Instance.GetSkill(3) as SkeletonCrossbowArrow;
         atkCol = InGameManager.Instance.GetAttackCollider(1, transform);
+        atkCol.transform.SetParent(model.transform);
 
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
-        attackRange = 8f;
+        maxRange = 8f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        minDist = 2f;
+        minRange = 2f;
         damage = 8;
     }
 
@@ -35,7 +35,7 @@ public class SkeletonCrossbow : HostileAI
         subject.state = CharacterState.STAND_BY;
 
         float dist = Vector3.Distance(targeted.transform.position, transform.position);
-        if(dist >= minDist && dist <= attackRange)
+        if(dist >= minRange && dist <= maxRange)
         {
             yield return StartCoroutine(CrossbowAttack());
         }
@@ -84,7 +84,7 @@ public class SkeletonCrossbow : HostileAI
 
             if (result.Count <= 0) return;
 
-            var target = result[Random.Range(0, result.Count)].GetComponent<CharacterGameObject>();
+            var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
             target.OnDamage(damage / 2, AttackHitType.SHORT_DISTANCE_ATK);
             target.GiveKnockback(2f);
         }

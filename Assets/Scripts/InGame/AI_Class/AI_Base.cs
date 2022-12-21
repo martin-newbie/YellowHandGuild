@@ -22,7 +22,8 @@ public abstract class AI_Base
     protected int keyIndex;
     protected AttackType atkType;
     protected float criticalChance;
-    protected float attackRange;
+    protected float maxRange;
+    protected float minRange;
     protected float attackDelay;
     protected int damage;
 
@@ -43,92 +44,20 @@ public abstract class AI_Base
         model = character.model;
     }
 
+    public Vector3 targetPos;
     public virtual void MoveToTarget()
     {
         Play("Move");
 
-        if (!CanTarget())
-        {
-            subject.state = CharacterState.IDLE;
-            return;
-        }
+        var dir = (transform.position - targetPos).normalized;
+        SetRotation(transform.position, targetPos);
 
-        if (NeedMoveToTargetX(targeted.transform))
-        {
-            int dir = 0;
-
-            float transX = transform.position.x;
-            float targetX = targeted.transform.position.x;
-            if (transX < targetX && targetX - transX > attackRange)
-            {
-                dir = 1;
-            }
-            else if (transX > targetX && transX - targetX < attackRange)
-            {
-                dir = 1;
-            }
-            else if (transX > targetX && transX - targetX > attackRange)
-            {
-                dir = -1;
-            }
-            else if (transX < targetX && targetX - transX < attackRange)
-            {
-                dir = -1;
-            }
-
-            SetRotation(dir);
-            transform.Translate(Vector3.right * dir * moveSpeed * Time.deltaTime);
-        }
-
-        if (NeedMoveToTargetY(targeted.transform))
-        {
-            int dir = transform.position.y < targeted.transform.position.y ? 1 : -1;
-
-            transform.Translate(Vector3.up * dir * moveSpeed * Time.deltaTime);
-        }
+        transform.Translate(dir * moveSpeed * Time.deltaTime);
     }
     public virtual bool IsArriveAtTarget()
     {
-        return !NeedMoveToTargetX(targeted.transform) && !NeedMoveToTargetY(targeted.transform);
-    }
-    public virtual bool NeedMoveToTargetX(Transform target)
-    {
-        bool result = false;
-
-        if (atkType == AttackType.SHORT && Mathf.Abs(Mathf.Abs(target.position.x - transform.position.x) - attackRange) > 0.1f)
-        {
-            result = true;
-        }
-        if (atkType == AttackType.LONG && Mathf.Abs(target.position.x - transform.position.x) > attackRange)
-        {
-            result = true;
-        }
-
-        return result;
-    }
-    public virtual bool NeedMoveToTargetY(Transform target)
-    {
-        bool result = false;
-
-        if (Mathf.Abs(transform.position.y - target.position.y) > 0.1f)
-        {
-            result = true;
-        }
-
-        return result;
-    }
-
-    public virtual void MoveToPosition(Vector3 target)
-    {
-        if (Vector3.Distance(target, transform.position) < 0.1f)
-        {
-            subject.state = CharacterState.IDLE;
-            return;
-        }
-
-        Play("Move");
-        var dir = (transform.position - target).normalized;
-        transform.Translate(moveSpeed * Time.deltaTime * dir);
+        float calc = Vector3.Distance(transform.position, targetPos);
+        return calc <= maxRange && calc >= minRange;
     }
 
     public virtual void SetRotation(Vector3 prev, Vector3 target)
@@ -233,8 +162,9 @@ public abstract class CharacterAI : AI_Base
         if (target != null)
         {
             targeted = target;
-            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            if (!IsArriveAtTarget())
             {
+                targetPos = GetAttackPos((maxRange + minRange) / 2);
                 subject.state = CharacterState.MOVE;
             }
             else
@@ -255,11 +185,19 @@ public abstract class CharacterAI : AI_Base
             curAutoSkillCool = 0f;
         }
     }
+
     public void SetTargetingSkillTarget(HostileGameObject target)
     {
         curTargetSkillCool = 0f;
         targeted = target;
         subject.state = CharacterState.TARGET_SKILL;
+    }
+
+    Vector3 GetAttackPos(float range)
+    {
+        int dir = transform.eulerAngles.y == 0 ? 1 : -1;
+        Vector3 result = targeted.transform.position + new Vector3(dir * range, 0, 0);
+        return result;
     }
 }
 
@@ -285,7 +223,7 @@ public abstract class HostileAI : AI_Base
         {
             targeted = target;
 
-            if (NeedMoveToTargetX(target.transform) || NeedMoveToTargetY(target.transform))
+            if (!IsArriveAtTarget())
             {
                 subject.state = CharacterState.MOVE;
             }

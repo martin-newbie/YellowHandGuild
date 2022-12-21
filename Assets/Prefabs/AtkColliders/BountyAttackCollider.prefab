@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5068318486993258943}
   - component: {fileID: 5068318486993258942}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BountyAttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

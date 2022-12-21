@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9013675976868637375}
   - component: {fileID: 9013675976868637374}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: SkeletonAttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

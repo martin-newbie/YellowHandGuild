@@ -15,6 +15,7 @@ public class BountyHunter : CharacterAI
     public BountyHunter(CharacterGameObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(0, transform);
+        atkCol.transform.SetParent(model.transform);
 
         hurlbat = InGameManager.Instance.GetSkill(1) as BountyHunterHurlbat;
         hook = InGameManager.Instance.GetSpawnSkill(2, transform) as BountyHunterHook;
@@ -24,7 +25,7 @@ public class BountyHunter : CharacterAI
 
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
-        attackRange = 1.5f;
+        maxRange = 1.5f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;

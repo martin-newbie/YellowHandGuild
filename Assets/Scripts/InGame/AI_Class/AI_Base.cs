@@ -56,8 +56,9 @@ public abstract class AI_Base
     }
     public virtual bool IsArriveAtTarget()
     {
-        float calc = Vector3.Distance(transform.position, targetPos);
-        return calc <= maxRange && calc >= minRange;
+        float x = Mathf.Abs(transform.position.x - targetPos.x);
+        float y = Mathf.Abs(transform.position.y - targetPos.y);
+        return x <= maxRange && x >= minRange && y <= 0.1f;
     }
 
     public virtual void SetRotation(Vector3 prev, Vector3 target)

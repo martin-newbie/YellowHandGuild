@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 6635675314612057914}
   - component: {fileID: 6635675314612057912}
   - component: {fileID: 6635675314612057915}
-  - component: {fileID: 6635675314612057913}
   - component: {fileID: 4325904401451009937}
   m_Layer: 0
   m_Name: CharacterModel
@@ -200,18 +199,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6635675314612057913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6635675314612057917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b947e5486eab14f88d19011956d843, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4325904401451009937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,12 +221,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6635675315357233315}
   - component: {fileID: 6635675315357233312}
-  - component: {fileID: 6635675315357233326}
   - component: {fileID: 6635675315357233313}
   - component: {fileID: 6635675315357233327}
   m_Layer: 6
   m_Name: CharacterGameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,10 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6635675314612057915}
   model: {fileID: 6635675314612057912}
-  attackFrame: {fileID: 6635675314612057913}
   focusModel: {fileID: 5813873223500550292}
-  charIdx: 0
-  isInit: 0
   state: 0
   filter:
     useTriggers: 1
@@ -292,18 +275,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
---- !u!114 &6635675315357233326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6635675315357233314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b947e5486eab14f88d19011956d843, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  charIdx: 0
+  gameActive: 0
 --- !u!61 &6635675315357233313
 BoxCollider2D:
   m_ObjectHideFlags: 0

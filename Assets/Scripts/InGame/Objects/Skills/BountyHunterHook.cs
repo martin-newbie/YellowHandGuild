@@ -18,9 +18,11 @@ public class BountyHunterHook : SkillBase
     PlayableObject targeted;
     bool success;
 
-    public Coroutine HookThrow(PlayableObject target)
+    CharacterGameObject subject;
+    public Coroutine HookThrow(PlayableObject target, CharacterGameObject _subject)
     {
         targeted = target;
+        subject = _subject;
         return StartCoroutine(ThrowCoroutine());
     }
     float distance;
@@ -54,6 +56,7 @@ public class BountyHunterHook : SkillBase
         {
             target = result[0].GetComponent<HostileGameObject>();
             target.SetKnockback();
+            target.thisAI.SetRotation(target.transform.position, subject.transform.position);
         }
         targeted = target;
 

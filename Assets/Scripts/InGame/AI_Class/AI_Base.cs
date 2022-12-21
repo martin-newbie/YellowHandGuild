@@ -76,7 +76,7 @@ public abstract class AI_Base
                 dir = -1;
             }
 
-            SetRotation(transform.position, targeted.transform.position);
+            SetRotation(dir);
             transform.Translate(Vector3.right * dir * moveSpeed * Time.deltaTime);
         }
 
@@ -131,13 +131,19 @@ public abstract class AI_Base
         transform.Translate(moveSpeed * Time.deltaTime * dir);
     }
 
-    protected virtual void SetRotation(Vector3 prev, Vector3 target)
+    public virtual void SetRotation(Vector3 prev, Vector3 target)
     {
         Vector3 rot = new Vector3(0, 0, 0)
         {
             y = prev.x < target.x ? 0 : 180
         };
 
+        model.transform.rotation = Quaternion.Euler(rot);
+    }
+    public virtual void SetRotation(int xDir)
+    {
+        float y = xDir == 1 ? 0 : 1;
+        Vector3 rot = new Vector3(0, y * 180f, 0);
         model.transform.rotation = Quaternion.Euler(rot);
     }
 

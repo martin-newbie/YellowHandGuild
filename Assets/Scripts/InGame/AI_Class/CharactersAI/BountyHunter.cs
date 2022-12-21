@@ -18,6 +18,7 @@ public class BountyHunter : CharacterAI
 
         hurlbat = InGameManager.Instance.GetSkill(1) as BountyHunterHurlbat;
         hook = InGameManager.Instance.GetSpawnSkill(2, transform) as BountyHunterHook;
+        hook.transform.SetParent(model.transform); // 사이즈 유지하면서 각도 변화도 넣기 위해, 지우지 말것
         hook.transform.localPosition = new Vector3(0.4f, 0.8f);
         hook.gameObject.SetActive(false);
 
@@ -95,7 +96,7 @@ public class BountyHunter : CharacterAI
 
         hook.gameObject.SetActive(true);
         animator.Play("Hunt_Throw");
-        yield return hook.HookThrow(targeted);
+        yield return hook.HookThrow(targeted, subject);
 
         animator.Play("Hunt_Pull");
         yield return hook.HookPull();

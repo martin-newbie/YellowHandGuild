@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HostileGameObject : PlayableObject
 {
-    HostileAI thisAI;
+    public HostileAI thisAI;
     public int hostileIdx;
     bool isInit = false;
 
@@ -12,7 +12,7 @@ public class HostileGameObject : PlayableObject
     {
         base.Start();
         // debug
-        HostileInit(0);
+        HostileInit(hostileIdx);
     }
 
     private void Update()
@@ -57,6 +57,11 @@ public class HostileGameObject : PlayableObject
             case 0:
                 thisAI = new Skeleton(this);
                 break;
+            case 1:
+                break;
+            case 2:
+                thisAI = new SkeletonCrossbow(this);
+                break;
             default:
                 break;
         }
@@ -64,41 +69,4 @@ public class HostileGameObject : PlayableObject
         isInit = true;
     }
 
-    Coroutine knockbackCor;
-    public void GiveKnockback(float pushed)
-    {
-        if (knockbackCor != null) StopCoroutine(knockbackCor); 
-        knockbackCor = StartCoroutine(KnockbackMove(pushed));
-    }
-
-    IEnumerator KnockbackMove(float pushed)
-    {
-        SetKnockback();
-        float timer = 0f;
-        Vector3 originPos = transform.position;
-        Vector3 targetPos = transform.position + new Vector3(pushed, 0, 0);
-        while (timer <= pushed)
-        {
-            transform.position = Vector3.Lerp(originPos, targetPos, easeOutCubic(timer / pushed));
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        FreeKnockback();
-
-        yield break;
-        float easeOutCubic(float x)
-        {
-            return 1 - Mathf.Pow(1 - x, 3);
-        }
-    }
-
-    public void SetKnockback()
-    {
-        state = CharacterState.KNOCK_BACK;
-    }
-
-    public void FreeKnockback()
-    {
-        state = CharacterState.IDLE;
-    }
 }

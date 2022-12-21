@@ -1177,6 +1177,8 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 6c8aec8a81a2b6741871b8a9b3a373b9, type: 2}
   hostilesAnimators:
   - {fileID: 9100000, guid: 4b4c89b82f81a59488b69aaf0f2c58e8, type: 2}
+  - {fileID: 9100000, guid: 2bb9c7eb6c1caa84ca5f94c0f10aef8b, type: 2}
+  - {fileID: 9100000, guid: 2bb9c7eb6c1caa84ca5f94c0f10aef8b, type: 2}
 --- !u!4 &1309768546
 Transform:
   m_ObjectHideFlags: 0
@@ -1424,6 +1426,7 @@ MonoBehaviour:
   - {fileID: 366484485462831544, guid: 3ce905c3a0483ee46897e136d02a487e, type: 3}
   - {fileID: 7996550526973733380, guid: b97b29df61266de468566f03c7693e7a, type: 3}
   - {fileID: 4556642614577829957, guid: 5bc9e6d2d245506449c25eb14690a59f, type: 3}
+  - {fileID: 6289588347281843557, guid: f9efb042854f00144935fb6addc6bc8d, type: 3}
 --- !u!1 &1950025711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1782,6 +1785,10 @@ PrefabInstance:
     - target: {fileID: 7715139202298731024, guid: abdca38582d78514fb3be06537c6a710, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715139202298731025, guid: abdca38582d78514fb3be06537c6a710, type: 3}
+      propertyPath: hostileIdx
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7715139202298731027, guid: abdca38582d78514fb3be06537c6a710, type: 3}
       propertyPath: m_Name

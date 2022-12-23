@@ -165,8 +165,7 @@ public abstract class CharacterAI : AI_Base
             targeted = target;
             if (!IsArriveAtTarget())
             {
-                targetPos = GetAttackPos((maxRange + minRange) / 2);
-                subject.state = CharacterState.MOVE;
+                SetMove();
             }
             else
             {
@@ -186,19 +185,29 @@ public abstract class CharacterAI : AI_Base
             curAutoSkillCool = 0f;
         }
     }
+    protected virtual void SetMove()
+    {
+        float x = 0f;
+        if (Mathf.Abs(transform.position.x - targeted.transform.position.x) < minRange)
+        {
+            x = minRange;
+        }
+        else if (Mathf.Abs(transform.position.x - targeted.transform.position.x) > maxRange)
+        {
+            x = maxRange;
+        }
+
+        int dir = transform.eulerAngles.y == 0 ? 1 : -1;
+        targetPos = targeted.transform.position + new Vector3(dir * x, 0, 0);
+
+        subject.state = CharacterState.MOVE;
+    }
 
     public void SetTargetingSkillTarget(HostileGameObject target)
     {
         curTargetSkillCool = 0f;
         targeted = target;
         subject.state = CharacterState.TARGET_SKILL;
-    }
-
-    Vector3 GetAttackPos(float range)
-    {
-        int dir = transform.eulerAngles.y == 0 ? 1 : -1;
-        Vector3 result = targeted.transform.position + new Vector3(dir * range, 0, 0);
-        return result;
     }
 }
 

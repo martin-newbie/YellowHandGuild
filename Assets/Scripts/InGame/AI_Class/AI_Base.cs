@@ -165,7 +165,8 @@ public abstract class CharacterAI : AI_Base
             targeted = target;
             if (!IsArriveAtTarget())
             {
-                SetMove();
+                SetCombatMovePos();
+                subject.state = CharacterState.MOVE;
             }
             else
             {
@@ -185,7 +186,7 @@ public abstract class CharacterAI : AI_Base
             curAutoSkillCool = 0f;
         }
     }
-    protected virtual void SetMove()
+    protected virtual void SetCombatMovePos()
     {
         float x = 0f;
         if (Mathf.Abs(transform.position.x - targeted.transform.position.x) < minRange)
@@ -199,8 +200,6 @@ public abstract class CharacterAI : AI_Base
 
         int dir = transform.eulerAngles.y == 0 ? 1 : -1;
         targetPos = targeted.transform.position + new Vector3(dir * x, 0, 0);
-
-        subject.state = CharacterState.MOVE;
     }
 
     public void SetTargetingSkillTarget(HostileGameObject target)
@@ -221,7 +220,7 @@ public abstract class HostileAI : AI_Base
         keyIndex = subject.hostileIdx;
         animator.runtimeAnimatorController = InGameManager.Instance.GetHostileAnimator(keyIndex);
     }
-    
+
     protected abstract CharacterGameObject FindTargetEnemy();
 
     public virtual void Idle()
@@ -229,7 +228,7 @@ public abstract class HostileAI : AI_Base
         Play("Idle");
 
         var target = FindTargetEnemy();
-        if(target != null)
+        if (target != null)
         {
             targeted = target;
 

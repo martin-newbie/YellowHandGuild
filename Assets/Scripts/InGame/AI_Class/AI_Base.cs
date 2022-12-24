@@ -49,7 +49,7 @@ public abstract class AI_Base
     {
         Play("Move");
 
-        var dir = (transform.position - targetPos).normalized;
+        var dir = (targetPos - transform.position).normalized;
         SetRotation(transform.position, targetPos);
 
         transform.Translate(dir * moveSpeed * Time.deltaTime);

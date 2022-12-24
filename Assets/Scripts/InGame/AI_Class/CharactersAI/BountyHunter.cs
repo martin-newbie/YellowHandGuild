@@ -26,6 +26,7 @@ public class BountyHunter : CharacterAI
         atkType = AttackType.SHORT;
         criticalChance = 0.15f;
         maxRange = 1.5f;
+        minRange = 1f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
         damage = 8;

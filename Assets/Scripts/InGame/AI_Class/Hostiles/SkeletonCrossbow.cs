@@ -70,7 +70,7 @@ public class SkeletonCrossbow : HostileAI
 
         void bow()
         {
-            Vector2 dir = (transform.position - (targeted.transform.position + new Vector3(0, 1, 0))).normalized;
+            Vector2 dir = ((transform.position + new Vector3(0, 1, 0)) - (targeted.transform.position + new Vector3(0, 1, 0))).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion axisRot = Quaternion.AngleAxis(angle - 180f, Vector3.forward);
 

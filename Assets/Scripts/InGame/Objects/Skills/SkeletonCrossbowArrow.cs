@@ -22,7 +22,7 @@ public class SkeletonCrossbowArrow : SkillBase
     {
         if (!isInit) return;
 
-        transform.Translate(transform.right * Time.deltaTime * moveSpeed);
+        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

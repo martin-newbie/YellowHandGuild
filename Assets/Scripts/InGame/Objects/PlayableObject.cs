@@ -30,18 +30,18 @@ public abstract class PlayableObject : MonoBehaviour
     }
 
     Coroutine knockbackCor;
-    public void GiveKnockback(float pushed)
+    public void GiveKnockback(float pushed, int dir)
     {
         if (knockbackCor != null) StopCoroutine(knockbackCor);
-        knockbackCor = StartCoroutine(KnockbackMove(pushed));
+        knockbackCor = StartCoroutine(KnockbackMove(pushed, dir));
     }
 
-    IEnumerator KnockbackMove(float pushed)
+    IEnumerator KnockbackMove(float pushed, int dir)
     {
         SetKnockback();
         float timer = 0f;
         Vector3 originPos = transform.position;
-        Vector3 targetPos = transform.position + new Vector3(pushed * -transform.right.x, 0, 0);
+        Vector3 targetPos = transform.position + new Vector3(pushed * dir, 0, 0);
         while (timer <= pushed)
         {
             transform.position = Vector3.Lerp(originPos, targetPos, easeOutCubic(timer / pushed));

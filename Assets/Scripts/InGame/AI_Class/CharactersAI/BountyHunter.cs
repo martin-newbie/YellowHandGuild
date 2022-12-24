@@ -87,7 +87,7 @@ public class BountyHunter : CharacterAI
             if (enemy)
             {
                 enemy.OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
-                enemy.GiveKnockback(2f);
+                enemy.GiveKnockback(2f, GetTargetDir(transform.position, targeted.transform.position));
             }
         }
 
@@ -123,6 +123,7 @@ public class BountyHunter : CharacterAI
 
     IEnumerator AttackCor()
     {
+        SetRotation(transform.position, targeted.transform.position);
         subject.state = CharacterState.STAND_BY;
 
         // attack standby

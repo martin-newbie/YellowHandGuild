@@ -22,7 +22,7 @@ public class SkeletonCrossbowArrow : SkillBase
     {
         if (!isInit) return;
 
-        transform.Translate(dir * Time.deltaTime * moveSpeed);
+        transform.Translate(transform.right * Time.deltaTime * moveSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,6 +30,7 @@ public class SkeletonCrossbowArrow : SkillBase
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayableObject>()?.OnDamage(damage, AttackHitType.LONG_DISTANCE_ATK, isCritical);
+            Destroy(gameObject);
         }
     }
 }

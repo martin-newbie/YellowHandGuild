@@ -82,7 +82,7 @@ public class BountyHunterHook : SkillBase
             chainSprite.size = size;
 
             if (success)
-                targeted.transform.position = Vector3.Lerp(transform.position + new Vector3(0.5f, -1, 0), posCol.transform.position - new Vector3(0, 1, 0), easeInCubic(timer / duration));
+                targeted.transform.position = Vector3.Lerp(subject.transform.position + new Vector3(1, 0), posCol.transform.position - new Vector3(0, 1, 0), easeInCubic(timer / duration));
 
             timer -= Time.deltaTime;
             yield return null;

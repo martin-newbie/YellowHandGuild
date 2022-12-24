@@ -70,7 +70,7 @@ public class SkeletonCrossbow : HostileAI
 
         void bow()
         {
-            Vector2 dir = (transform.position - targeted.transform.position).normalized;
+            Vector2 dir = (transform.position - (targeted.transform.position + new Vector3(0, 1, 0))).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion axisRot = Quaternion.AngleAxis(angle - 180f, Vector3.forward);
 
@@ -86,11 +86,10 @@ public class SkeletonCrossbow : HostileAI
 
             var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
             target.OnDamage(damage / 2, AttackHitType.SHORT_DISTANCE_ATK);
-            target.GiveKnockback(2f);
+            target.GiveKnockback(2f, GetTargetDir(transform.position, targeted.transform.position));
         }
 
     }
-
 
     protected override CharacterGameObject FindTargetEnemy()
     {

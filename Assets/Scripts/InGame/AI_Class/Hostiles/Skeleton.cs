@@ -54,4 +54,9 @@ public class Skeleton : HostileAI
     {
         return InGameManager.Instance.GetNearestCharacter(transform.position);
     }
+
+    public override void Cancel()
+    {
+        StopCoroutine(atkCor);
+    }
 }

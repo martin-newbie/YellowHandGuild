@@ -43,6 +43,7 @@ public abstract class AI_Base
         animator = character.animator;
         model = character.model;
     }
+    public abstract void Cancel();
 
     public Vector3 targetPos;
     public virtual void MoveToTarget()
@@ -165,7 +166,6 @@ public abstract class CharacterAI : AI_Base
     public abstract void GiveDamage();
     public abstract void AutoSkill();
     public abstract void TargetingSkill();
-    public abstract void Cancel();
     public virtual void SkillCharge()
     {
         if (subject.SkillChargeAble())

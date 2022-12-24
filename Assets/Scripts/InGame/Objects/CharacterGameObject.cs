@@ -98,6 +98,12 @@ public class CharacterGameObject : PlayableObject
     {
         return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != CharacterState.KNOCK_BACK && state != CharacterState.DEAD && state != CharacterState.STUN && state != CharacterState.ON_ACTION;
     }
+
+    public override void GiveKnockback(float pushed, int dir)
+    {
+        thisAI.Cancel();
+        base.GiveKnockback(pushed, dir);
+    }
 }
 
 

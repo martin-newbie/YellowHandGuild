@@ -30,7 +30,7 @@ public abstract class PlayableObject : MonoBehaviour
     }
 
     Coroutine knockbackCor;
-    public void GiveKnockback(float pushed, int dir)
+    public virtual void GiveKnockback(float pushed, int dir)
     {
         if (knockbackCor != null) StopCoroutine(knockbackCor);
         knockbackCor = StartCoroutine(KnockbackMove(pushed, dir));

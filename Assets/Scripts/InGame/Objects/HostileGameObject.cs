@@ -69,4 +69,9 @@ public class HostileGameObject : PlayableObject
         isInit = true;
     }
 
+    public override void GiveKnockback(float pushed, int dir)
+    {
+        base.GiveKnockback(pushed, dir);
+        thisAI.Cancel();
+    }
 }

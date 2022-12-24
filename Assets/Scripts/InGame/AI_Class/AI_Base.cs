@@ -62,7 +62,7 @@ public abstract class AI_Base
     }
     protected virtual void SetCombatMovePos()
     {
-        float x = -1f;
+        float x = 0f;
         if (Mathf.Abs(transform.position.x - targeted.transform.position.x) < minRange)
         {
             x = minRange;
@@ -70,6 +70,13 @@ public abstract class AI_Base
         else if (Mathf.Abs(transform.position.x - targeted.transform.position.x) > maxRange)
         {
             x = maxRange;
+        }
+        else
+        {
+            Vector3 temp = transform.position;
+            temp.y = targeted.transform.position.y;
+            targetPos = temp;
+            return;
         }
 
         int dir = transform.position.x > targeted.transform.position.x ? 1 : -1;

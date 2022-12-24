@@ -18,7 +18,7 @@ public class SkeletonCrossbow : HostileAI
         maxRange = 8f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        minRange = 2f;
+        minRange = 1.5f;
         damage = 8;
     }
 
@@ -86,7 +86,7 @@ public class SkeletonCrossbow : HostileAI
 
             var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
             target.OnDamage(damage / 2, AttackHitType.SHORT_DISTANCE_ATK);
-            target.GiveKnockback(2f, GetTargetDir(transform.position, targeted.transform.position));
+            target.GiveKnockback(0.5f, GetTargetDir(transform.position, targeted.transform.position));
         }
 
     }

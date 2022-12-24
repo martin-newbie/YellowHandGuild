@@ -127,11 +127,16 @@ public class BountyHunter : CharacterAI
         subject.state = CharacterState.STAND_BY;
 
         // attack standby
+        Play("Ready");
         yield return new WaitForSeconds(0.3f);
 
         GiveDamage();
         Play("Attack");
-        yield return wait;
+        yield return new WaitForSeconds(0.5f);
+
+        Play("Idle");
+        yield return new WaitForSeconds(1.3f);
+
         subject.state = CharacterState.IDLE;
     }
 

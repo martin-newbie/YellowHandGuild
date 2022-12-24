@@ -18,7 +18,7 @@ public class SkeletonCrossbow : HostileAI
         maxRange = 8f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        minRange = 1.5f;
+        minRange = 4f;
         damage = 8;
     }
 

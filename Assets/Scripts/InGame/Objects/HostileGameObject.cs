@@ -32,7 +32,7 @@ public class HostileGameObject : PlayableObject
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
-                    state = CharacterState.ATTACK;
+                    state = CharacterState.IDLE;
                 }
                 break;
             case CharacterState.ATTACK:

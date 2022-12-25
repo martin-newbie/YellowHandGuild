@@ -19,6 +19,8 @@ public class InGameManager : MonoBehaviour
     [SerializeField] List<int> charsIndex = new List<int>();
     [SerializeField] List<int> charsPosIndex = new List<int>();
     [SerializeField] List<Transform> charsPosTr = new List<Transform>();
+    public Vector3 fieldCenter;
+    public Vector3 fieldSize;
 
     [Header("Prefabs")]
     [SerializeField] CharacterGameObject charPrefab;
@@ -59,6 +61,12 @@ public class InGameManager : MonoBehaviour
         {
             curChars[i].transform.position = charsPosTr[charsPosIndex[i]].position;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(fieldCenter, fieldSize);
     }
 
     public static CharacterGameObject GetCharacterObject(int idx) => instance.curChars[idx];

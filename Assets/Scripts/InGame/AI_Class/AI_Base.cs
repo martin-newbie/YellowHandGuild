@@ -55,11 +55,14 @@ public abstract class AI_Base
         var dir = (targetPos - transform.position).normalized;
         SetRotation(transform.position, targetPos);
 
+        if (YDone(dir.y)) dir.y = 0f;
+        if (XDone(dir.x)) dir.x = 0f;
         transform.Translate(dir * moveSpeed * Time.deltaTime);
     }
     public virtual bool IsArriveAtTarget()
     {
-        return Vector3.Distance(targetPos, transform.position) < 0.1f;
+        var dir = (targetPos - transform.position).normalized;
+        return YDone(dir.y) && XDone(dir.x);
     }
     protected virtual void SetCombatMovePos()
     {
@@ -82,6 +85,31 @@ public abstract class AI_Base
 
         int dir = transform.position.x > targeted.transform.position.x ? 1 : -1;
         targetPos = targeted.transform.position + new Vector3(dir * x, 0, 0);
+    }
+
+    bool YDone(float dir)
+    {
+        bool result;
+        float yDist = Mathf.Abs(transform.position.y - targetPos.y);
+
+        var size = InGameManager.Instance.fieldSize;
+        var center = InGameManager.Instance.fieldCenter;
+
+        result = transform.position.y + dir > center.y + (size.y / 2f) || transform.position.y + dir < center.y - (size.y / 2f);
+
+        return result || yDist <= 0.1f;
+    }
+    bool XDone(float dir)
+    {
+        bool result;
+        float xDist = Mathf.Abs(transform.position.x - targetPos.x);
+
+        var size = InGameManager.Instance.fieldSize;
+        var center = InGameManager.Instance.fieldCenter;
+
+        result = transform.position.x + dir > center.x + (size.x / 2f) || transform.position.x + dir < center.x - (size.x / 2f);
+
+        return result || xDist <= 0.1f;
     }
 
     public virtual void SetRotation(Vector3 prev, Vector3 target)

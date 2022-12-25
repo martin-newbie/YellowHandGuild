@@ -18,7 +18,7 @@ public class SkeletonCrossbow : HostileAI
         maxRange = 8f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        minRange = 4f;
+        minRange = 2f;
         damage = 8;
     }
 
@@ -34,14 +34,14 @@ public class SkeletonCrossbow : HostileAI
     {
         subject.state = CharacterState.STAND_BY;
 
-        float dist = Vector3.Distance(targeted.transform.position, transform.position);
-        if(dist >= minRange && dist <= maxRange)
+        float dist = Mathf.Abs(transform.position.x - targeted.transform.position.x);
+        if (dist <= minRange)
         {
-            yield return StartCoroutine(CrossbowAttack());
+            yield return StartCoroutine(BayonetAttack());
         }
         else
         {
-            yield return StartCoroutine(BayonetAttack());
+            yield return StartCoroutine(CrossbowAttack());
         }
 
         Play("Idle");

@@ -44,6 +44,8 @@ public class InGameManager : MonoBehaviour
     [Header("UI")]
     public GameObject TargetingCanvasObj;
 
+
+    Coroutine mainLogic;
     private void Start()
     {
         curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
@@ -51,10 +53,13 @@ public class InGameManager : MonoBehaviour
         InitCharsInfo();
         InitCharacters();
         UISkillPanel.Instance.InitSkillIcons(curChars);
+
+        mainLogic = StartCoroutine(GameMainLogic());
     }
     void InitCharsInfo()
     {
-        // init charsindex and charsposindex
+        charsIndex = TempData.Instance.charIndex;
+        charsPosIndex = TempData.Instance.charPosIndex;
     }
     void InitCharacters()
     {
@@ -72,6 +77,29 @@ public class InGameManager : MonoBehaviour
     }
 
 
+    IEnumerator GameMainLogic()
+    {
+        for (int i = 0; i < curStage.wavesInfo.Count; i++)
+        {
+            SpawnWaveMonster();
+            yield return new WaitUntil(() => waitUntil());
+
+        }
+        yield break;
+
+        bool waitUntil()
+        {
+            for (int i = 0; i < curHostiles.Count; i++)
+            {
+                if(curHostiles[i].hp <= 0)
+                {
+                    curHostiles.Remove(curHostiles[i]);
+                }
+            }
+
+            return curHostiles.Count <= 0 || curChars.Count <= 0;
+        }
+    }
     void SpawnWaveMonster()
     {
         var curWave = curStage.wavesInfo[waveIdx];

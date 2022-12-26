@@ -13,6 +13,7 @@ public abstract class PlayableObject : MonoBehaviour
     [Header("State")]
     [SerializeField] public CharacterState state;
     [SerializeField] public ContactFilter2D filter;
+    public int hp;
 
     protected virtual void Start()
     {

@@ -19,11 +19,17 @@ public class InGameManager : MonoBehaviour
     [SerializeField] List<int> charsIndex = new List<int>();
     [SerializeField] List<int> charsPosIndex = new List<int>();
     [SerializeField] List<Transform> charsPosTr = new List<Transform>();
+    [SerializeField] List<Transform> hostilesPosTr = new List<Transform>();
     public Vector3 fieldCenter;
     public Vector3 fieldSize;
 
+    Stage curStage;
+    int stageIdx;
+    int waveIdx;
+
     [Header("Prefabs")]
     [SerializeField] CharacterGameObject charPrefab;
+    [SerializeField] HostileGameObject hostilePrefab;
 
     [Header("Characters")]
     public List<CharacterGameObject> curChars = new List<CharacterGameObject>();
@@ -40,6 +46,8 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
+        curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
+        
         InitCharsInfo();
         InitCharacters();
         UISkillPanel.Instance.InitSkillIcons(curChars);
@@ -61,6 +69,32 @@ public class InGameManager : MonoBehaviour
         {
             curChars[i].transform.position = charsPosTr[charsPosIndex[i]].position;
         }
+    }
+
+
+    void SpawnWaveMonster()
+    {
+        var curWave = curStage.wavesInfo[waveIdx];
+
+        List<int> monsterIdx = new List<int>();
+        List<int> posIdx = new List<int>();
+        int count = 0;
+
+        foreach (var item in curWave.Split('\t'))
+        {
+            var temp = item.Split(' ');
+            monsterIdx.Add(int.Parse(temp[0]));
+            posIdx.Add(int.Parse(temp[1]));
+            count++;
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            var hostile = Instantiate(hostilePrefab, hostilesPosTr[posIdx[i]].position, Quaternion.identity);
+            hostile.HostileInit(monsterIdx[i]);
+        }
+
+        waveIdx++;
     }
 
     private void OnDrawGizmos()

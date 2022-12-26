@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class StageInfoManager : MonoBehaviour
 {
     private static StageInfoManager instance;
@@ -11,13 +15,15 @@ public class StageInfoManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public List<Stage> StagesInfo = new List<Stage>();
 
-    private void Start()
+    public void LoadStageInfo()
     {
-        foreach(var item in Resources.LoadAll("StageInfo"))
+        StagesInfo = new List<Stage>();
+        foreach (var item in Resources.LoadAll("StageInfo"))
         {
             var temp = item as TextAsset;
             var waves = temp.text.Split('\n');
@@ -34,3 +40,20 @@ public class Stage
 {
     public List<string> wavesInfo = new List<string>();
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(StageInfoManager))]
+public class StageInfoButton : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        StageInfoManager manager = target as StageInfoManager;
+        if (GUILayout.Button("LoadStageInfo"))
+        {
+            manager.LoadStageInfo();
+        }
+    }
+}
+#endif

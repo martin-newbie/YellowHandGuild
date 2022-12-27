@@ -99,6 +99,12 @@ public class CharacterGameObject : PlayableObject
         return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != CharacterState.KNOCK_BACK && state != CharacterState.DEAD && state != CharacterState.STUN && state != CharacterState.ON_ACTION;
     }
 
+    public void MoveToInitialPoint()
+    {
+        thisAI.targetPos = startPos;
+        state = CharacterState.MOVE;
+    }
+
     public override void GiveKnockback(float pushed, int dir)
     {
         thisAI.Cancel();

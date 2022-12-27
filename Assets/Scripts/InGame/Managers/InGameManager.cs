@@ -81,13 +81,69 @@ public class InGameManager : MonoBehaviour
     {
         for (int i = 0; i < curStage.wavesInfo.Count; i++)
         {
+            setCharsInitPos();
+            yield return new WaitUntil(() => waitUntilCharsIdle());
             SpawnWaveMonster();
-            yield return new WaitUntil(() => waitUntil());
+            yield return new WaitUntil(() => waitUntilWaveEnd());
+
+            if(curHostiles.Count <= 0)
+            {
+                // next wave
+            }
+            else if(curChars.Count <= 0)
+            {
+                // game over
+            }
 
         }
         yield break;
 
-        bool waitUntil()
+        void SpawnWaveMonster()
+        {
+            var curWave = curStage.wavesInfo[waveIdx];
+
+            List<int> monsterIdx = new List<int>();
+            List<int> posIdx = new List<int>();
+            int count = 0;
+
+            foreach (var item in curWave.Split('\t'))
+            {
+                var temp = item.Split(' ');
+                monsterIdx.Add(int.Parse(temp[0]));
+                posIdx.Add(int.Parse(temp[1]));
+                count++;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                var hostile = Instantiate(hostilePrefab, hostilesPosTr[posIdx[i]].position, Quaternion.identity);
+                hostile.HostileInit(monsterIdx[i]);
+            }
+
+            waveIdx++;
+        }
+        void setCharsInitPos()
+        {
+            foreach (var item in curChars)
+            {
+                item.MoveToInitialPoint();
+            }
+        }
+
+        bool waitUntilCharsIdle()
+        {
+            bool result = true;
+            foreach (var item in curChars)
+            {
+                if(item.state == CharacterState.MOVE)
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+        bool waitUntilWaveEnd()
         {
             for (int i = 0; i < curHostiles.Count; i++)
             {
@@ -99,30 +155,6 @@ public class InGameManager : MonoBehaviour
 
             return curHostiles.Count <= 0 || curChars.Count <= 0;
         }
-    }
-    void SpawnWaveMonster()
-    {
-        var curWave = curStage.wavesInfo[waveIdx];
-
-        List<int> monsterIdx = new List<int>();
-        List<int> posIdx = new List<int>();
-        int count = 0;
-
-        foreach (var item in curWave.Split('\t'))
-        {
-            var temp = item.Split(' ');
-            monsterIdx.Add(int.Parse(temp[0]));
-            posIdx.Add(int.Parse(temp[1]));
-            count++;
-        }
-
-        for (int i = 0; i < count; i++)
-        {
-            var hostile = Instantiate(hostilePrefab, hostilesPosTr[posIdx[i]].position, Quaternion.identity);
-            hostile.HostileInit(monsterIdx[i]);
-        }
-
-        waveIdx++;
     }
 
     private void OnDrawGizmos()

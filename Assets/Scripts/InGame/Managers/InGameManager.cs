@@ -93,6 +93,7 @@ public class InGameManager : MonoBehaviour
             else if(curChars.Count <= 0)
             {
                 // game over
+                break;
             }
 
         }
@@ -149,7 +150,19 @@ public class InGameManager : MonoBehaviour
             {
                 if(curHostiles[i].hp <= 0)
                 {
+                    curHostiles[i].state = CharacterState.DEAD;
                     curHostiles.Remove(curHostiles[i]);
+                }
+            }
+
+            for (int i = 0; i < curChars.Count; i++)
+            {
+                if(curChars[i].hp <= 0)
+                {
+                    curChars[i].state = CharacterState.DEAD;
+                    curChars.Remove(curChars[i]);
+
+                    UISkillPanel.Instance.InitSkillIcons(curChars);
                 }
             }
 

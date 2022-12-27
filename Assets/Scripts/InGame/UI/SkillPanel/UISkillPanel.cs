@@ -27,6 +27,8 @@ public class UISkillPanel : MonoBehaviour
     public List<SkillButtonUnit> unitList = new List<SkillButtonUnit>();
     [HideInInspector] public int curCharIndex = -1;
 
+    bool isInit = false;
+
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
         if (chars == null || chars.Count < 0)
@@ -35,12 +37,31 @@ public class UISkillPanel : MonoBehaviour
         }
 
         int btnIdx = 0;
-        foreach (var item in chars)
+
+        if (!isInit)
         {
-            var tempUnit = Instantiate(unitPrefab, contentsParent);
-            tempUnit.InitButton(btnIdx, item.charIdx);
-            btnIdx++;
+            foreach (var item in chars)
+            {
+                var tempUnit = Instantiate(unitPrefab, contentsParent);
+                unitList.Add(tempUnit);
+                btnIdx++;
+            }
         }
+
+        for (int i = 0; i < unitList.Count; i++)
+        {
+            if(i < chars.Count)
+            {
+                unitList[i].InitButton(btnIdx, chars[i].charIdx);
+                btnIdx++;
+            }
+            else
+            {
+                unitList[i].gameObject.SetActive(false);
+            }
+        }
+
+
         unitPrefab.gameObject.SetActive(false);
     }
 

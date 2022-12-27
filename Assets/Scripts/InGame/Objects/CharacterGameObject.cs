@@ -51,6 +51,7 @@ public class CharacterGameObject : PlayableObject
             case CharacterState.STUN:
                 break;
             case CharacterState.DEAD:
+                thisAI.Dead();
                 break;
         }
         thisAI.SkillCharge();

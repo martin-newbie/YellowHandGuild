@@ -234,6 +234,13 @@ public abstract class CharacterAI : AI_Base
             }
         }
     }
+    public virtual void Dead()
+    {
+        subject.GetComponent<Collider2D>().enabled = false;
+        subject.state = CharacterState.STAND_BY;
+        Play("Dead");
+    }
+
     protected virtual HostileGameObject FindNearEnemy()
     {
         return InGameManager.Instance.GetNearestHostile(transform.position);

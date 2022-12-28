@@ -48,8 +48,11 @@ public class InGameManager : MonoBehaviour
     Coroutine mainLogic;
     private void Start()
     {
+        // debug
+        Time.timeScale = 5f;
+
         curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
-        
+
         InitCharsInfo();
         InitCharacters();
         UISkillPanel.Instance.InitSkillIcons(curChars);
@@ -81,16 +84,18 @@ public class InGameManager : MonoBehaviour
     {
         for (int i = 0; i < curStage.wavesInfo.Count; i++)
         {
-            setCharsInitPos();
-            yield return new WaitUntil(() => waitUntilCharsIdle());
+            yield return new WaitUntil(() => waitUntilCharsState(CharacterState.IDLE));
+            yield return new WaitForSeconds(2f);
             SpawnWaveMonster();
             yield return new WaitUntil(() => waitUntilWaveEnd());
 
-            if(curHostiles.Count <= 0)
+            if (curHostiles.Count <= 0)
             {
+                setCharsInitPos();
+                yield return new WaitUntil(() => waitUntilCharsState(CharacterState.MOVE));
                 // next wave
             }
-            else if(curChars.Count <= 0)
+            else if (curChars.Count <= 0)
             {
                 // game over
                 break;
@@ -109,7 +114,7 @@ public class InGameManager : MonoBehaviour
 
             foreach (var item in curWave.Split('\t'))
             {
-                var temp = item.Split(' ');
+                var temp = item.Split('/');
                 monsterIdx.Add(int.Parse(temp[0]));
                 posIdx.Add(int.Parse(temp[1]));
                 count++;
@@ -119,6 +124,8 @@ public class InGameManager : MonoBehaviour
             {
                 var hostile = Instantiate(hostilePrefab, hostilesPosTr[posIdx[i]].position, Quaternion.identity);
                 hostile.HostileInit(monsterIdx[i]);
+                hostile.state = CharacterState.IDLE;
+                curHostiles.Add(hostile);
             }
 
             waveIdx++;
@@ -131,12 +138,12 @@ public class InGameManager : MonoBehaviour
             }
         }
 
-        bool waitUntilCharsIdle()
+        bool waitUntilCharsState(CharacterState target)
         {
             bool result = true;
             foreach (var item in curChars)
             {
-                if(item.state == CharacterState.MOVE)
+                if (item.state != target)
                 {
                     result = false;
                     break;
@@ -148,7 +155,7 @@ public class InGameManager : MonoBehaviour
         {
             for (int i = 0; i < curHostiles.Count; i++)
             {
-                if(curHostiles[i].hp <= 0)
+                if (curHostiles[i].hp <= 0)
                 {
                     curHostiles[i].state = CharacterState.DEAD;
                     curHostiles.Remove(curHostiles[i]);
@@ -157,7 +164,7 @@ public class InGameManager : MonoBehaviour
 
             for (int i = 0; i < curChars.Count; i++)
             {
-                if(curChars[i].hp <= 0)
+                if (curChars[i].hp <= 0)
                 {
                     curChars[i].state = CharacterState.DEAD;
                     curChars.Remove(curChars[i]);
@@ -207,7 +214,7 @@ public class InGameManager : MonoBehaviour
         foreach (var item in hostiles)
         {
             float calc = Vector3.Distance(item.transform.position, mousePos);
-            if(calc < dist)
+            if (calc < dist)
             {
                 calc = dist;
                 result = item;
@@ -301,7 +308,7 @@ public class InGameManager : MonoBehaviour
         foreach (var item in curChars)
         {
             float calc = Vector3.Distance(pos, item.transform.position);
-            if(calc < dist)
+            if (calc < dist)
             {
                 dist = calc;
                 result = item;

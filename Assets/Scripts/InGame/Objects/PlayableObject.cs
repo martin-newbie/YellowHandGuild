@@ -27,7 +27,11 @@ public abstract class PlayableObject : MonoBehaviour
 
     public virtual void OnDamage(int damage, AttackHitType type, bool isCritical = false)
     {
-        
+        if (isCritical)
+        {
+            damage = (int)(damage * 1.5f);
+        }
+        hp -= damage;
     }
 
     Coroutine knockbackCor;

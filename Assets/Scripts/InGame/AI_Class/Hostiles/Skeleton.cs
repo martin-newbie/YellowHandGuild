@@ -17,7 +17,8 @@ public class Skeleton : HostileAI
         maxRange = 1.5f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        damage = 8;
+        damage = 1;
+        hp = 50;
     }
 
     public override void Attack()

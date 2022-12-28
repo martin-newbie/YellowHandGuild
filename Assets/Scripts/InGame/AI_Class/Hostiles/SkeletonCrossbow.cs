@@ -19,7 +19,8 @@ public class SkeletonCrossbow : HostileAI
         attackDelay = 2f;
         moveSpeed = 1.5f;
         minRange = 2f;
-        damage = 8;
+        damage = 1;
+        hp = 50;
     }
 
     Coroutine atkCoroutine;

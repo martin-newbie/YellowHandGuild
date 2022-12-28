@@ -25,13 +25,15 @@ public abstract class AI_Base
     protected float maxRange;
     protected float minRange;
     protected float attackDelay;
+
+    public int hp;
     protected int damage;
 
     // skill state
     protected float moveSpeed;
 
     // enemies
-    protected PlayableObject targeted;
+    public PlayableObject targeted;
 
     // constructor
     public AI_Base(PlayableObject character)
@@ -170,6 +172,14 @@ public abstract class AI_Base
         return result;
     }
 
+    public virtual void Dead()
+    {
+        subject.GetComponent<Collider2D>().enabled = false;
+        subject.state = CharacterState.STAND_BY;
+        subject.StopAllCoroutines();
+        InGameManager.Destroy(subject.gameObject);
+        Play("Dead");
+    }
 }
 
 public abstract class CharacterAI : AI_Base
@@ -233,12 +243,6 @@ public abstract class CharacterAI : AI_Base
                 subject.state = CharacterState.ATTACK;
             }
         }
-    }
-    public virtual void Dead()
-    {
-        subject.GetComponent<Collider2D>().enabled = false;
-        subject.state = CharacterState.STAND_BY;
-        Play("Dead");
     }
 
     protected virtual HostileGameObject FindNearEnemy()

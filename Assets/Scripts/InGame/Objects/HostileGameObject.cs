@@ -44,6 +44,7 @@ public class HostileGameObject : PlayableObject
             case CharacterState.STUN:
                 break;
             case CharacterState.DEAD:
+                thisAI.Dead();
                 break;
         }
     }
@@ -66,6 +67,7 @@ public class HostileGameObject : PlayableObject
                 break;
         }
 
+        hp = thisAI.hp;
         isInit = true;
     }
 

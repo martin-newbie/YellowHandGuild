@@ -22,6 +22,7 @@ public class Occultist : CharacterAI
         attackDelay = 1.5f;
         moveSpeed = 1f;
         damage = 5;
+        hp = 80;
         autoSkillCool = 15f;
         targetSkillCool = 25f;
         targetSkillRange = 20f;

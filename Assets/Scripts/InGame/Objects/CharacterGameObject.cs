@@ -34,6 +34,7 @@ public class CharacterGameObject : PlayableObject
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
+                    thisAI.IsArriveAtTarget();
                     state = CharacterState.IDLE;
                 }
                 break;
@@ -57,14 +58,6 @@ public class CharacterGameObject : PlayableObject
         thisAI.SkillCharge();
     }
 
-    public void SearchTargetSkill()
-    {
-        thisAI.SearchTargeting();
-    }
-    public void SelectTargetSkill()
-    {
-        thisAI.SelectTargeting();
-    }
     public void InitCharacter(int index)
     {
         charIdx = index;
@@ -79,8 +72,18 @@ public class CharacterGameObject : PlayableObject
                 thisAI = new Occultist(this);
                 break;
         }
-
+        hp = thisAI.hp;
+        state = CharacterState.IDLE;
         isInit = true;
+    }
+
+    public void SearchTargetSkill()
+    {
+        thisAI.SearchTargeting();
+    }
+    public void SelectTargetSkill()
+    {
+        thisAI.SelectTargeting();
     }
     public void Attack()
     {
@@ -103,6 +106,8 @@ public class CharacterGameObject : PlayableObject
     public void MoveToInitialPoint()
     {
         thisAI.targetPos = startPos;
+        thisAI.targeted = null;
+        thisAI.Cancel();
         state = CharacterState.MOVE;
     }
 

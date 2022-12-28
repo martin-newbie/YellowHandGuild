@@ -11,6 +11,7 @@ public class BountyHunter : CharacterAI
     BountyHunterHook hook;
 
     WaitForSeconds wait;
+    bool isAutoAble;
 
     public BountyHunter(CharacterGameObject character) : base(character)
     {
@@ -29,17 +30,21 @@ public class BountyHunter : CharacterAI
         minRange = 1f;
         attackDelay = 2f;
         moveSpeed = 1.5f;
-        damage = 8;
+        damage = 10;
         autoSkillCool = 8f;
         targetSkillCool = 15f;
         targetSkillRange = 20f;
+        hp = 120;
 
         wait = new WaitForSeconds(attackDelay / 2f);
     }
 
     public override void Attack()
     {
-        atkCoroutine = StartCoroutine(AttackCor());
+        if (isAutoAble)
+            atkCoroutine = StartCoroutine(AutoSkillCor());
+        else
+            atkCoroutine = StartCoroutine(AttackCor());
     }
 
     public override void Cancel()
@@ -64,12 +69,8 @@ public class BountyHunter : CharacterAI
 
     public override void AutoSkill()
     {
-        if (targeted == null) return;
-
-        SetRotation(transform.position, targeted.transform.position);
-
-        StopCoroutine(atkCoroutine);
-        atkCoroutine = StartCoroutine(AutoSkillCor());
+        isAutoAble = true;
+        subject.state = CharacterState.IDLE;
     }
 
     public override void TargetingSkill()
@@ -142,6 +143,9 @@ public class BountyHunter : CharacterAI
 
     IEnumerator AutoSkillCor()
     {
+        SetRotation(transform.position, targeted.transform.position);
+        isAutoAble = false;
+
         Play("Hurlbat_Ready");
         subject.state = CharacterState.ON_ACTION;
         yield return new WaitForSeconds(1f);

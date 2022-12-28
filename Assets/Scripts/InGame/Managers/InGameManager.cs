@@ -44,8 +44,8 @@ public class InGameManager : MonoBehaviour
     [Header("UI")]
     public GameObject TargetingCanvasObj;
 
-
     Coroutine mainLogic;
+
     private void Start()
     {
         // debug

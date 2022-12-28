@@ -18,24 +18,30 @@ public class StageInfoManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public StageLoadManager loadManager;
+
     public List<Stage> StagesInfo = new List<Stage>();
 
     public void LoadStageInfo()
     {
-        StagesInfo = new List<Stage>();
-        foreach (var item in Resources.LoadAll("StageInfo"))
-        {
-            var temp = item as TextAsset;
-            var stageStr = temp.text.Split('\n');
+        StartCoroutine(LoadStageInfosCor());
+    }
 
-            for (int i = 0; i < stageStr.Count(); i++)
-            {
-                Stage stage = new Stage();
-                var waves = stageStr[i].Split('\t');
-                stage.wavesInfo = waves.ToList();
-                StagesInfo.Add(stage);
-            }
+    IEnumerator LoadStageInfosCor()
+    {
+        yield return StartCoroutine(loadManager.LoadStageDatas());
+        string result = loadManager.GetResultString();
+
+        StagesInfo = new List<Stage>();
+        foreach (var item in result.Split('\n'))
+        {
+            Stage stage = new Stage();
+            var waves = item.Split('\t');
+            stage.wavesInfo = waves.ToList();
+            StagesInfo.Add(stage);
         }
+
+        yield break;
     }
 }
 

@@ -49,7 +49,7 @@ public class InGameManager : MonoBehaviour
     private void Start()
     {
         // debug
-        Time.timeScale = 5f;
+        Time.timeScale = 3f;
 
         curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
 

@@ -8,6 +8,6 @@ public class TitleManager : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-        SceneManager.LoadScene("DeckSetting");
+        SceneManager.LoadScene("InGame");
     }
 }

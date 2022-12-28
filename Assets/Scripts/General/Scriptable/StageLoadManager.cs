@@ -3,7 +3,6 @@ using System.Text;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEditor;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System;
@@ -21,7 +20,7 @@ public class StageLoadManager : ScriptableObject
         {
             yield return www.SendWebRequest();
 
-            string message = www.downloadHandler.text.Replace('\r', ' ');
+            string message = www.downloadHandler.text.Replace("\r", "");
             result = message;
             Debug.Log(message);
         }

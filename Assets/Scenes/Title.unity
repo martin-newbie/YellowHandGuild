@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: 0
-  charIndex: 00000000
-  charPosIndex: 01000000
+  charIndex: 
+  charPosIndex: 
 --- !u!4 &186953284
 Transform:
   m_ObjectHideFlags: 0

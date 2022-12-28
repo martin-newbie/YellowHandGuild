@@ -112,7 +112,7 @@ public class InGameManager : MonoBehaviour
             List<int> posIdx = new List<int>();
             int count = 0;
 
-            foreach (var item in curWave.Split('\t'))
+            foreach (var item in curWave.Split(','))
             {
                 var temp = item.Split('/');
                 monsterIdx.Add(int.Parse(temp[0]));

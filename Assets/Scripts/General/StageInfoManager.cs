@@ -26,11 +26,15 @@ public class StageInfoManager : MonoBehaviour
         foreach (var item in Resources.LoadAll("StageInfo"))
         {
             var temp = item as TextAsset;
-            var waves = temp.text.Split('\n');
+            var stageStr = temp.text.Split('\n');
 
-            Stage stage = new Stage();
-            stage.wavesInfo = waves.ToList();
-            StagesInfo.Add(stage);
+            for (int i = 0; i < stageStr.Count(); i++)
+            {
+                Stage stage = new Stage();
+                var waves = stageStr[i].Split('\t');
+                stage.wavesInfo = waves.ToList();
+                StagesInfo.Add(stage);
+            }
         }
     }
 }

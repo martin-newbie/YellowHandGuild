@@ -58,7 +58,7 @@ public class StaticCharacterData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StateData result = new StateData(hp, dmg, def, defBrk, dt.CriChance, dt.CriBreak, dt.CriDmg, dt.missRate, dt.hitRate);
+        StateData result = new StateData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
         return result;
     }
 }
@@ -77,9 +77,9 @@ public class cCharacterState
     public float defaultDef;
     public float defaultDefBreak;
 
-    public float CriChance;
-    public float CriBreak;
-    public float CriDmg;
+    public float criChance;
+    public float criBreak;
+    public float criDmg;
     public float missRate;
     public float hitRate;
 
@@ -102,9 +102,9 @@ public class cCharacterState
         defaultDef = float.Parse(args[index++]);
         defaultDefBreak = float.Parse(args[index++]);
 
-        CriChance = float.Parse(args[index++]);
-        CriBreak = float.Parse(args[index++]);
-        CriDmg = float.Parse(args[index++]);
+        criChance = float.Parse(args[index++]);
+        criBreak = float.Parse(args[index++]);
+        criDmg = float.Parse(args[index++]);
         missRate = float.Parse(args[index++]);
         hitRate = float.Parse(args[index++]);
         hpUp = float.Parse(args[index++]);

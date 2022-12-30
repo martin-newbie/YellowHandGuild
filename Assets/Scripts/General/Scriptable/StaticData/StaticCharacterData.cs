@@ -6,6 +6,7 @@ using UnityEngine;
 public class StaticCharacterData : SheetDataBase
 {
     protected override string gid => "0";
+    protected override string range => "C3:X999";
 
     public List<cCharacterState> datas;
 

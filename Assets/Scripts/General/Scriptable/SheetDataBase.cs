@@ -23,10 +23,11 @@ public class DataBaseLoadButton : Editor
 public abstract class SheetDataBase : ScriptableObject
 {
     protected abstract string gid { get; }
+    protected abstract string range { get; }
 
     public async void LoadData()
     {
-        string URL = $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range=C3:W999&gid={gid}";
+        string URL = $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range={range}&gid={gid}";
 
         using (UnityWebRequest www = UnityWebRequest.Get(URL))
         {

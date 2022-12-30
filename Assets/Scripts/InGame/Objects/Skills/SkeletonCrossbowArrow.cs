@@ -29,7 +29,7 @@ public class SkeletonCrossbowArrow : SkillBase
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayableObject>()?.OnDamage(damage, AttackHitType.LONG_DISTANCE_ATK, isCritical);
+            collision.GetComponent<PlayableObject>()?.OnDamage(damage, EAttackHitType.LONG_DISTANCE_ATK, isCritical);
             Destroy(gameObject);
         }
     }

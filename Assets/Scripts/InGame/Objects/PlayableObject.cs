@@ -11,7 +11,7 @@ public abstract class PlayableObject : MonoBehaviour
 
 
     [Header("State")]
-    [SerializeField] public CharacterState state;
+    [SerializeField] public ECharacterState state;
     [SerializeField] public ContactFilter2D filter;
     
     [Header("CharacterState")]
@@ -35,7 +35,7 @@ public abstract class PlayableObject : MonoBehaviour
         focusModel.SetFocus(active);
     }
 
-    public virtual void OnDamage(int damage, AttackHitType type, bool isCritical = false)
+    public virtual void OnDamage(int damage, EAttackHitType type, bool isCritical = false)
     {
         if (isCritical)
         {
@@ -44,7 +44,7 @@ public abstract class PlayableObject : MonoBehaviour
         hp -= damage;
     }
 
-    public virtual void OnDamage(float _dmg, AttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
+    public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
     {
         float calcMiss = Mathf.Clamp(missChance - _hitRate, 0f, float.MaxValue);
         float missRate = calcMiss / (calcMiss + 450);
@@ -96,16 +96,16 @@ public abstract class PlayableObject : MonoBehaviour
 
     public void SetKnockback()
     {
-        state = CharacterState.KNOCK_BACK;
+        state = ECharacterState.KNOCK_BACK;
     }
 
     public void FreeKnockback()
     {
-        state = CharacterState.IDLE;
+        state = ECharacterState.IDLE;
     }
 }
 
-public enum CharacterState
+public enum ECharacterState
 {
     STAND_BY,
     ON_ACTION,
@@ -119,7 +119,7 @@ public enum CharacterState
     DEAD,
 }
 
-public enum AttackHitType
+public enum EAttackHitType
 {
     SHORT_DISTANCE_ATK,
     LONG_DISTANCE_ATK,

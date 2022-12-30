@@ -24,34 +24,34 @@ public class CharacterGameObject : PlayableObject
 
         switch (state)
         {
-            case CharacterState.STAND_BY: // do nothing
-            case CharacterState.ON_ACTION:
+            case ECharacterState.STAND_BY: // do nothing
+            case ECharacterState.ON_ACTION:
                 break;
-            case CharacterState.IDLE:
+            case ECharacterState.IDLE:
                 thisAI.Idle();
                 break;
-            case CharacterState.MOVE:
+            case ECharacterState.MOVE:
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
                     thisAI.IsArriveAtTarget();
-                    state = CharacterState.IDLE;
+                    state = ECharacterState.IDLE;
                 }
                 break;
-            case CharacterState.ATTACK:
+            case ECharacterState.ATTACK:
                 thisAI.Attack();
                 break;
-            case CharacterState.AUTO_SKILL: // 자동으로 사용하는 스킬
+            case ECharacterState.AUTO_SKILL: // 자동으로 사용하는 스킬
                 thisAI.AutoSkill();
                 break;
-            case CharacterState.TARGET_SKILL: // ui 에서 타겟팅하는 스킬
+            case ECharacterState.TARGET_SKILL: // ui 에서 타겟팅하는 스킬
                 thisAI.TargetingSkill();
                 break;
-            case CharacterState.KNOCK_BACK:
+            case ECharacterState.KNOCK_BACK:
                 break;
-            case CharacterState.STUN:
+            case ECharacterState.STUN:
                 break;
-            case CharacterState.DEAD:
+            case ECharacterState.DEAD:
                 thisAI.Dead();
                 break;
         }
@@ -74,7 +74,7 @@ public class CharacterGameObject : PlayableObject
         }
 
         hp = thisAI.hp;
-        state = CharacterState.IDLE;
+        state = ECharacterState.IDLE;
         isInit = true;
     }
 
@@ -97,11 +97,11 @@ public class CharacterGameObject : PlayableObject
     }
     public bool SkillChargeAble()
     {
-        return state != CharacterState.DEAD;
+        return state != ECharacterState.DEAD;
     }
     public bool TargetSkillAble()
     {
-        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != CharacterState.KNOCK_BACK && state != CharacterState.DEAD && state != CharacterState.STUN && state != CharacterState.ON_ACTION;
+        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != ECharacterState.KNOCK_BACK && state != ECharacterState.DEAD && state != ECharacterState.STUN && state != ECharacterState.ON_ACTION;
     }
 
     public void MoveToInitialPoint()
@@ -109,7 +109,7 @@ public class CharacterGameObject : PlayableObject
         thisAI.targetPos = startPos;
         thisAI.targeted = null;
         thisAI.Cancel();
-        state = CharacterState.MOVE;
+        state = ECharacterState.MOVE;
     }
 
     public override void GiveKnockback(float pushed, int dir)

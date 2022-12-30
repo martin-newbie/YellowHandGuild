@@ -33,7 +33,7 @@ public class SkeletonCrossbow : HostileAI
 
     IEnumerator AttackCor()
     {
-        subject.state = CharacterState.STAND_BY;
+        subject.state = ECharacterState.STAND_BY;
 
         float dist = Mathf.Abs(transform.position.x - targeted.transform.position.x);
         if (dist <= minRange)
@@ -47,7 +47,7 @@ public class SkeletonCrossbow : HostileAI
 
         Play("Idle");
         yield return new WaitForSeconds(1f);
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
         yield break;
 
         IEnumerator CrossbowAttack()
@@ -86,7 +86,7 @@ public class SkeletonCrossbow : HostileAI
             if (result.Count <= 0) return;
 
             var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
-            target.OnDamage(damage / 2, AttackHitType.SHORT_DISTANCE_ATK);
+            target.OnDamage(damage / 2, EAttackHitType.SHORT_DISTANCE_ATK);
             target.GiveKnockback(0.5f, GetTargetDir(transform.position, targeted.transform.position));
         }
 

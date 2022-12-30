@@ -43,9 +43,9 @@ public class Occultist : CharacterAI
 
         Play("Attack");
 
-        subject.state = CharacterState.STAND_BY;
+        subject.state = ECharacterState.STAND_BY;
         yield return wait;
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
     }
 
     public override void Cancel()
@@ -59,7 +59,7 @@ public class Occultist : CharacterAI
 
     public override void AutoSkill()
     {
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
     }
 
     public override void TargetingSkill()

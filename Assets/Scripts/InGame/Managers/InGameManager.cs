@@ -84,7 +84,7 @@ public class InGameManager : MonoBehaviour
     {
         for (int i = 0; i < curStage.wavesInfo.Count; i++)
         {
-            yield return new WaitUntil(() => waitUntilCharsState(CharacterState.IDLE));
+            yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.IDLE));
             yield return new WaitForSeconds(2f);
             SpawnWaveMonster();
             yield return new WaitUntil(() => waitUntilWaveEnd());
@@ -92,7 +92,7 @@ public class InGameManager : MonoBehaviour
             if (curHostiles.Count <= 0)
             {
                 setCharsInitPos();
-                yield return new WaitUntil(() => waitUntilCharsState(CharacterState.MOVE));
+                yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave
             }
             else if (curChars.Count <= 0)
@@ -124,7 +124,7 @@ public class InGameManager : MonoBehaviour
             {
                 var hostile = Instantiate(hostilePrefab, hostilesPosTr[posIdx[i]].position, Quaternion.identity);
                 hostile.HostileInit(monsterIdx[i]);
-                hostile.state = CharacterState.IDLE;
+                hostile.state = ECharacterState.IDLE;
                 curHostiles.Add(hostile);
             }
 
@@ -138,7 +138,7 @@ public class InGameManager : MonoBehaviour
             }
         }
 
-        bool waitUntilCharsState(CharacterState target)
+        bool waitUntilCharsState(ECharacterState target)
         {
             bool result = true;
             foreach (var item in curChars)
@@ -157,7 +157,7 @@ public class InGameManager : MonoBehaviour
             {
                 if (curHostiles[i].hp <= 0)
                 {
-                    curHostiles[i].state = CharacterState.DEAD;
+                    curHostiles[i].state = ECharacterState.DEAD;
                     curHostiles.Remove(curHostiles[i]);
                 }
             }
@@ -166,7 +166,7 @@ public class InGameManager : MonoBehaviour
             {
                 if (curChars[i].hp <= 0)
                 {
-                    curChars[i].state = CharacterState.DEAD;
+                    curChars[i].state = ECharacterState.DEAD;
                     curChars.Remove(curChars[i]);
 
                     UISkillPanel.Instance.InitSkillIcons(curChars);

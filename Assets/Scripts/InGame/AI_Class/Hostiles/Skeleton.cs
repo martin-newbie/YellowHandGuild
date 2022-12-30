@@ -28,7 +28,7 @@ public class Skeleton : HostileAI
 
     IEnumerator AttackCoroutine()
     {
-        subject.state = CharacterState.STAND_BY;
+        subject.state = ECharacterState.STAND_BY;
         Play("Ready");
         yield return new WaitForSeconds(0.5f);
         Play("Attack");
@@ -36,7 +36,7 @@ public class Skeleton : HostileAI
         yield return new WaitForSeconds(0.5f);
         Play("Idle");
         yield return new WaitForSeconds(1f);
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
 
         yield break;
 
@@ -47,7 +47,7 @@ public class Skeleton : HostileAI
 
             if (result.Count <= 0) return;
 
-            result[0].GetComponent<CharacterGameObject>().OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+            result[0].GetComponent<CharacterGameObject>().OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
         }
     }
 

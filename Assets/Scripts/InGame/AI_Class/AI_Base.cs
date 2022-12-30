@@ -175,7 +175,7 @@ public abstract class AI_Base
     public virtual void Dead()
     {
         subject.GetComponent<Collider2D>().enabled = false;
-        subject.state = CharacterState.STAND_BY;
+        subject.state = ECharacterState.STAND_BY;
         subject.StopAllCoroutines();
         InGameManager.Destroy(subject.gameObject);
         Play("Dead");
@@ -236,11 +236,11 @@ public abstract class CharacterAI : AI_Base
             SetCombatMovePos();
             if (!IsArriveAtTarget())
             {
-                subject.state = CharacterState.MOVE;
+                subject.state = ECharacterState.MOVE;
             }
             else
             {
-                subject.state = CharacterState.ATTACK;
+                subject.state = ECharacterState.ATTACK;
             }
         }
     }
@@ -251,9 +251,9 @@ public abstract class CharacterAI : AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curAutoSkillCool >= autoSkillCool && subject.state != CharacterState.STAND_BY && subject.state != CharacterState.ON_ACTION)
+        if (curAutoSkillCool >= autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
         {
-            subject.state = CharacterState.AUTO_SKILL;
+            subject.state = ECharacterState.AUTO_SKILL;
             curAutoSkillCool = 0f;
         }
     }
@@ -261,7 +261,7 @@ public abstract class CharacterAI : AI_Base
     {
         curTargetSkillCool = 0f;
         targeted = target;
-        subject.state = CharacterState.TARGET_SKILL;
+        subject.state = ECharacterState.TARGET_SKILL;
     }
 }
 
@@ -289,11 +289,11 @@ public abstract class HostileAI : AI_Base
             SetCombatMovePos();
             if (!IsArriveAtTarget())
             {
-                subject.state = CharacterState.MOVE;
+                subject.state = ECharacterState.MOVE;
             }
             else
             {
-                subject.state = CharacterState.ATTACK;
+                subject.state = ECharacterState.ATTACK;
             }
         }
     }

@@ -21,29 +21,29 @@ public class HostileGameObject : PlayableObject
 
         switch (state)
         {
-            case CharacterState.STAND_BY:
+            case ECharacterState.STAND_BY:
                 break;
-            case CharacterState.ON_ACTION:
+            case ECharacterState.ON_ACTION:
                 break;
-            case CharacterState.IDLE:
+            case ECharacterState.IDLE:
                 thisAI.Idle();
                 break;
-            case CharacterState.MOVE:
+            case ECharacterState.MOVE:
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
-                    state = CharacterState.IDLE;
+                    state = ECharacterState.IDLE;
                 }
                 break;
-            case CharacterState.ATTACK:
+            case ECharacterState.ATTACK:
                 thisAI.Attack();
                 break;
-            case CharacterState.KNOCK_BACK:
+            case ECharacterState.KNOCK_BACK:
                 thisAI.Knockback();
                 break;
-            case CharacterState.STUN:
+            case ECharacterState.STUN:
                 break;
-            case CharacterState.DEAD:
+            case ECharacterState.DEAD:
                 thisAI.Dead();
                 break;
         }

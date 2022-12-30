@@ -54,7 +54,7 @@ public class BountyHunter : CharacterAI
 
     public override void GiveDamage()
     {
-        GetAttackColliderEnemy()?.OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+        GetAttackColliderEnemy()?.OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
     }
 
     HostileGameObject GetAttackColliderEnemy()
@@ -70,7 +70,7 @@ public class BountyHunter : CharacterAI
     public override void AutoSkill()
     {
         isAutoAble = true;
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
     }
 
     public override void TargetingSkill()
@@ -87,13 +87,13 @@ public class BountyHunter : CharacterAI
 
             if (enemy)
             {
-                enemy.OnDamage(damage, AttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+                enemy.OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
                 enemy.GiveKnockback(2f, GetTargetDir(transform.position, targeted.transform.position));
             }
         }
 
 
-        subject.state = CharacterState.ON_ACTION;
+        subject.state = ECharacterState.ON_ACTION;
         animator.Play("Hunt_Ready");
         yield return new WaitForSeconds(1f);
 
@@ -118,14 +118,14 @@ public class BountyHunter : CharacterAI
             yield return new WaitForSeconds(1f);
         }
 
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
         yield break;
     }
 
     IEnumerator AttackCor()
     {
         SetRotation(transform.position, targeted.transform.position);
-        subject.state = CharacterState.STAND_BY;
+        subject.state = ECharacterState.STAND_BY;
 
         // attack standby
         Play("Ready");
@@ -138,7 +138,7 @@ public class BountyHunter : CharacterAI
         Play("Idle");
         yield return new WaitForSeconds(1.3f);
 
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
     }
 
     IEnumerator AutoSkillCor()
@@ -147,7 +147,7 @@ public class BountyHunter : CharacterAI
         isAutoAble = false;
 
         Play("Hurlbat_Ready");
-        subject.state = CharacterState.ON_ACTION;
+        subject.state = ECharacterState.ON_ACTION;
         yield return new WaitForSeconds(1f);
 
         Play("Hurlbat_Attack");
@@ -161,7 +161,7 @@ public class BountyHunter : CharacterAI
         Play("Idle");
 
         yield return new WaitForSeconds(1f);
-        subject.state = CharacterState.IDLE;
+        subject.state = ECharacterState.IDLE;
     }
 
     public override void SearchTargeting()

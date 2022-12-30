@@ -65,13 +65,14 @@ public class CharacterGameObject : PlayableObject
         // for test
         switch (index)
         {
-            case 0: // bounty hunter
-                thisAI = new BountyHunter(this);
-                break;
-            case 1: // occultist
+            case 17:
                 thisAI = new Occultist(this);
                 break;
+            case 18:
+                thisAI = new BountyHunter(this);
+                break;
         }
+
         hp = thisAI.hp;
         state = CharacterState.IDLE;
         isInit = true;

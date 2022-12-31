@@ -23,7 +23,7 @@ public class InGameManager : MonoBehaviour
     public Vector3 fieldCenter;
     public Vector3 fieldSize;
 
-    Stage curStage;
+    StageData curStage;
     int stageIdx;
     int waveIdx;
 
@@ -48,19 +48,21 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
+        InitStageInfo();
+
         // debug
         Time.timeScale = 3f;
 
-        curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
 
-        InitCharsInfo();
         InitCharacters();
+        curStage = StaticDataManager.GetNormalStageData(stageIdx);
         UISkillPanel.Instance.InitSkillIcons(curChars);
 
         mainLogic = StartCoroutine(GameMainLogic());
     }
-    void InitCharsInfo()
+    void InitStageInfo()
     {
+        stageIdx = TempData.Instance.stageIdx;
         charsIndex = TempData.Instance.charIndex;
         charsPosIndex = TempData.Instance.charPosIndex;
     }

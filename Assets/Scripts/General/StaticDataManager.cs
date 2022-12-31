@@ -23,4 +23,10 @@ public class StaticDataManager : MonoBehaviour
     {
         return instance.characterSkillData.GetCharacterSkillData(keyIndex);
     }
+
+    public StaticNormalStageData normalStageData;
+    public static StageData GetNormalStageData(int stageIndex)
+    {
+        return instance.normalStageData.datas[stageIndex];
+    }
 }

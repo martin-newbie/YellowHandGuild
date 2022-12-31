@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3e53c4241d44df439698ba16d098984, type: 3}
-  m_Name: StageLoadManager
+  m_Script: {fileID: 11500000, guid: 1fde8a94c35a8d64285f8cd9c7c2fb77, type: 3}
+  m_Name: StaticNormalStageData
   m_EditorClassIdentifier: 
-  normalStage_gidList:
-  - 0
+  datas: []

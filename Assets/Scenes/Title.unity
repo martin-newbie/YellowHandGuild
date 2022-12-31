@@ -167,7 +167,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596329259
 GameObject:
@@ -357,138 +357,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1330514059
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1330514061}
-  - component: {fileID: 1330514060}
-  m_Layer: 0
-  m_Name: StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1330514060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330514059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbb4cca60a0a5942a762228d20cfc42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadManager: {fileID: 11400000, guid: 7045b1b9672047e4eb77284ab75d7e64, type: 2}
-  StagesInfo:
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - "2/3,2/2,0/6,0/8,0/4\r"
-  - wavesInfo:
-    - 0/7,0/8
-    - 2/0,2/1,0/5,0/6
-    - 2/3,2/2,0/6,0/8,0/4
---- !u!4 &1330514061
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330514059}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1708836866
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +428,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1922820991
 GameObject:
@@ -586,6 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: 2a2782ce3726d3d4da01ce78a2b4c14c, type: 2}
   characterSkillData: {fileID: 11400000, guid: c50090c59f04e564689b35db25c9ad1d, type: 2}
+  normalStageData: {fileID: 11400000, guid: b139931894157ac418577028f156b726, type: 2}
 --- !u!4 &1922820993
 Transform:
   m_ObjectHideFlags: 0
@@ -598,5 +474,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

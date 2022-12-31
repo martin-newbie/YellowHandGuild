@@ -25,18 +25,14 @@ public class BountyHunter : CharacterAI
         hook.gameObject.SetActive(false);
 
         atkType = AttackType.SHORT;
-        criticalChance = 0.15f;
         maxRange = 1.5f;
         minRange = 1f;
-        attackDelay = 2f;
         moveSpeed = 1.5f;
-        damage = 10;
         autoSkillCool = 8f;
         targetSkillCool = 15f;
         targetSkillRange = 20f;
-        hp = 120;
 
-        wait = new WaitForSeconds(attackDelay / 2f);
+        wait = new WaitForSeconds(1f);
     }
 
     public override void Attack()
@@ -54,7 +50,7 @@ public class BountyHunter : CharacterAI
 
     public override void GiveDamage()
     {
-        GetAttackColliderEnemy()?.OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+        GetAttackColliderEnemy()?.OnDamage(statusData.dmg, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
     }
 
     HostileGameObject GetAttackColliderEnemy()
@@ -87,7 +83,7 @@ public class BountyHunter : CharacterAI
 
             if (enemy)
             {
-                enemy.OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+                enemy.OnDamage(statusData.dmg, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
                 enemy.GiveKnockback(2f, GetTargetDir(transform.position, targeted.transform.position));
             }
         }
@@ -154,7 +150,7 @@ public class BountyHunter : CharacterAI
 
         var axe = Instantiate(hurlbat, transform.position + new Vector3(0, 1), Quaternion.identity) as BountyHunterHurlbat;
         var dir = ((transform.position + new Vector3(0, 1)) - (targeted.transform.position + new Vector3(0, 1))).normalized;
-        axe.Init(dir, 5f, 15);
+        axe.Init(dir, 5f, statusData);
 
         yield return new WaitForSeconds(1f);
 

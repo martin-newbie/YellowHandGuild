@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserData : MonoBehaviour
+[System.Serializable]
+public class UserData
 {
-    private void Start()
+    private static UserData instance = null;
+    public static UserData Instance => instance;
+
+    public UserData()
     {
-        // debug
+        instance = this;
     }
+
+    public List<CharacterData> characters = new List<CharacterData>();
 }
 
 

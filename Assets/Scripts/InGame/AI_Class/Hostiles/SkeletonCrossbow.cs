@@ -14,13 +14,9 @@ public class SkeletonCrossbow : HostileAI
         atkCol.transform.SetParent(model.transform);
 
         atkType = AttackType.SHORT;
-        criticalChance = 0.15f;
         maxRange = 8f;
-        attackDelay = 2f;
         moveSpeed = 1.5f;
         minRange = 2f;
-        damage = 1;
-        hp = 50;
     }
 
     Coroutine atkCoroutine;
@@ -76,7 +72,7 @@ public class SkeletonCrossbow : HostileAI
             Quaternion axisRot = Quaternion.AngleAxis(angle - 180f, Vector3.forward);
 
             var arrow = Instantiate(arrowPref, transform.position + new Vector3(0, 1), axisRot) as SkeletonCrossbowArrow;
-            arrow.ArrowShoot(dir, damage, IsCritical());
+            arrow.ArrowShoot(dir, statusData);
         }
         void bayonet()
         {
@@ -86,7 +82,7 @@ public class SkeletonCrossbow : HostileAI
             if (result.Count <= 0) return;
 
             var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
-            target.OnDamage(damage / 2, EAttackHitType.SHORT_DISTANCE_ATK);
+            target.OnDamage(statusData.dmg / 2, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
             target.GiveKnockback(0.5f, GetTargetDir(transform.position, targeted.transform.position));
         }
 

@@ -7,10 +7,12 @@ public class CharacterGameObject : PlayableObject
     [Header("Static")]
     public int charIdx;
 
-    [HideInInspector] public CharacterAI thisAI;
     bool isInit = false;
 
     Vector3 startPos;
+
+    public override AI_Base thisAI => ai;
+    public CharacterAI ai;
 
     protected override void Start()
     {
@@ -28,7 +30,7 @@ public class CharacterGameObject : PlayableObject
             case ECharacterState.ON_ACTION:
                 break;
             case ECharacterState.IDLE:
-                thisAI.Idle();
+                ai.Idle();
                 break;
             case ECharacterState.MOVE:
                 thisAI.MoveToTarget();
@@ -39,13 +41,13 @@ public class CharacterGameObject : PlayableObject
                 }
                 break;
             case ECharacterState.ATTACK:
-                thisAI.Attack();
+                ai.Attack();
                 break;
             case ECharacterState.AUTO_SKILL: // 자동으로 사용하는 스킬
-                thisAI.AutoSkill();
+                ai.AutoSkill();
                 break;
             case ECharacterState.TARGET_SKILL: // ui 에서 타겟팅하는 스킬
-                thisAI.TargetingSkill();
+                ai.TargetingSkill();
                 break;
             case ECharacterState.KNOCK_BACK:
                 break;
@@ -55,7 +57,7 @@ public class CharacterGameObject : PlayableObject
                 thisAI.Dead();
                 break;
         }
-        thisAI.SkillCharge();
+        ai.SkillCharge();
     }
 
     public void InitCharacter(int index)
@@ -66,34 +68,33 @@ public class CharacterGameObject : PlayableObject
         switch (index)
         {
             case 17:
-                thisAI = new Occultist(this);
+                ai = new Occultist(this);
                 break;
             case 18:
-                thisAI = new BountyHunter(this);
+                ai = new BountyHunter(this);
                 break;
         }
 
-        hp = thisAI.hp;
         state = ECharacterState.IDLE;
         isInit = true;
     }
 
     public void SearchTargetSkill()
     {
-        thisAI.SearchTargeting();
+        ai.SearchTargeting();
     }
     public void SelectTargetSkill()
     {
-        thisAI.SelectTargeting();
+        ai.SelectTargeting();
     }
     public void Attack()
     {
-        thisAI.GiveDamage();
+        ai.GiveDamage();
     }
 
     public float GetTargetSkillGauge()
     {
-        return 1 - (thisAI.curTargetSkillCool / thisAI.targetSkillCool);
+        return 1 - (ai.curTargetSkillCool / ai.targetSkillCool);
     }
     public bool SkillChargeAble()
     {
@@ -101,7 +102,7 @@ public class CharacterGameObject : PlayableObject
     }
     public bool TargetSkillAble()
     {
-        return thisAI.targetSkillCool <= thisAI.curTargetSkillCool && state != ECharacterState.KNOCK_BACK && state != ECharacterState.DEAD && state != ECharacterState.STUN && state != ECharacterState.ON_ACTION;
+        return ai.targetSkillCool <= ai.curTargetSkillCool && state != ECharacterState.KNOCK_BACK && state != ECharacterState.DEAD && state != ECharacterState.STUN && state != ECharacterState.ON_ACTION;
     }
 
     public void MoveToInitialPoint()

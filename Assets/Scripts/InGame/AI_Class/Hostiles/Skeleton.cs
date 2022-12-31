@@ -13,12 +13,7 @@ public class Skeleton : HostileAI
         atkCol.transform.SetParent(model.transform);
 
         atkType = AttackType.SHORT;
-        criticalChance = 0.15f;
         maxRange = 1.5f;
-        attackDelay = 2f;
-        moveSpeed = 1.5f;
-        damage = 1;
-        hp = 50;
     }
 
     public override void Attack()
@@ -47,7 +42,7 @@ public class Skeleton : HostileAI
 
             if (result.Count <= 0) return;
 
-            result[0].GetComponent<CharacterGameObject>().OnDamage(damage, EAttackHitType.SHORT_DISTANCE_ATK, IsCritical());
+            result[0].GetComponent<CharacterGameObject>().OnDamage(statusData.dmg, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
         }
     }
 

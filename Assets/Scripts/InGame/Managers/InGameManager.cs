@@ -155,7 +155,7 @@ public class InGameManager : MonoBehaviour
         {
             for (int i = 0; i < curHostiles.Count; i++)
             {
-                if (curHostiles[i].hp <= 0)
+                if (curHostiles[i].thisAI.statusData.hp <= 0)
                 {
                     curHostiles[i].state = ECharacterState.DEAD;
                     curHostiles.Remove(curHostiles[i]);
@@ -164,7 +164,7 @@ public class InGameManager : MonoBehaviour
 
             for (int i = 0; i < curChars.Count; i++)
             {
-                if (curChars[i].hp <= 0)
+                if (curChars[i].thisAI.statusData.hp <= 0)
                 {
                     curChars[i].state = ECharacterState.DEAD;
                     curChars.Remove(curChars[i]);

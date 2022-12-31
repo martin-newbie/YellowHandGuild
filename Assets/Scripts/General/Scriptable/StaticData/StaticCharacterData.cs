@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct StateData
+public struct StatusData
 {
     public float hp;
     public float dmg;
@@ -17,7 +17,7 @@ public struct StateData
     public float missRate;
     public float hitRate;
 
-    public StateData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit)
+    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit)
     {
         hp = _hp;
         dmg = _dmg;
@@ -50,7 +50,7 @@ public class StaticCharacterData : SheetDataBase
         }
     }
 
-    public StateData GetCharacterStaticStates(int keyIndex, int level)
+    public StatusData GetCharacterStaticStates(int keyIndex, int level)
     {
         var dt = datas[keyIndex];
         float hp = dt.defaultHp + dt.hpUp * level;
@@ -58,7 +58,7 @@ public class StaticCharacterData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StateData result = new StateData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
         return result;
     }
 }

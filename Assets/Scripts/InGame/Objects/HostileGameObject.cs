@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class HostileGameObject : PlayableObject
 {
-    public HostileAI thisAI;
+    public HostileAI ai;
     public int hostileIdx;
     bool isInit = false;
+
+    public override AI_Base thisAI => ai;
 
     protected override void Start()
     {
@@ -26,25 +28,25 @@ public class HostileGameObject : PlayableObject
             case ECharacterState.ON_ACTION:
                 break;
             case ECharacterState.IDLE:
-                thisAI.Idle();
+                ai.Idle();
                 break;
             case ECharacterState.MOVE:
-                thisAI.MoveToTarget();
-                if (thisAI.IsArriveAtTarget())
+                ai.MoveToTarget();
+                if (ai.IsArriveAtTarget())
                 {
                     state = ECharacterState.IDLE;
                 }
                 break;
             case ECharacterState.ATTACK:
-                thisAI.Attack();
+                ai.Attack();
                 break;
             case ECharacterState.KNOCK_BACK:
-                thisAI.Knockback();
+                ai.Knockback();
                 break;
             case ECharacterState.STUN:
                 break;
             case ECharacterState.DEAD:
-                thisAI.Dead();
+                ai.Dead();
                 break;
         }
     }
@@ -56,24 +58,23 @@ public class HostileGameObject : PlayableObject
         switch (index)
         {
             case 0:
-                thisAI = new Skeleton(this);
+                ai = new Skeleton(this);
                 break;
             case 1:
                 break;
             case 2:
-                thisAI = new SkeletonCrossbow(this);
+                ai = new SkeletonCrossbow(this);
                 break;
             default:
                 break;
         }
 
-        hp = thisAI.hp;
         isInit = true;
     }
 
     public override void GiveKnockback(float pushed, int dir)
     {
         base.GiveKnockback(pushed, dir);
-        thisAI.Cancel();
+        ai.Cancel();
     }
 }

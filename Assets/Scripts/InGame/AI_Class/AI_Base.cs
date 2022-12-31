@@ -207,12 +207,10 @@ public abstract class CharacterAI : AI_Base
 
         int level = UserData.Instance.GetCharacterByKey(keyIndex).level;
         statusData = StaticDataManager.Instance.characterData.GetCharacterStaticStates(keyIndex, level);
+        skillData = StaticDataManager.GetCharacterSkillData(keyIndex);
     }
 
-    // 여기 부분을 구조체로 변경하고 데이터 받아오는 시스템 만들기
-    protected float autoSkillCool;
-    public float targetSkillCool;
-    protected float targetSkillRange;
+    public cCharacterSkillData skillData;
     protected float curAutoSkillCool;
     public float curTargetSkillCool;
 
@@ -225,10 +223,10 @@ public abstract class CharacterAI : AI_Base
     {
         if (subject.SkillChargeAble())
         {
-            if (autoSkillCool > curAutoSkillCool)
+            if (skillData.autoSkillCool > curAutoSkillCool)
                 curAutoSkillCool += Time.deltaTime;
 
-            if (targetSkillCool > curTargetSkillCool)
+            if (skillData.targetSkillCool > curTargetSkillCool)
                 curTargetSkillCool += Time.deltaTime;
         }
 
@@ -268,7 +266,7 @@ public abstract class CharacterAI : AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curAutoSkillCool >= autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
+        if (curAutoSkillCool >= skillData.autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
         {
             subject.state = ECharacterState.AUTO_SKILL;
             curAutoSkillCool = 0f;

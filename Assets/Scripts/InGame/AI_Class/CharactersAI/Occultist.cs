@@ -8,8 +8,6 @@ public class Occultist : CharacterAI
     OccultistMeteor meteor;
     Coroutine atkCor;
 
-    float targetSkillAtkRange;
-
     public Occultist(CharacterGameObject character) : base(character)
     {
         meteor = InGameManager.Instance.GetSkill(0).GetComponent<OccultistMeteor>();
@@ -17,10 +15,6 @@ public class Occultist : CharacterAI
         atkType = AttackType.LONG;
         maxRange = 10f;
         moveSpeed = 1f;
-        autoSkillCool = 15f;
-        targetSkillCool = 25f;
-        targetSkillRange = 20f;
-        targetSkillAtkRange = 10f;
     }
 
     public override void Attack()

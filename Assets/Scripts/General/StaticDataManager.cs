@@ -17,4 +17,10 @@ public class StaticDataManager : MonoBehaviour
     {
         return instance.characterData.datas[keyIndex];
     }
+
+    public StaticCharacterSkillData characterSkillData;
+    public static cCharacterSkillData GetCharacterSkillData(int keyIndex)
+    {
+        return instance.characterSkillData.GetCharacterSkillData(keyIndex);
+    }
 }

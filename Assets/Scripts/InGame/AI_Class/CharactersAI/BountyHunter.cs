@@ -28,9 +28,6 @@ public class BountyHunter : CharacterAI
         maxRange = 1.5f;
         minRange = 1f;
         moveSpeed = 1.5f;
-        autoSkillCool = 8f;
-        targetSkillCool = 15f;
-        targetSkillRange = 20f;
 
         wait = new WaitForSeconds(1f);
     }
@@ -162,12 +159,12 @@ public class BountyHunter : CharacterAI
 
     public override void SearchTargeting()
     {
-        InGameManager.Instance.TargetFocusOnEnemy(transform.position, targetSkillRange);
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillRange);
     }
 
     public override void SelectTargeting()
     {
-        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, targetSkillRange);
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillRange);
         SetTargetingSkillTarget(target);
     }
 }

@@ -94,7 +94,7 @@ public class CharacterGameObject : PlayableObject
 
     public float GetTargetSkillGauge()
     {
-        return 1 - (ai.curTargetSkillCool / ai.targetSkillCool);
+        return 1 - (ai.curTargetSkillCool / ai.skillData.targetSkillCool);
     }
     public bool SkillChargeAble()
     {
@@ -102,7 +102,7 @@ public class CharacterGameObject : PlayableObject
     }
     public bool TargetSkillAble()
     {
-        return ai.targetSkillCool <= ai.curTargetSkillCool && state != ECharacterState.KNOCK_BACK && state != ECharacterState.DEAD && state != ECharacterState.STUN && state != ECharacterState.ON_ACTION;
+        return ai.skillData.targetSkillCool <= ai.curTargetSkillCool && state != ECharacterState.KNOCK_BACK && state != ECharacterState.DEAD && state != ECharacterState.STUN && state != ECharacterState.ON_ACTION;
     }
 
     public void MoveToInitialPoint()

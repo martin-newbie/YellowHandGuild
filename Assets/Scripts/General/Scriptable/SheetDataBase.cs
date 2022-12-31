@@ -27,7 +27,7 @@ public abstract class SheetDataBase : ScriptableObject
 
     public async void LoadData()
     {
-        string URL = $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range={range}gid={gid}";
+        string URL = $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range={range}&gid={gid}";
 
         using (UnityWebRequest www = UnityWebRequest.Get(URL))
         {

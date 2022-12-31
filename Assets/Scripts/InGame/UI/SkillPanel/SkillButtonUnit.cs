@@ -30,7 +30,7 @@ public class SkillButtonUnit : MonoBehaviour
             if (!GetTarget().TargetSkillAble())
             {
                 chargingImg.fillAmount = GetTarget().GetTargetSkillGauge();
-                chargingTxt.text = string.Format("{0:0}", GetTarget().ai.targetSkillCool - GetTarget().ai.curTargetSkillCool);
+                chargingTxt.text = string.Format("{0:0}", GetTarget().ai.skillData.targetSkillCool - GetTarget().ai.curTargetSkillCool);
             }
         }
         catch (System.Exception)

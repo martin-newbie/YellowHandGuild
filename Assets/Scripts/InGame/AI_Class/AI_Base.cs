@@ -38,6 +38,7 @@ public abstract class AI_Base
         transform = character.transform;
         animator = character.animator;
         model = character.model;
+
     }
     public abstract void Cancel();
 
@@ -203,9 +204,12 @@ public abstract class CharacterAI : AI_Base
 
         keyIndex = subject.charIdx;
         animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
+
+        int level = UserData.Instance.GetCharacterByKey(keyIndex).level;
+        statusData = StaticDataManager.Instance.characterData.GetCharacterStaticStates(keyIndex, level);
     }
 
-
+    // 여기 부분을 구조체로 변경하고 데이터 받아오는 시스템 만들기
     protected float autoSkillCool;
     public float targetSkillCool;
     protected float targetSkillRange;

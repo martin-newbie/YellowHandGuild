@@ -14,6 +14,11 @@ public class UserData
     }
 
     public List<CharacterData> characters = new List<CharacterData>();
+
+    public CharacterData GetCharacterByKey(int keyIndex)
+    {
+        return characters.Find((item) => item.keyIndex == keyIndex);
+    }
 }
 
 

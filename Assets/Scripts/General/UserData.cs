@@ -23,7 +23,6 @@ public class CharacterData
     {
         keyIndex = _keyIndex;
         level = 0;
-
         rank = StaticDataManager.GetCharacterStaticData(_keyIndex).originRank;
     }
 
@@ -31,7 +30,13 @@ public class CharacterData
     {
         keyIndex = _keyIndex;
         level = _level;
-
         rank = StaticDataManager.GetCharacterStaticData(_keyIndex).originRank;
+    }
+
+    public CharacterData(int _keyIndex, int _level, int _rank)
+    {
+        keyIndex = _keyIndex;
+        level = _level;
+        rank = _rank;
     }
 }

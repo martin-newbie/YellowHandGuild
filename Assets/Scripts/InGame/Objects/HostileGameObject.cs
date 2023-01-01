@@ -61,8 +61,6 @@ public class HostileGameObject : PlayableObject
                 ai = new Skeleton(this);
                 break;
             case 1:
-                break;
-            case 2:
                 ai = new SkeletonCrossbow(this);
                 break;
             default:

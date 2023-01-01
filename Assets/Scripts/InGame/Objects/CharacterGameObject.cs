@@ -67,10 +67,10 @@ public class CharacterGameObject : PlayableObject
         // for test
         switch (index)
         {
-            case 17:
+            case 16:
                 ai = new Occultist(this);
                 break;
-            case 18:
+            case 17:
                 ai = new BountyHunter(this);
                 break;
         }

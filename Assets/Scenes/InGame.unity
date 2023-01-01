@@ -1292,13 +1292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf54dfa4cfdcef4c8febcabe56009b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charactersAnimators:
-  - {fileID: 9100000, guid: 6c6c4c8340665074f814ff1467646538, type: 2}
-  - {fileID: 9100000, guid: 6c8aec8a81a2b6741871b8a9b3a373b9, type: 2}
-  hostilesAnimators:
-  - {fileID: 9100000, guid: e7b85815cf7da4948b4bebd67ee0bfad, type: 2}
-  - {fileID: 9100000, guid: 2bb9c7eb6c1caa84ca5f94c0f10aef8b, type: 2}
-  - {fileID: 9100000, guid: 2bb9c7eb6c1caa84ca5f94c0f10aef8b, type: 2}
+  charactersAnimators: []
+  hostilesAnimators: []
 --- !u!4 &1309768546
 Transform:
   m_ObjectHideFlags: 0

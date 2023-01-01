@@ -46,8 +46,10 @@ public class InGameManager : MonoBehaviour
 
     Coroutine mainLogic;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return null;
+
         InitStageInfo();
 
         // debug

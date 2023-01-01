@@ -9,4 +9,10 @@ public class AnimatorManager : MonoBehaviour
 
     public RuntimeAnimatorController GetCharacterAnimator(int index) => charactersAnimators[index];
     public RuntimeAnimatorController GetHostileAnimator(int index) => hostilesAnimators[index];
+
+    private void Awake()
+    {
+        charactersAnimators = new List<RuntimeAnimatorController>(Resources.LoadAll<RuntimeAnimatorController>("Animators/Character"));
+        hostilesAnimators = new List<RuntimeAnimatorController>(Resources.LoadAll<RuntimeAnimatorController>("Animators/Hostiles"));
+    }
 }

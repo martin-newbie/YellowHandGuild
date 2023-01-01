@@ -18,21 +18,15 @@ public abstract class AI_Base
     protected Animator animator;
     protected SpriteRenderer model;
 
-    // static state
-    protected int keyIndex;
     protected AttackType atkType;
-    protected float criticalChance;
-    protected float maxRange;
-    protected float minRange;
-    protected float attackDelay;
 
-    public int hp;
-    protected int damage;
+    public int keyIndex;
+    public float minRange;
+    public float maxRange;
+    public float moveSpeed;
+    public StatusData statusData;
 
-    // skill state
-    protected float moveSpeed;
 
-    // enemies
     public PlayableObject targeted;
 
     // constructor
@@ -44,6 +38,7 @@ public abstract class AI_Base
         transform = character.transform;
         animator = character.animator;
         model = character.model;
+
     }
     public abstract void Cancel();
 
@@ -131,11 +126,7 @@ public abstract class AI_Base
     }
 
     // pure method
-    public int GetDamage() => damage;
-    public bool IsCritical()
-    {
-        return Random.Range(0f, 1f) <= criticalChance;
-    }
+    public float GetDamage() => statusData.dmg;
 
     protected Object Instantiate(Object original, Transform parent)
     {
@@ -180,6 +171,28 @@ public abstract class AI_Base
         InGameManager.Destroy(subject.gameObject);
         Play("Dead");
     }
+
+    public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
+    {
+        float calcMiss = Mathf.Clamp(statusData.missRate - _hitRate, 0f, float.MaxValue);
+        float missRate = calcMiss / (calcMiss + 450);
+        if (Random.Range(0f, 1f) <= missRate)
+        {
+            return;
+        }
+
+        float calcCri = Mathf.Clamp(_criChance - statusData.criBreak, 0f, float.MaxValue);
+        float criRate = calcCri / (calcCri + 650);
+        if (Random.Range(0f, 1f) <= criRate)
+        {
+            _dmg *= _criDmg;
+        }
+
+        float calcDef = Mathf.Clamp(statusData.def - _defBreak, 0f, float.MaxValue);
+        _dmg = _dmg / (1 + calcDef / 1500);
+
+        statusData.hp -= _dmg;
+    }
 }
 
 public abstract class CharacterAI : AI_Base
@@ -191,11 +204,13 @@ public abstract class CharacterAI : AI_Base
 
         keyIndex = subject.charIdx;
         animator.runtimeAnimatorController = InGameManager.Instance.GetCharacterAnimator(keyIndex);
+
+        int level = UserData.Instance.GetCharacterByKey(keyIndex).level;
+        statusData = StaticDataManager.Instance.characterData.GetCharacterStaticStates(keyIndex, level);
+        skillData = StaticDataManager.GetCharacterSkillData(keyIndex);
     }
 
-    protected float autoSkillCool;
-    public float targetSkillCool;
-    protected float targetSkillRange;
+    public cCharacterSkillData skillData;
     protected float curAutoSkillCool;
     public float curTargetSkillCool;
 
@@ -208,10 +223,10 @@ public abstract class CharacterAI : AI_Base
     {
         if (subject.SkillChargeAble())
         {
-            if (autoSkillCool > curAutoSkillCool)
+            if (skillData.autoSkillCool > curAutoSkillCool)
                 curAutoSkillCool += Time.deltaTime;
 
-            if (targetSkillCool > curTargetSkillCool)
+            if (skillData.targetSkillCool > curTargetSkillCool)
                 curTargetSkillCool += Time.deltaTime;
         }
 
@@ -251,7 +266,7 @@ public abstract class CharacterAI : AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curAutoSkillCool >= autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
+        if (curAutoSkillCool >= skillData.autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
         {
             subject.state = ECharacterState.AUTO_SKILL;
             curAutoSkillCool = 0f;

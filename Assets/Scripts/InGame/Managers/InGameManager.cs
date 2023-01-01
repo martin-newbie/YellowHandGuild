@@ -23,7 +23,7 @@ public class InGameManager : MonoBehaviour
     public Vector3 fieldCenter;
     public Vector3 fieldSize;
 
-    Stage curStage;
+    StageData curStage;
     int stageIdx;
     int waveIdx;
 
@@ -48,19 +48,21 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
+        InitStageInfo();
+
         // debug
         Time.timeScale = 3f;
 
-        curStage = StageInfoManager.Instance.StagesInfo[stageIdx];
 
-        InitCharsInfo();
         InitCharacters();
+        curStage = StaticDataManager.GetNormalStageData(stageIdx);
         UISkillPanel.Instance.InitSkillIcons(curChars);
 
         mainLogic = StartCoroutine(GameMainLogic());
     }
-    void InitCharsInfo()
+    void InitStageInfo()
     {
+        stageIdx = TempData.Instance.stageIdx;
         charsIndex = TempData.Instance.charIndex;
         charsPosIndex = TempData.Instance.charPosIndex;
     }
@@ -155,7 +157,7 @@ public class InGameManager : MonoBehaviour
         {
             for (int i = 0; i < curHostiles.Count; i++)
             {
-                if (curHostiles[i].hp <= 0)
+                if (curHostiles[i].thisAI.statusData.hp <= 0)
                 {
                     curHostiles[i].state = ECharacterState.DEAD;
                     curHostiles.Remove(curHostiles[i]);
@@ -164,7 +166,7 @@ public class InGameManager : MonoBehaviour
 
             for (int i = 0; i < curChars.Count; i++)
             {
-                if (curChars[i].hp <= 0)
+                if (curChars[i].thisAI.statusData.hp <= 0)
                 {
                     curChars[i].state = ECharacterState.DEAD;
                     curChars.Remove(curChars[i]);

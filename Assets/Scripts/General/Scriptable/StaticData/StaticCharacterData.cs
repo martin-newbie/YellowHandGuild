@@ -2,11 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct StatusData
+{
+    public float hp;
+    public float dmg;
+    
+    public float def;
+    public float defBreak;
+    
+    public float cri;
+    public float criBreak;
+    public float criDmg;
+
+    public float missRate;
+    public float hitRate;
+
+    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit)
+    {
+        hp = _hp;
+        dmg = _dmg;
+        def = _def;
+        defBreak = _defBreak;
+        cri = _cri;
+        criBreak = _criBreak;
+        criDmg = _criDmg;
+        missRate = _miss;
+        hitRate = _hit;
+    }
+}
+
 [CreateAssetMenu(fileName = "StaticCharacterData", menuName = "Yellow Hand/Scriptable/Static Character Data", order = int.MinValue)]
 public class StaticCharacterData : SheetDataBase
 {
     protected override string gid => "0";
-    protected override string range => "C3:X999";
+    protected override string range => "C3:S999";
 
     public List<cCharacterState> datas;
 
@@ -19,6 +48,18 @@ public class StaticCharacterData : SheetDataBase
             var state = new cCharacterState(item.Split('\t'));
             datas.Add(state);
         }
+    }
+
+    public StatusData GetCharacterStaticStates(int keyIndex, int level)
+    {
+        var dt = datas[keyIndex];
+        float hp = dt.defaultHp + dt.hpUp * level;
+        float dmg = dt.defaultDmg + dt.dmgUp * level;
+        float def = dt.defaultDef + dt.defUp * level;
+        float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
+
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
+        return result;
     }
 }
 
@@ -35,22 +76,18 @@ public class cCharacterState
     public float defaultDmg;
     public float defaultDef;
     public float defaultDefBreak;
-    public float defaultCriChance;
-    public float defaultCriBreak;
-    public float defaultCriDmg;
-    public float defaultMissRate;
-    public float defaultHitRate;
+
+    public float criChance;
+    public float criBreak;
+    public float criDmg;
+    public float missRate;
+    public float hitRate;
 
     // increase state
     public float hpUp;
     public float dmgUp;
     public float defUp;
     public float defBreakUp;
-    public float criChanceUp;
-    public float criBreakUp;
-    public float criDmgUp;
-    public float missRateUp;
-    public float hitRateUp;
 
     public cCharacterState(string[] args)
     {
@@ -64,19 +101,15 @@ public class cCharacterState
         defaultDmg = float.Parse(args[index++]);
         defaultDef = float.Parse(args[index++]);
         defaultDefBreak = float.Parse(args[index++]);
-        defaultCriChance = float.Parse(args[index++]);
-        defaultCriBreak = float.Parse(args[index++]);
-        defaultCriDmg = float.Parse(args[index++]);
-        defaultMissRate = float.Parse(args[index++]);
-        defaultHitRate = float.Parse(args[index++]);
+
+        criChance = float.Parse(args[index++]);
+        criBreak = float.Parse(args[index++]);
+        criDmg = float.Parse(args[index++]);
+        missRate = float.Parse(args[index++]);
+        hitRate = float.Parse(args[index++]);
         hpUp = float.Parse(args[index++]);
         dmgUp = float.Parse(args[index++]);
         defUp = float.Parse(args[index++]);
         defBreakUp = float.Parse(args[index++]);
-        criChanceUp = float.Parse(args[index++]);
-        criBreakUp = float.Parse(args[index++]);
-        criDmgUp = float.Parse(args[index++]);
-        missRateUp = float.Parse(args[index++]);
-        hitRateUp = float.Parse(args[index++]);
     }
 }

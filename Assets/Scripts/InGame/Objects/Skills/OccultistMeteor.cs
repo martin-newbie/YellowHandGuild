@@ -6,12 +6,13 @@ public class OccultistMeteor : SkillBase
 {
     Collider2D atkCol;
     [SerializeField] ContactFilter2D filter;
-    Occultist occultist;
 
-    public void Init(Occultist occultist)
+    StatusData data;
+
+    public void Init(StatusData _data)
     {
         atkCol = GetComponent<Collider2D>();
-        this.occultist = occultist;
+        data = _data;
     }
 
     void AttackFrame()
@@ -23,7 +24,7 @@ public class OccultistMeteor : SkillBase
 
         foreach (var item in hostiles)
         {
-            item.GetComponent<HostileGameObject>().OnDamage(occultist.GetDamage(), EAttackHitType.LONG_DISTANCE_ATK, occultist.IsCritical());
+            item.GetComponent<HostileGameObject>().OnDamage(data.dmg, EAttackHitType.LONG_DISTANCE_ATK, data.hitRate, data.cri, data.criDmg, data.defBreak);
         }
     }
 

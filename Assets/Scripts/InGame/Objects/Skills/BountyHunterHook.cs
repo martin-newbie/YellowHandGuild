@@ -56,7 +56,7 @@ public class BountyHunterHook : SkillBase
         {
             target = result[0].GetComponent<HostileGameObject>();
             target.SetKnockback();
-            target.thisAI.SetRotation(target.transform.position, subject.transform.position);
+            target.ai.SetRotation(target.transform.position, subject.transform.position);
         }
         targeted = target;
 

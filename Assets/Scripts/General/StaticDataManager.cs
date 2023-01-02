@@ -10,6 +10,7 @@ public class StaticDataManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public StaticCharacterData characterData;

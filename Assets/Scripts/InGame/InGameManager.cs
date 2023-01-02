@@ -206,13 +206,14 @@ public class InGameManager : MonoBehaviour
         curChars[index].SelectTargetSkill();
     }
 
-    public HostileGameObject GetSelectHostileTargets(Vector3 pos, float radius)
+    public HostileGameObject GetSelectHostileTargets(Vector3 pos, float radius, float minRange = 0f)
     {
         List<HostileGameObject> hostiles = new List<HostileGameObject>();
 
         foreach (var item in curHostiles)
         {
-            if (Vector3.Distance(item.transform.position, pos) <= radius)
+            float calc = Vector3.Distance(item.transform.position, pos);
+            if (calc <= radius && calc >= minRange)
             {
                 hostiles.Add(item);
             }
@@ -234,15 +235,16 @@ public class InGameManager : MonoBehaviour
 
         return result;
     }
-    public CharacterGameObject GetSelectCharacterTargets(Vector3 pos, float radius)
+    public CharacterGameObject GetSelectCharacterTargets(Vector3 pos, float radius, float minRange = 0f)
     {
-        List<CharacterGameObject> hostiles = new List<CharacterGameObject>();
+        List<CharacterGameObject> chars = new List<CharacterGameObject>();
 
         foreach (var item in curChars)
         {
-            if (Vector3.Distance(item.transform.position, pos) <= radius)
+            float calc = Vector3.Distance(item.transform.position, pos);
+            if (calc <= radius && calc >= minRange)
             {
-                hostiles.Add(item);
+                chars.Add(item);
             }
         }
 
@@ -250,7 +252,7 @@ public class InGameManager : MonoBehaviour
         float dist = float.MaxValue;
         CharacterGameObject result = null;
 
-        foreach (var item in hostiles)
+        foreach (var item in chars)
         {
             float calc = Vector3.Distance(item.transform.position, mousePos);
             if (calc < dist)
@@ -263,11 +265,12 @@ public class InGameManager : MonoBehaviour
         return result;
     }
 
-    public void TargetFocusOnEnemy(Vector3 originPos, float radius)
+    public void TargetFocusOnEnemy(Vector3 originPos, float radius, float minRange = 0f)
     {
         foreach (var item in curHostiles)
         {
-            if (Vector3.Distance(item.transform.position, originPos) <= radius) item.SetFocus(true);
+            float calc = Vector3.Distance(item.transform.position, originPos);
+            if (calc <= radius && calc >= minRange) item.SetFocus(true);
             else item.SetFocus(false);
         }
     }

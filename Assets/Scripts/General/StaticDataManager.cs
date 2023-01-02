@@ -13,7 +13,7 @@ public class StaticDataManager : MonoBehaviour
     }
 
     public StaticCharacterData characterData;
-    public static cCharacterState GetCharacterStaticData(int keyIndex)
+    public static cCharacterStatus GetCharacterStaticData(int keyIndex)
     {
         return instance.characterData.datas[keyIndex];
     }
@@ -25,8 +25,14 @@ public class StaticDataManager : MonoBehaviour
     }
 
     public StaticNormalStageData normalStageData;
-    public static StageData GetNormalStageData(int stageIndex)
+    public static cStageData GetNormalStageData(int stageIndex)
     {
         return instance.normalStageData.datas[stageIndex];
+    }
+
+    public StaticHostileData hostileData;
+    public static StatusData GetHostileData(int keyIndex, int level)
+    {
+        return instance.hostileData.GetHostileStaticStates(keyIndex, level);
     }
 }

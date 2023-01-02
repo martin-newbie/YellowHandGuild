@@ -14,6 +14,7 @@ public class Skeleton : HostileAI
 
         atkType = AttackType.SHORT;
         maxRange = 1.5f;
+        moveSpeed = 1.5f;
     }
 
     public override void Attack()

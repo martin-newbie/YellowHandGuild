@@ -2,55 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct StatusData
+[CreateAssetMenu(fileName = "StaticHostileData", menuName = "Yellow Hand/Scriptable/Static Hostile Data", order = int.MinValue)]
+public class StaticHostileData : SheetDataBase
 {
-    public float hp;
-    public float dmg;
-    
-    public float def;
-    public float defBreak;
-    
-    public float cri;
-    public float criBreak;
-    public float criDmg;
+    protected override string gid => "1410749516";
+    protected override string range => "C3:R999";
 
-    public float missRate;
-    public float hitRate;
-
-    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit)
-    {
-        hp = _hp;
-        dmg = _dmg;
-        def = _def;
-        defBreak = _defBreak;
-        cri = _cri;
-        criBreak = _criBreak;
-        criDmg = _criDmg;
-        missRate = _miss;
-        hitRate = _hit;
-    }
-}
-
-[CreateAssetMenu(fileName = "StaticCharacterData", menuName = "Yellow Hand/Scriptable/Static Character Data", order = int.MinValue)]
-public class StaticCharacterData : SheetDataBase
-{
-    protected override string gid => "0";
-    protected override string range => "C3:U999";
-
-    public List<cCharacterStatus> datas;
+    public List<cHostileStatus> datas;
 
     protected override void SetData(string data)
     {
-        datas = new List<cCharacterStatus>();
-
+        datas = new List<cHostileStatus>();
         foreach (var item in data.Split('\n'))
         {
-            var state = new cCharacterStatus(item.Split('\t'));
-            datas.Add(state);
+            cHostileStatus temp = new cHostileStatus(item.Split('\t'));
+            datas.Add(temp);
         }
     }
 
-    public StatusData GetCharacterStaticStates(int keyIndex, int level)
+    public StatusData GetHostileStaticStates(int keyIndex, int level)
     {
         var dt = datas[keyIndex];
         float hp = dt.defaultHp + dt.hpUp * level;
@@ -64,14 +34,10 @@ public class StaticCharacterData : SheetDataBase
 }
 
 [System.Serializable]
-public class cCharacterStatus
+public class cHostileStatus
 {
     public int keyIndex;
-    public int originRank;
-    public int groupIndex;
-    public string name;
 
-    // default state
     public float defaultHp;
     public float defaultDmg;
     public float defaultDef;
@@ -83,7 +49,6 @@ public class cCharacterStatus
     public float missRate;
     public float hitRate;
 
-    // increase state
     public float hpUp;
     public float dmgUp;
     public float defUp;
@@ -91,15 +56,13 @@ public class cCharacterStatus
 
     public EDamageType dmgType;
     public EDefenseType defType;
-    
-    public cCharacterStatus(string[] args)
+
+    public cHostileStatus(string[] args)
     {
         int index = 0;
 
         keyIndex = int.Parse(args[index++]);
-        originRank = int.Parse(args[index++]);
-        groupIndex = int.Parse(args[index++]);
-        name = args[index++];
+
         defaultHp = float.Parse(args[index++]);
         defaultDmg = float.Parse(args[index++]);
         defaultDef = float.Parse(args[index++]);

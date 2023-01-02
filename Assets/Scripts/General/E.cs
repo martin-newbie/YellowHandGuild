@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class E
+{
+
+}
+
+public enum EDamageType
+{
+    NORMAL,
+    BLUNT,  // Å¸°Ý
+    SHARP,  // ¿¹¸®
+    MAGIC   // ¸¶¹ý
+}
+
+public enum EDefenseType
+{
+    NORMAL,
+    LAMINAR,    // ÆÇ°©
+    LAMELLAR,   // Âû°©
+    SILK,       // ºñ´Ü
+}

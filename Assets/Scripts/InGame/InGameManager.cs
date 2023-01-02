@@ -23,7 +23,7 @@ public class InGameManager : MonoBehaviour
     public Vector3 fieldCenter;
     public Vector3 fieldSize;
 
-    StageData curStage;
+    [HideInInspector] public cStageData curStage;
     int stageIdx;
     int waveIdx;
 
@@ -73,7 +73,10 @@ public class InGameManager : MonoBehaviour
         foreach (var item in charsIndex)
         {
             var temp = Instantiate(charPrefab);
-            temp.InitCharacter(item);
+
+            int keyIndex = UserData.Instance.characters[item].keyIndex;
+            temp.InitCharacter(keyIndex);
+
             curChars.Add(temp);
         }
 
@@ -138,7 +141,8 @@ public class InGameManager : MonoBehaviour
         {
             foreach (var item in curChars)
             {
-                item.MoveToInitialPoint();
+                if (item.state == ECharacterState.IDLE)
+                    item.MoveToInitialPoint();
             }
         }
 

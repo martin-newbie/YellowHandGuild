@@ -289,6 +289,9 @@ public abstract class HostileAI : AI_Base
 
         keyIndex = subject.hostileIdx;
         animator.runtimeAnimatorController = InGameManager.Instance.GetHostileAnimator(keyIndex);
+
+        int recom_level = InGameManager.Instance.curStage.recom_level;
+        statusData = StaticDataManager.GetHostileData(keyIndex, recom_level);
     }
 
     protected abstract CharacterGameObject FindTargetEnemy();

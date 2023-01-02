@@ -1792,6 +1792,9 @@ MonoBehaviour:
   - {fileID: 1784802070}
   fieldCenter: {x: 0, y: -2, z: 0}
   fieldSize: {x: 16, y: 6, z: 0}
+  curStage:
+    recom_level: 0
+    wavesInfo: []
   charPrefab: {fileID: 6635675315357233312, guid: 985ab91a138dd53479a0c37b6e6a43a8, type: 3}
   hostilePrefab: {fileID: 7715139202298731025, guid: abdca38582d78514fb3be06537c6a710, type: 3}
   curChars: []
@@ -2015,8 +2018,7 @@ MonoBehaviour:
   unitPrefab: {fileID: 1038702076}
   contentsParent: {fileID: 242347770}
   inputImage: {fileID: 572417359}
-  unitList:
-  - {fileID: 1038702076}
+  unitList: []
   curCharIndex: -1
 --- !u!1 &2130528858
 GameObject:

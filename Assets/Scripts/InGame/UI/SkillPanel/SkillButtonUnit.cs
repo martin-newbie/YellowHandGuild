@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SkillButtonUnit : MonoBehaviour
 {
-    public int curIndex;
+    int curIndex = -1;
 
     [Header("UI")]
     public Image skillIcon;
@@ -22,6 +22,8 @@ public class SkillButtonUnit : MonoBehaviour
 
     private void Update()
     {
+        if (curIndex == -1) return;
+
         try
         {
             chargingImg.gameObject.SetActive(!GetTarget().TargetSkillAble());
@@ -33,8 +35,9 @@ public class SkillButtonUnit : MonoBehaviour
                 chargingTxt.text = string.Format("{0:0}", GetTarget().ai.skillData.targetSkillCool - GetTarget().ai.curTargetSkillCool);
             }
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
+            Debug.Log(e.Message);
             gameObject.SetActive(false);
             return;
         }
@@ -70,5 +73,5 @@ public class SkillButtonUnit : MonoBehaviour
         }
     }
 
-    CharacterGameObject GetTarget() => InGameManager.GetCharacterObject(curIndex);
+    CharacterGameObject GetTarget() => InGameManager.Instance.GetCharacterObject(curIndex);
 }

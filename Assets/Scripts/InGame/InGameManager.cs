@@ -194,7 +194,7 @@ public class InGameManager : MonoBehaviour
         Gizmos.DrawWireCube(fieldCenter, fieldSize);
     }
 
-    public static CharacterGameObject GetCharacterObject(int idx) => instance.curChars[idx];
+    public CharacterGameObject GetCharacterObject(int idx) => curChars[idx];
 
     // targeting
     public void SearchNearestTargetCharacter(int index)

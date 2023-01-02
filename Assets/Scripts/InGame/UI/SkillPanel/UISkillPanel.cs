@@ -31,35 +31,24 @@ public class UISkillPanel : MonoBehaviour
 
     public void InitSkillIcons(List<CharacterGameObject> chars)
     {
-        if (chars == null || chars.Count < 0)
+        if (chars == null || chars.Count <= 0)
         {
             return;
         }
 
-        int btnIdx = 0;
-
         if (!isInit)
         {
-            foreach (var item in chars)
+            for (int i = 0; i < chars.Count; i++)
             {
                 var tempUnit = Instantiate(unitPrefab, contentsParent);
                 unitList.Add(tempUnit);
-                btnIdx++;
             }
             isInit = true;
         }
 
-        for (int i = 0; i < unitList.Count; i++)
+        for (int i = 0; i < chars.Count; i++)
         {
-            if(i < chars.Count)
-            {
-                unitList[i].InitButton(btnIdx, chars[i].charIdx);
-                btnIdx++;
-            }
-            else
-            {
-                unitList[i].gameObject.SetActive(false);
-            }
+            unitList[i].InitButton(i, chars[i].charIdx);
         }
 
 

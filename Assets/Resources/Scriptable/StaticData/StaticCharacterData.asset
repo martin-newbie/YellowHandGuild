@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5903fd796c5bb40afc2c58152a328f, type: 3}
   m_Name: StaticCharacterData
   m_EditorClassIdentifier: 
+  datas: []

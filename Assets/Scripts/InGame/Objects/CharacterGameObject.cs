@@ -17,7 +17,6 @@ public class CharacterGameObject : PlayableObject
     protected override void Start()
     {
         base.Start();
-        startPos = transform.position;
     }
 
     void Update()
@@ -63,7 +62,7 @@ public class CharacterGameObject : PlayableObject
     public void InitCharacter(int index)
     {
         charIdx = index;
-
+        startPos = transform.position;
         // for test
         switch (index)
         {
@@ -75,6 +74,7 @@ public class CharacterGameObject : PlayableObject
                 break;
         }
 
+        ai.targetPos = startPos;
         state = ECharacterState.IDLE;
         isInit = true;
     }
@@ -109,8 +109,6 @@ public class CharacterGameObject : PlayableObject
     {
         thisAI.targetPos = startPos;
         thisAI.targeted = null;
-        thisAI.Cancel();
-        state = ECharacterState.MOVE;
     }
 
     public override void GiveKnockback(float pushed, int dir)

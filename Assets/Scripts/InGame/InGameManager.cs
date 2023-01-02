@@ -70,19 +70,16 @@ public class InGameManager : MonoBehaviour
     }
     void InitCharacters()
     {
+        int i = 0;
         foreach (var item in charsIndex)
         {
-            var temp = Instantiate(charPrefab);
+            var temp = Instantiate(charPrefab, charsPosTr[charsPosIndex[i]].position, Quaternion.identity);
 
             int keyIndex = UserData.Instance.characters[item].keyIndex;
             temp.InitCharacter(keyIndex);
 
             curChars.Add(temp);
-        }
-
-        for (int i = 0; i < curChars.Count; i++)
-        {
-            curChars[i].transform.position = charsPosTr[charsPosIndex[i]].position;
+            i++;
         }
     }
 
@@ -98,7 +95,8 @@ public class InGameManager : MonoBehaviour
 
             if (curHostiles.Count <= 0)
             {
-                setCharsInitPos();
+                yield return null;
+                yield return new WaitUntil(() => setCharsInitPos());
                 yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave
             }
@@ -137,13 +135,18 @@ public class InGameManager : MonoBehaviour
 
             waveIdx++;
         }
-        void setCharsInitPos()
+        bool setCharsInitPos()
         {
+            bool result = true;
             foreach (var item in curChars)
             {
-                if (item.state == ECharacterState.IDLE)
+                if (item.state != ECharacterState.IDLE)
+                    result = false;
+                else
                     item.MoveToInitialPoint();
             }
+
+            return result;
         }
 
         bool waitUntilCharsState(ECharacterState target)

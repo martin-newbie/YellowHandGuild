@@ -249,14 +249,19 @@ public abstract class CharacterAI : AI_Base
         {
             targeted = target;
             SetCombatMovePos();
-            if (!IsArriveAtTarget())
-            {
-                subject.state = ECharacterState.MOVE;
-            }
-            else
-            {
+        }
+
+        if (!IsArriveAtTarget())
+        {
+            subject.state = ECharacterState.MOVE;
+            return;
+        }
+        if (IsArriveAtTarget())
+        {
+            if (targeted != null)
                 subject.state = ECharacterState.ATTACK;
-            }
+
+            return;
         }
     }
 

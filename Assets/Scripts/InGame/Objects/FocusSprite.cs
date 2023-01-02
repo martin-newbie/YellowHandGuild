@@ -22,6 +22,7 @@ public class FocusSprite : MonoBehaviour
         if (!isFocus) return;
 
         renderer.sprite = subject.model.sprite;
+        renderer.flipX = subject.model.flipX;
     }
 
     public void SetFocus(bool focus)

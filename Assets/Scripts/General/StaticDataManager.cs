@@ -36,4 +36,26 @@ public class StaticDataManager : MonoBehaviour
     {
         return instance.hostileData.GetHostileStaticStates(keyIndex, level);
     }
+
+    public int totalDatasCount = 0;
+    public int currentLoadDataCount = 0;
+    public IEnumerator LoadAllStatics()
+    {
+        List<SheetDataBase> datas = new List<SheetDataBase>()
+        {
+            characterData,
+            characterSkillData,
+            normalStageData,
+            hostileData,
+        };
+
+        totalDatasCount = datas.Count;
+        foreach (var item in datas)
+        {
+            yield return item.LoadDataCor();
+            currentLoadDataCount++;
+        }
+
+        yield break;
+    }
 }

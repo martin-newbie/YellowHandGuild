@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Runtime.CompilerServices;
 using System;
+using System.Collections;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -29,13 +30,29 @@ public abstract class SheetDataBase : ScriptableObject
 
     public async void LoadData()
     {
-        string URL = $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range={range}&gid={gid}";
+        string URL = GetURL();
 
         using (UnityWebRequest www = UnityWebRequest.Get(URL))
         {
             await www.SendWebRequest();
             SetData(www.downloadHandler.text);
         }
+    }
+
+    public IEnumerator LoadDataCor()
+    {
+        string URL = GetURL();
+
+        using (UnityWebRequest www = UnityWebRequest.Get(URL))
+        {
+            yield return www.SendWebRequest();
+            SetData(www.downloadHandler.text);
+        }
+    }
+
+    string GetURL()
+    {
+        return $"https://docs.google.com/spreadsheets/d/1pyGKm1BgtoCaa2crT0pL4gMJNnEPakMj2OkZRqVwDTQ/export?format=tsv&range={range}&gid={gid}";
     }
 
     abstract protected void SetData(string data);

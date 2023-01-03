@@ -7,7 +7,7 @@ public abstract class GameModeBase
     public abstract bool[] GetResult(bool clear, float gameTime, int retireCount);
     public abstract string GetWave(int stageIdx, int waveIdx);
     public abstract int GetWaveCount(int stageIdx);
-    public abstract void OnStageChange();
+    public abstract void OnStageStart();
 }
 
 public class NormalMode : GameModeBase
@@ -31,7 +31,7 @@ public class NormalMode : GameModeBase
         return StaticDataManager.GetNormalStageData(stageIdx).wavesInfo.Count;
     }
 
-    public override void OnStageChange()
+    public override void OnStageStart()
     {
     }
 }

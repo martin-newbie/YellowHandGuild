@@ -104,6 +104,7 @@ public class InGameManager : MonoBehaviour
 
         for (int i = 0; i < gameMode.GetWaveCount(stageIdx); i++)
         {
+            gameMode.OnStageStart();
             yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.IDLE));
             yield return new WaitForSeconds(2f);
             SpawnWaveMonster();
@@ -114,7 +115,6 @@ public class InGameManager : MonoBehaviour
                 yield return null;
                 yield return new WaitUntil(() => setCharsInitPos());
                 yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
-                gameMode.OnStageChange();
                 // next wave
             }
             else if (curChars.Count <= 0)

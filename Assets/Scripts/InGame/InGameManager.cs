@@ -23,7 +23,9 @@ public class InGameManager : MonoBehaviour
     public Vector3 fieldCenter;
     public Vector3 fieldSize;
 
+    [HideInInspector] public bool[] clearInfo = new bool[3];
     [HideInInspector] public cStageData curStage;
+    [HideInInspector] public float gameTime;
     int stageIdx;
     int waveIdx;
 
@@ -46,16 +48,15 @@ public class InGameManager : MonoBehaviour
 
     Coroutine mainLogic;
 
+    public GameModeBase gameMode;
+
     private IEnumerator Start()
     {
         yield return null;
 
         InitStageInfo();
 
-        // debug
-        Time.timeScale = 3f;
-
-
+        InitGameMode();
         InitCharacters();
         curStage = StaticDataManager.GetNormalStageData(stageIdx);
         UISkillPanel.Instance.InitSkillIcons(curChars);
@@ -82,11 +83,26 @@ public class InGameManager : MonoBehaviour
             i++;
         }
     }
+    void InitGameMode()
+    {
+        switch (TempData.Instance.gameMode)
+        {
+            case EGameMode.NORMAL:
+                gameMode = new NormalMode();
+                break;
+            case EGameMode.DAILY_MISSION:
+                break;
+            case EGameMode.INFINITY_DEMONS:
+                break;
+        }
+    }
 
 
     IEnumerator GameMainLogic()
     {
-        for (int i = 0; i < curStage.wavesInfo.Count; i++)
+        bool gameClear = true;
+
+        for (int i = 0; i < gameMode.GetWaveCount(stageIdx); i++)
         {
             yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.IDLE));
             yield return new WaitForSeconds(2f);
@@ -98,20 +114,23 @@ public class InGameManager : MonoBehaviour
                 yield return null;
                 yield return new WaitUntil(() => setCharsInitPos());
                 yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
+                gameMode.OnStageChange();
                 // next wave
             }
             else if (curChars.Count <= 0)
             {
                 // game over
+                gameClear = false;
                 break;
             }
 
         }
+        clearInfo = gameMode.GetResult(gameClear, gameTime, TempData.Instance.charIndex.Count - curChars.Count);
         yield break;
 
         void SpawnWaveMonster()
         {
-            var curWave = curStage.wavesInfo[waveIdx];
+            var curWave = gameMode.GetWave(stageIdx, waveIdx);
 
             List<int> monsterIdx = new List<int>();
             List<int> posIdx = new List<int>();

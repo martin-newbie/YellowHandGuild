@@ -22,3 +22,10 @@ public enum EDefenseType
     LAMELLAR,   // 蔓癌
     SILK,       // 厚窜
 }
+
+public enum EGameMode
+{
+    NORMAL,
+    DAILY_MISSION,          // 老老 狼汾
+    INFINITY_DEMONS,        // 归蓖具青
+}

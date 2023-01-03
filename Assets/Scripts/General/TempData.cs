@@ -20,8 +20,8 @@ public class TempData : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public EGameMode gameMode;
     public int stageIdx;
-
 
     // 덱 정보를 받아와서 넣어주면 인게임에서는 이것만 받아옴
     public List<int> charIndex = new List<int>();

@@ -112,7 +112,6 @@ public class InGameManager : MonoBehaviour
 
             if (curHostiles.Count <= 0)
             {
-                yield return null;
                 yield return new WaitUntil(() => setCharsInitPos());
                 yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave

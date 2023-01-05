@@ -15,7 +15,7 @@ public abstract class PlayableObject : MonoBehaviour
     [SerializeField] public ContactFilter2D filter;
 
     public abstract AI_Base thisAI { get; }
-    
+
     protected virtual void Start()
     {
         focusModel.StartInit(this);
@@ -29,6 +29,11 @@ public abstract class PlayableObject : MonoBehaviour
     public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
     {
         thisAI.OnDamage(_dmg, _atkType, _hitRate, _criChance, _criDmg, _defBreak);
+    }
+
+    public virtual bool IsCritical()
+    {
+        return thisAI.IsCritical();
     }
 
     Coroutine knockbackCor;

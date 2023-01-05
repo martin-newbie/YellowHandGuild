@@ -52,6 +52,9 @@ public class InGameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
+        // debug
+        if (UserData.Instance.characters.Count <= 0) UserData.Instance.characters.Add(new CharacterData(15));
+
         yield return null;
 
         InitStageInfo();
@@ -344,6 +347,28 @@ public class InGameManager : MonoBehaviour
             {
                 dist = calc;
                 result = item;
+            }
+        }
+
+        return result;
+    }
+
+    public PlayableObject GetNearestColliderTarget(Collider2D targetCol, ContactFilter2D targetFilter, Vector3 originPos)
+    {
+        PlayableObject result = null;
+        List<Collider2D> resultList = new List<Collider2D>();
+        Physics2D.OverlapCollider(targetCol, targetFilter, resultList);
+
+        if (resultList.Count <= 0) return null;
+
+        float min = float.MaxValue;
+        foreach (var item in resultList)
+        {
+            float calc = Vector3.Distance(item.transform.position, originPos);
+            if(calc < min)
+            {
+                min = calc;
+                result = item.GetComponent<PlayableObject>();
             }
         }
 

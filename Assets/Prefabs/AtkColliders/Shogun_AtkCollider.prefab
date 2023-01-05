@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5203194219426001576}
   - component: {fileID: 5203194219426001577}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shogun_AtkCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

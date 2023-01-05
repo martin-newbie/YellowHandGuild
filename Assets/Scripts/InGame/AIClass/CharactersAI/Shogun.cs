@@ -18,9 +18,9 @@ public class Shogun : CharacterAI
         cutoffEffect = InGameManager.Instance.GetSpawnSkill(5, subject.transform) as ShogunCutoffEffect;
 
         atkType = AttackType.SHORT;
-        maxRange = 1.5f;
-        minRange = 1f;
-        moveSpeed = 1.5f;
+        maxRange = 2f;
+        minRange = 1.5f;
+        moveSpeed = 2.3f;
     }
 
     public override void Attack()
@@ -31,17 +31,40 @@ public class Shogun : CharacterAI
 
     IEnumerator AttackCor()
     {
-        int comboCount = 0;
+        var ready_wait = new WaitForSeconds(0.03f);
+        var attack_wait = new WaitForSeconds(0.06f);
         subject.state = ECharacterState.STAND_BY;
 
 
+        int comboCount = 0;
+        while (true)
+        {
+            string ready = $"Ready_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
+            string attack = $"Attack_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
+
+            Play(ready);
+            yield return ready_wait;
+
+            Play(attack);
+            yield return attack_wait;
+
+
+            yield return new WaitForSeconds(1f);
+            comboCount++;
+        }
 
         subject.state = ECharacterState.IDLE;
         yield break;
+
+        PlayableObject getTargetCol()
+        {
+            return InGameManager.Instance.GetNearestColliderTarget(atkCol, subject.filter, transform.position);
+        }
     }
 
     public override void AutoSkill()
     {
+        subject.state = ECharacterState.IDLE;
     }
 
     public override void Cancel()

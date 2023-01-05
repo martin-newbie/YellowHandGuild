@@ -66,6 +66,9 @@ public class CharacterGameObject : PlayableObject
         // for test
         switch (index)
         {
+            case 15:
+                ai = new Shogun(this);
+                break;
             case 16:
                 ai = new Occultist(this);
                 break;

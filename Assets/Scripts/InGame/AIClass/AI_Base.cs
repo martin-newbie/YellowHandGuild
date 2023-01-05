@@ -172,10 +172,13 @@ public abstract class AI_Base
         Play("Dead");
     }
 
+    bool isCri = false;
     public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
     {
         float calcMiss = Mathf.Clamp(statusData.missRate - _hitRate, 0f, float.MaxValue);
         float missRate = calcMiss / (calcMiss + 450);
+        isCri = false;
+
         if (Random.Range(0f, 1f) <= missRate)
         {
             return;
@@ -186,12 +189,22 @@ public abstract class AI_Base
         if (Random.Range(0f, 1f) <= criRate)
         {
             _dmg *= _criDmg;
+            isCri = true;
         }
 
         float calcDef = Mathf.Clamp(statusData.def - _defBreak, 0f, float.MaxValue);
         _dmg = _dmg / (1 + calcDef / 1500);
 
         statusData.hp -= _dmg;
+    }
+    protected virtual void DamageToTarget(PlayableObject target, EAttackHitType _atkType)
+    {
+        target.OnDamage(statusData.dmg, _atkType, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
+    }
+
+    public bool IsCritical()
+    {
+        return isCri;
     }
 }
 

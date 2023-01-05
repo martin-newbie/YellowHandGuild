@@ -1739,6 +1739,8 @@ MonoBehaviour:
   - {fileID: 7996550526973733380, guid: b97b29df61266de468566f03c7693e7a, type: 3}
   - {fileID: 4556642614577829957, guid: 5bc9e6d2d245506449c25eb14690a59f, type: 3}
   - {fileID: 6289588347281843557, guid: f9efb042854f00144935fb6addc6bc8d, type: 3}
+  - {fileID: 276336237, guid: 794a39a62bf15764c9078801231c9a51, type: 3}
+  - {fileID: 1794337701, guid: 114b41d5227d3a448866e8e999204a43, type: 3}
 --- !u!1 &1950025711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,9 +1794,11 @@ MonoBehaviour:
   - {fileID: 1784802070}
   fieldCenter: {x: 0, y: -2, z: 0}
   fieldSize: {x: 16, y: 6, z: 0}
+  clearInfo: 000000
   curStage:
     recom_level: 0
     wavesInfo: []
+  gameTime: 0
   charPrefab: {fileID: 6635675315357233312, guid: 985ab91a138dd53479a0c37b6e6a43a8, type: 3}
   hostilePrefab: {fileID: 7715139202298731025, guid: abdca38582d78514fb3be06537c6a710, type: 3}
   curChars: []
@@ -1900,6 +1904,7 @@ MonoBehaviour:
   attackColliders:
   - {fileID: 5068318486993258942, guid: df51db2617b30eb44b74c7e6374c1569, type: 3}
   - {fileID: 9013675976868637374, guid: 652c7c3dd9c83c74397415e110891d17, type: 3}
+  - {fileID: 5203194219426001577, guid: 80fb6f7afcad5124dba7b2fad2e7b09c, type: 3}
 --- !u!1 &2128554979
 GameObject:
   m_ObjectHideFlags: 0

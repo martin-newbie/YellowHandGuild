@@ -14,8 +14,8 @@ public class Shogun : CharacterAI
     public Shogun(PlayableObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(2, model.transform);
-        dustEffect = InGameManager.Instance.GetSpawnSkill(4, model.transform) as ShogunDustEffect;
-        cutoffEffect = InGameManager.Instance.GetSpawnSkill(5, subject.transform) as ShogunCutoffEffect;
+        dustEffect = InGameManager.Instance.GetSpawnSkill(5, model.transform) as ShogunDustEffect;
+        cutoffEffect = InGameManager.Instance.GetSpawnSkill(4, subject.transform) as ShogunCutoffEffect;
 
         atkType = AttackType.SHORT;
         maxRange = 2f;
@@ -29,29 +29,53 @@ public class Shogun : CharacterAI
         atkCoroutine = StartCoroutine(AttackCor());
     }
 
+    int comboCount = 0;
     IEnumerator AttackCor()
     {
-        var ready_wait = new WaitForSeconds(0.03f);
-        var attack_wait = new WaitForSeconds(0.06f);
+        var ready_wait = new WaitForSeconds(0.05f);
+        var attack_wait = new WaitForSeconds(0.16f);
         subject.state = ECharacterState.STAND_BY;
 
 
-        int comboCount = 0;
-        while (true)
+        string ready = $"Ready_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
+        string attack = $"Attack_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
+
+        SetRotation(transform.position, targeted.transform.position);
+        var target = getTargetCol();
+        bool isCri = false;
+
+        Play(ready);
+        yield return ready_wait;
+
+        Play(attack);
+        if (target != null)
         {
-            string ready = $"Ready_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
-            string attack = $"Attack_{(comboCount < 4 ? comboCount % 2 + 1 : 3)}";
+            dustEffect.PlayEffect(comboCount % 2 + 1);
+            DamageToTarget(target, EAttackHitType.SHORT_DISTANCE_ATK);
+            isCri = target.IsCritical();
 
-            Play(ready);
-            yield return ready_wait;
+            if (isCri)
+            {
+                cutoffEffect.PlayEffect($"{comboCount + 1}");
+            }
+            else
+            {
+                cutoffEffect.FadeOut();
+            }
 
-            Play(attack);
             yield return attack_wait;
-
-
-            yield return new WaitForSeconds(1f);
-            comboCount++;
         }
+
+        yield return new WaitForSeconds(1f);
+
+        if (isCri && comboCount < 4)
+            comboCount++;
+        else
+        {
+            cutoffEffect.FadeOut();
+            comboCount = 0;
+        }
+
 
         subject.state = ECharacterState.IDLE;
         yield break;

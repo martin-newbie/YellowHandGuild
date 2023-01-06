@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a665da2cb98594f9b3f8fa88421501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMode: 0
   stageIdx: 0
   charIndex: 00000000
   charPosIndex: 01000000
@@ -744,6 +745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userData:
     characters: []
+  needTutorial: 0
 --- !u!4 &2006393955
 Transform:
   m_ObjectHideFlags: 0

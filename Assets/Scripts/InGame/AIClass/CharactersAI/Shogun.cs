@@ -15,7 +15,7 @@ public class Shogun : CharacterAI
     {
         atkCol = InGameManager.Instance.GetAttackCollider(2, model.transform);
         dustEffect = InGameManager.Instance.GetSpawnSkill(5, model.transform) as ShogunDustEffect;
-        cutoffEffect = InGameManager.Instance.GetSpawnSkill(4, subject.transform) as ShogunCutoffEffect;
+        cutoffEffect = InGameManager.Instance.GetSpawnSkill(4, null) as ShogunCutoffEffect;
 
         atkType = AttackType.SHORT;
         maxRange = 2f;
@@ -52,18 +52,12 @@ public class Shogun : CharacterAI
         {
             dustEffect.PlayEffect(comboCount % 2 + 1);
             DamageToTarget(target, EAttackHitType.SHORT_DISTANCE_ATK);
+            cutoffEffect.transform.position = target.transform.position;
             isCri = target.IsCritical();
-
-            //debug
-            isCri = true;
 
             if (isCri)
             {
                 cutoffEffect.PlayEffect($"{comboCount + 1}");
-            }
-            else
-            {
-                cutoffEffect.FadeOut();
             }
 
             yield return attack_wait;
@@ -75,8 +69,7 @@ public class Shogun : CharacterAI
             comboCount++;
         else
         {
-            cutoffEffect.FadeOut();
-            comboCount = 0;
+            CancelCutoffEffect();
         }
 
 
@@ -87,6 +80,12 @@ public class Shogun : CharacterAI
         {
             return InGameManager.Instance.GetNearestColliderTarget(atkCol, subject.filter, transform.position);
         }
+    }
+
+    void CancelCutoffEffect()
+    {
+        cutoffEffect.FadeOut();
+        comboCount = 0;
     }
 
     public override void AutoSkill()

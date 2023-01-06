@@ -54,6 +54,9 @@ public class Shogun : CharacterAI
             DamageToTarget(target, EAttackHitType.SHORT_DISTANCE_ATK);
             isCri = target.IsCritical();
 
+            //debug
+            isCri = true;
+
             if (isCri)
             {
                 cutoffEffect.PlayEffect($"{comboCount + 1}");
@@ -66,7 +69,7 @@ public class Shogun : CharacterAI
             yield return attack_wait;
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
 
         if (isCri && comboCount < 4)
             comboCount++;

@@ -82,6 +82,12 @@ public class Shogun : CharacterAI
         }
     }
 
+    protected override void StartMove()
+    {
+        CancelCutoffEffect();
+        base.StartMove();
+    }
+
     void CancelCutoffEffect()
     {
         cutoffEffect.FadeOut();

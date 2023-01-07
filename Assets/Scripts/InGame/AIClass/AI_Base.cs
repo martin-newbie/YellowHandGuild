@@ -266,7 +266,7 @@ public abstract class CharacterAI : AI_Base
 
         if (!IsArriveAtTarget())
         {
-            subject.state = ECharacterState.MOVE;
+            StartMove();
             return;
         }
         if (IsArriveAtTarget())
@@ -276,6 +276,11 @@ public abstract class CharacterAI : AI_Base
 
             return;
         }
+    }
+
+    protected virtual void StartMove()
+    {
+        subject.state = ECharacterState.MOVE;
     }
 
     protected virtual HostileGameObject FindNearEnemy()

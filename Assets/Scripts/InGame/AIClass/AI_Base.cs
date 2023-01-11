@@ -188,7 +188,7 @@ public abstract class AI_Base
         float criRate = calcCri / (calcCri + 650);
         if (Random.Range(0f, 1f) <= criRate)
         {
-            _dmg *= _criDmg;
+            _dmg *= _criDmg * 0.01f;
             isCri = true;
         }
 

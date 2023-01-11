@@ -21,7 +21,7 @@ public class ShogunDustEffect : SkillBase
     IEnumerator EffectCor(int index)
     {
         anim.Play($"Dust_{index}");
-        yield return new WaitForSeconds(0.09f);
+        yield return new WaitForSeconds(0.18f);
         anim.Play("Idle");
         yield break;
     }

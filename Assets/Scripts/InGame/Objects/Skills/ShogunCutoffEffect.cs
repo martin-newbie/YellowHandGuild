@@ -28,22 +28,23 @@ public class ShogunCutoffEffect : SkillBase
     public void FadeOut()
     {
         StopFade();
-        fadeCor = StartCoroutine(Fade(0.3f));
+        fadeCor = StartCoroutine(Fade(0.5f));
 
         IEnumerator Fade(float duration)
         {
             Color color = new Color(1, 1, 1, 1);
-            float timer = 0f;
+            float timer = duration;
 
-            while (timer <= duration)
+            while (timer >= 0f)
             {
                 color.a = timer / duration;
                 sprite.color = color;
 
-                timer += Time.deltaTime;
+                timer -= Time.deltaTime;
                 yield return null;
             }
 
+            anim.Play("Idle");
             yield break;
         }
     }

@@ -52,7 +52,7 @@ public class Shogun : CharacterAI
         {
             dustEffect.PlayEffect(comboCount % 2 + 1);
             DamageToTarget(target, EAttackHitType.SHORT_DISTANCE_ATK);
-            cutoffEffect.transform.position = target.transform.position;
+            cutoffEffect.transform.position = target.transform.position + new Vector3(0, 1, 0);
             isCri = target.IsCritical();
 
             if (isCri)
@@ -84,7 +84,8 @@ public class Shogun : CharacterAI
 
     protected override void StartMove()
     {
-        CancelCutoffEffect();
+        if (comboCount != 0)
+            CancelCutoffEffect();
         base.StartMove();
     }
 

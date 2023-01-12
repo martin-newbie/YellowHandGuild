@@ -123,6 +123,73 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &176890720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 176890722}
+  - component: {fileID: 176890721}
+  m_Layer: 0
+  m_Name: SpriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &176890721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176890720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072b877d4c578a14996222135ea33068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillSprites:
+  - {fileID: 21300000, guid: eea146f8f27f4914f8599f39e0efdd89, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
+  mapSprites:
+  - {fileID: 21300000, guid: a607c31f76ccd5048b3671b493135fca, type: 3}
+--- !u!4 &176890722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176890720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &186953282
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +765,7 @@ MonoBehaviour:
   characterSkillData: {fileID: 11400000, guid: c50090c59f04e564689b35db25c9ad1d, type: 2}
   normalStageData: {fileID: 11400000, guid: b139931894157ac418577028f156b726, type: 2}
   hostileData: {fileID: 11400000, guid: c76970e3f0825204b98c2973809c9602, type: 2}
+  mapData: {fileID: 11400000, guid: 306d12d8002e78049a1e6a99e2d831db, type: 2}
   totalDatasCount: 0
   currentLoadDataCount: 0
 --- !u!4 &1922820993

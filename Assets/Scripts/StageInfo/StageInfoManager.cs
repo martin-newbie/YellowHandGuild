@@ -13,13 +13,67 @@ public class StageInfoManager : MonoBehaviour
         instance = this;
     }
 
+    [Header("Info")]
+    public Text mapIndexText;
+    public Text mapNameText;
+    public Image mapPreviewImage;
+
+    [Header("Unit")]
     public Transform unitParent;
     public StageSelectUnit unitPrefab;
     public List<StageSelectUnit> unitList = new List<StageSelectUnit>();
 
+    [Header("Buttons")]
+    public Button leftButton;
+    public Button rightButton;
+
+    int mapIndex;
+
     private void Start()
     {
-        InitMapStages(TempData.Instance.mapIndex);
+        mapIndex = PlayerPrefs.GetInt(Const.mapIndex, 0);
+        InitUI();
+    }
+
+    public void OnLeftButton()
+    {
+        if (mapIndex <= 0)
+        {
+            return;
+        }
+
+        mapIndex++;
+        InitUI();
+    }
+
+    public void OnRightButton()
+    {
+        if (mapIndex >= StaticDataManager.Instance.mapData.datas.Count - 1)
+        {
+            return;
+        }
+
+        mapIndex--;
+        InitUI();
+    }
+
+    void InitUI()
+    {
+        leftButton.gameObject.SetActive(mapIndex > 0);
+        rightButton.gameObject.SetActive(mapIndex < StaticDataManager.Instance.mapData.datas.Count - 1);
+
+        mapPreviewImage.sprite = SpriteManager.GetMapSprite(mapIndex);
+
+        var data = StaticDataManager.GetMapData(mapIndex + 1);
+        mapIndexText.text = data.map_index.ToString();
+        mapNameText.text = data.map_name.ToString();
+
+        InitMapStages(mapIndex);
+        SaveMapIndex();
+    }
+    void SaveMapIndex()
+    {
+        PlayerPrefs.SetInt(Const.mapIndex, mapIndex);
     }
 
     bool isInit;

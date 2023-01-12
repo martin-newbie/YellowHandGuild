@@ -18,4 +18,10 @@ public class SpriteManager : MonoBehaviour
     {
         return instance.SkillSprites[index];
     }
+
+    [SerializeField] List<Sprite> mapSprites = new List<Sprite>();
+    public static Sprite GetMapSprite(int index)
+    {
+        return instance.mapSprites[index];
+    }
 }

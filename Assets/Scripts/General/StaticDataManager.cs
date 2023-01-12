@@ -53,6 +53,7 @@ public class StaticDataManager : MonoBehaviour
             characterSkillData,
             normalStageData,
             hostileData,
+            mapData,
         };
 
         totalDatasCount = datas.Count;

@@ -37,6 +37,12 @@ public class StaticDataManager : MonoBehaviour
         return instance.hostileData.GetHostileStaticStates(keyIndex, level);
     }
 
+    public StaticMapData mapData;
+    public static cMapData GetMapData(int keyIndex)
+    {
+        return instance.mapData.datas.Find((item) => item.map_index == keyIndex);
+    }
+
     public int totalDatasCount = 0;
     public int currentLoadDataCount = 0;
     public IEnumerator LoadAllStatics()

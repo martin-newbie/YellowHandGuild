@@ -24,6 +24,6 @@ public class TitleManager : MonoBehaviour
             return total <= cur;
         });
 
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("StageSelect");
     }
 }

@@ -23,12 +23,12 @@ public class NormalMode : GameModeBase
 
     public override string GetWave(int stageIdx, int waveIdx)
     {
-        return StaticDataManager.GetNormalStageData(stageIdx).wavesInfo[waveIdx];
+        return StaticDataManager.GetNormalStageData(stageIdx).waves_info[waveIdx];
     }
 
     public override int GetWaveCount(int stageIdx)
     {
-        return StaticDataManager.GetNormalStageData(stageIdx).wavesInfo.Count;
+        return StaticDataManager.GetNormalStageData(stageIdx).waves_info.Count;
     }
 
     public override void OnStageStart()

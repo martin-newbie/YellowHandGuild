@@ -26,4 +26,5 @@ public class TempData : MonoBehaviour
     // 덱 정보를 받아와서 넣어주면 인게임에서는 이것만 받아옴
     public List<int> charIndex = new List<int>();
     public List<int> charPosIndex = new List<int>();
+    public int mapIndex;
 }

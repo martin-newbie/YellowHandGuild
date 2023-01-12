@@ -42,7 +42,7 @@ public class StageInfoManager : MonoBehaviour
             return;
         }
 
-        mapIndex++;
+        mapIndex--;
         InitUI();
     }
 
@@ -53,7 +53,7 @@ public class StageInfoManager : MonoBehaviour
             return;
         }
 
-        mapIndex--;
+        mapIndex++;
         InitUI();
     }
 

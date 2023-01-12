@@ -176,6 +176,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1599048751f9dca4cad1e92a26d1f611, type: 3}
   mapSprites:
   - {fileID: 21300000, guid: a607c31f76ccd5048b3671b493135fca, type: 3}
+  - {fileID: 21300000, guid: 9c028d9259f71c94c9e4b6de29d99940, type: 3}
 --- !u!4 &176890722
 Transform:
   m_ObjectHideFlags: 0

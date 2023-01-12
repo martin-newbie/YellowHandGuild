@@ -20,20 +20,7 @@ public class StaticNormalStageData : SheetDataBase
 
         foreach (var item in str.Split('\n'))
         {
-            cStageData stage = new cStageData();
-
-            int recom_level = int.Parse(item.Split('\t')[0]);
-
-
-            List<string> waveList = new List<string>();
-            for (int i = 1; i < item.Split('\t').Length; i++)
-            {
-                string wave = item.Split('\t')[i];
-                waveList.Add(wave);
-            }
-
-            stage.recom_level = recom_level;
-            stage.wavesInfo = waveList;
+            cStageData stage = new cStageData(item.Split('\t'));
             datas.Add(stage);
         }
     }
@@ -43,5 +30,28 @@ public class StaticNormalStageData : SheetDataBase
 public class cStageData
 {
     public int recom_level; // 권장 레벨
+    public int stage_index;
+    public string stage_name;
+    public List<int> incoming_monsters = new List<int>();
     public List<string> wavesInfo = new List<string>();
+
+    public cStageData(string[] args)
+    {
+        int index = 0;
+
+        recom_level = int.Parse(args[index++]);
+        stage_index = int.Parse(args[index++]);
+        stage_name = args[index++];
+
+        var monsters = args[index++].Split(',');
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            incoming_monsters.Add(int.Parse(monsters[i]));
+        }
+
+        for (; index < args.Length; index++)
+        {
+            wavesInfo.Add(args[index]);
+        }
+    }
 }

@@ -33,4 +33,9 @@ public class DeckGroundUnit : MonoBehaviour
             posImage.gameObject.SetActive(active);
         }
     }
+
+    public void OnUnitButton()
+    {
+        DeckSettingManager.Instance.OpenGroundUnitInfo(unitIndex);
+    }
 }

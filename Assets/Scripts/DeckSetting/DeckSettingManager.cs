@@ -5,13 +5,21 @@ using UnityEngine;
 public class DeckSettingManager : MonoBehaviour
 {
 
-    public List<DeckGroundUnit> units = new List<DeckGroundUnit>();
+    private static DeckSettingManager instance = null;
+    public static DeckSettingManager Instance => instance;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
+
+    public List<DeckGroundUnit> units = new List<DeckGroundUnit>();
     public int curSelectingUnit;
 
     private void Start()
     {
-
+        InitUI();
     }
 
     public void InitUI()
@@ -25,5 +33,10 @@ public class DeckSettingManager : MonoBehaviour
             }
             units[i].UnitInit(data, i);
         }
+    }
+
+    public void OpenGroundUnitInfo(int groundIndex)
+    {
+
     }
 }

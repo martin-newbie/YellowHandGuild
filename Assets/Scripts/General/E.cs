@@ -29,3 +29,11 @@ public enum EGameMode
     DAILY_MISSION,          // 老老 狼汾
     INFINITY_DEMONS,        // 归蓖具青
 }
+
+public enum EPosType
+{
+    DEALER,
+    SUPPORT,
+    TANKER,
+    NONE,
+}

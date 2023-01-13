@@ -18,6 +18,9 @@ public class StageInfoManager : MonoBehaviour
     public Text mapNameText;
     public Image mapPreviewImage;
 
+    [Header("UI")]
+    public ScrollRect scroll;
+
     [Header("Unit")]
     public Transform unitParent;
     public StageSelectUnit unitPrefab;
@@ -68,6 +71,9 @@ public class StageInfoManager : MonoBehaviour
         mapIndexText.text = data.map_index.ToString();
         mapNameText.text = data.map_name.ToString();
 
+        scroll.content.anchoredPosition = Vector2.zero;
+        scroll.velocity = Vector2.zero;
+        
         InitMapStages(mapIndex);
         SaveMapIndex();
     }
@@ -86,7 +92,7 @@ public class StageInfoManager : MonoBehaviour
         }
 
         initUnitsData(mapIndex);
-        
+
         void instantiateUnits()
         {
             for (int i = 0; i < 20; i++)
@@ -100,9 +106,14 @@ public class StageInfoManager : MonoBehaviour
         {
             var stageDatas = StaticDataManager.Instance.normalStageData.datas.FindAll((item) => item.map_index == mapIndex);
 
-            for (int i = 0; i < stageDatas.Count; i++)
+            for (int i = 0; i < unitList.Count; i++)
             {
-                unitList[i].InitUnit(stageDatas[i]);
+                if (i < stageDatas.Count)
+                    unitList[i].InitUnit(stageDatas[i]);
+                else
+                {
+                    unitList[i].gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -24,4 +24,18 @@ public class SpriteManager : MonoBehaviour
     {
         return instance.mapSprites[index];
     }
+
+    [SerializeField] List<Sprite> jobSprites = new List<Sprite>();
+    public static Sprite GetJopSprite(EPosType type)
+    {
+        if (type == EPosType.NONE) return null;
+
+        return instance.jobSprites[(int)type];
+    }
+
+    [SerializeField] List<Sprite> characterUnitSprite = new List<Sprite>();
+    public static Sprite GetCharacterUnitSprite(int index)
+    {
+        return instance.characterUnitSprite[index];
+    }
 }

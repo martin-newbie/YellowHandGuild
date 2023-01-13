@@ -17,7 +17,6 @@ public class InGameManager : MonoBehaviour
 
     [Header("Play Info")]
     [SerializeField] List<int> charsIndex = new List<int>();
-    [SerializeField] List<int> charsPosIndex = new List<int>();
     [SerializeField] List<Transform> charsPosTr = new List<Transform>();
     [SerializeField] List<Transform> hostilesPosTr = new List<Transform>();
     public Vector3 fieldCenter;
@@ -52,9 +51,6 @@ public class InGameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // debug
-        if (UserData.Instance.characters.Count <= 0) UserData.Instance.characters.Add(new CharacterData(15));
-
         yield return null;
 
         InitStageInfo();
@@ -70,20 +66,16 @@ public class InGameManager : MonoBehaviour
     {
         stageIdx = TempData.Instance.stageIdx;
         charsIndex = TempData.Instance.charIndex;
-        charsPosIndex = TempData.Instance.charPosIndex;
     }
     void InitCharacters()
     {
-        int i = 0;
-        foreach (var item in charsIndex)
+        for (int i = 0; i < charsIndex.Count; i++)
         {
-            var temp = Instantiate(charPrefab, charsPosTr[charsPosIndex[i]].position, Quaternion.identity);
+            var temp = Instantiate(charPrefab, charsPosTr[i].position, Quaternion.identity);
 
-            int keyIndex = UserData.Instance.characters[item].keyIndex;
+            int keyIndex = UserData.Instance.characters[charsIndex[i]].keyIndex;
             temp.InitCharacter(keyIndex);
-
             curChars.Add(temp);
-            i++;
         }
     }
     void InitGameMode()
@@ -365,7 +357,7 @@ public class InGameManager : MonoBehaviour
         foreach (var item in resultList)
         {
             float calc = Vector3.Distance(item.transform.position, originPos);
-            if(calc < min)
+            if (calc < min)
             {
                 min = calc;
                 result = item.GetComponent<PlayableObject>();

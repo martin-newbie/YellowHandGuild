@@ -29,6 +29,7 @@ public class CharacterData
     public int keyIndex;
     public int rank;
     public int level;
+    public EPosType posType = EPosType.NONE;
 
     public CharacterData(int _keyIndex)
     {

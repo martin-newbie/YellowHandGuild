@@ -35,7 +35,7 @@ public struct StatusData
 public class StaticCharacterData : SheetDataBase
 {
     protected override string gid => "0";
-    protected override string range => "C3:U999";
+    protected override string range => "C3:V999";
 
     public List<cCharacterStatus> datas;
 
@@ -91,6 +91,8 @@ public class cCharacterStatus
 
     public EDamageType dmgType;
     public EDefenseType defType;
+
+    public EPosType posType;
     
     public cCharacterStatus(string[] args)
     {
@@ -117,5 +119,7 @@ public class cCharacterStatus
 
         dmgType = (EDamageType)int.Parse(args[index++]);
         defType = (EDefenseType)int.Parse(args[index++]);
+
+        posType = (EPosType)int.Parse(args[index++]);
     }
 }

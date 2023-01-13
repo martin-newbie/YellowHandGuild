@@ -1559,6 +1559,7 @@ MonoBehaviour:
   mapIndexText: {fileID: 473897457}
   mapNameText: {fileID: 1729283506}
   mapPreviewImage: {fileID: 1056705500}
+  scroll: {fileID: 573414470}
   unitParent: {fileID: 1428573792}
   unitPrefab: {fileID: 2004442598}
   unitList: []
@@ -1843,7 +1844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1851,11 +1852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1891,11 +1892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 486.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2276162332917639819, guid: a12f681442ed6e0448a46fc6e84a2fe9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -16,25 +16,37 @@ public class CharacterInfoUnit : MonoBehaviour
 
     [HideInInspector] public CharacterData linkedData;
     [HideInInspector] public int userCharIndex;
+    [HideInInspector] public int unitIndex;
 
-    public void InitInfoUnit(CharacterData data, int index)
+    public void InitInfoUnit(CharacterData data, int index, int _unitIndex)
     {
         linkedData = data;
         userCharIndex = index;
+        unitIndex = _unitIndex;
+
+        characterImage.sprite = SpriteManager.GetCharacterUnitSprite(linkedData.keyIndex);
+        characterName.text = StaticDataManager.GetCharacterStaticData(linkedData.keyIndex).name;
+        DisableAllBorders();
+    }
+
+    public void OnChooseButton()
+    {
+        CharacterInfoWindow.Instance.OnPreviewButton(userCharIndex);
     }
 
     public void DisableAllBorders()
     {
-
+        selectingBorder.SetActive(false);
+        unchoosableBorder.SetActive(false);
     }
 
     public void OnSelectingBorder()
     {
-
+        selectingBorder.SetActive(true);
     }
 
     public void OnUnchoosableBorder()
     {
-
+        unchoosableBorder.SetActive(true);
     }
 }

@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 83.1}
+  m_SizeDelta: {x: 0, y: 58.1}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1817556123584078263
 CanvasRenderer:
@@ -340,7 +340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -92.9}
+  m_AnchoredPosition: {x: 0, y: -92.899994}
   m_SizeDelta: {x: 383, y: 432}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1817556123843415866
@@ -373,7 +373,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 096b4f8666e6f2a49ac9fb22d752ddbb, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -505,7 +505,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 529960799}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6795960536895794789}
+        m_TargetAssemblyTypeName: CharacterInfoUnit, Assembly-CSharp
+        m_MethodName: OnChooseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isAnim: 1
 --- !u!114 &6795960536895794789
 MonoBehaviour:
@@ -523,6 +535,13 @@ MonoBehaviour:
   characterName: {fileID: 1817556123584078260}
   selectingBorder: {fileID: 1240248633}
   unchoosableBorder: {fileID: 1576989675}
+  linkedData:
+    keyIndex: 0
+    rank: 0
+    level: 0
+    posType: 0
+  userCharIndex: 0
+  unitIndex: 0
 --- !u!1 &1817556124344059966
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 18.7}
+  m_AnchoredPosition: {x: 0, y: 18.699997}
   m_SizeDelta: {x: 54, y: 18}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1817556124376620620

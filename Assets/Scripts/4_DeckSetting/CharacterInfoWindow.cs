@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class CharacterInfoWindow : MonoBehaviour
 {
+    private static CharacterInfoWindow instance = null;
+    public static CharacterInfoWindow Instance => instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     [Header("Info")]
     public Image infoBackground;
     public Image infoPreviewImage;
@@ -29,6 +36,7 @@ public class CharacterInfoWindow : MonoBehaviour
             unitList.Add(unit);
         }
         unitPrefab.gameObject.SetActive(false);
+        InitInfoUnits();
     }
 
     public void OpenInfoWindow(int groundIndex)
@@ -72,7 +80,7 @@ public class CharacterInfoWindow : MonoBehaviour
         for (int i = 0; i < unitList.Count; i++)
         {
             if (i < UserData.Instance.characters.Count)
-                unitList[i].InitInfoUnit(UserData.Instance.characters[i], i);
+                unitList[i].InitInfoUnit(UserData.Instance.characters[i], i, i);
         }
     }
     void InitUI()

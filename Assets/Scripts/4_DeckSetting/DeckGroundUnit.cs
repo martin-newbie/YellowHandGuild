@@ -36,7 +36,7 @@ public class DeckGroundUnit : MonoBehaviour
 
     public void OnUnitButton()
     {
-        DeckSettingManager.Instance.OpenGroundUnitInfo(unitIndex);
+        GroundUnitManager.Instance.OpenGroundUnitInfo(unitIndex);
     }
 
     public bool IsDataExist() => linkedData != null;

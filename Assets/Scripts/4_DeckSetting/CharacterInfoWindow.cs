@@ -63,7 +63,7 @@ public class CharacterInfoWindow : MonoBehaviour
     public void OnConfirmButton()
     {
         TempData.Instance.charDeckIndex[selectedGroundIndex] = curCharIndex; // -1 °¡´É
-        DeckSettingManager.Instance.InitUI();
+        GroundUnitManager.Instance.InitUI();
         Close();
     }
     void Close()

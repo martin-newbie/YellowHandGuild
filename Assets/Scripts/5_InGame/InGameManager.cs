@@ -71,6 +71,9 @@ public class InGameManager : MonoBehaviour
     {
         for (int i = 0; i < charsIndex.Count; i++)
         {
+            int charIdx = charsIndex[i];
+            if (charIdx == -1) continue;
+
             var temp = Instantiate(charPrefab, charsPosTr[i].position, Quaternion.identity);
 
             int keyIndex = UserData.Instance.characters[charsIndex[i]].keyIndex;

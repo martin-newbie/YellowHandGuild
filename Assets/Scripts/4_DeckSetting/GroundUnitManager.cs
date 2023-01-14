@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeckSettingManager : MonoBehaviour
+public class GroundUnitManager : MonoBehaviour
 {
 
-    private static DeckSettingManager instance = null;
-    public static DeckSettingManager Instance => instance;
+    private static GroundUnitManager instance = null;
+    public static GroundUnitManager Instance => instance;
 
     private void Awake()
     {

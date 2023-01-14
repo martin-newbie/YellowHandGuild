@@ -10,7 +10,7 @@ public class DeckGroundUnit : MonoBehaviour
     [SerializeField] Image characterImage;
     [SerializeField] Image posImage;
 
-    CharacterData linkedData;
+    [HideInInspector] public CharacterData linkedData;
     public int unitIndex;
 
     public void UnitInit(CharacterData _data, int index)
@@ -38,4 +38,6 @@ public class DeckGroundUnit : MonoBehaviour
     {
         DeckSettingManager.Instance.OpenGroundUnitInfo(unitIndex);
     }
+
+    public bool IsDataExist() => linkedData != null;
 }

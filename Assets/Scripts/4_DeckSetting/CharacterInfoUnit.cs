@@ -14,15 +14,13 @@ public class CharacterInfoUnit : MonoBehaviour
     [SerializeField] GameObject selectingBorder;
     [SerializeField] GameObject unchoosableBorder;
 
-    [HideInInspector] public CharacterData linkedData;
-    [HideInInspector] public int userCharIndex;
-    [HideInInspector] public int unitIndex;
+    CharacterData linkedData;
+    public int charIndex;
 
-    public void InitInfoUnit(CharacterData data, int index, int _unitIndex)
+    public void InitInfoUnit(int index)
     {
-        linkedData = data;
-        userCharIndex = index;
-        unitIndex = _unitIndex;
+        linkedData = UserData.Instance.characters[index];
+        charIndex = index;
 
         characterImage.sprite = SpriteManager.GetCharacterUnitSprite(linkedData.keyIndex);
         characterName.text = StaticDataManager.GetCharacterStaticData(linkedData.keyIndex).name;
@@ -31,7 +29,7 @@ public class CharacterInfoUnit : MonoBehaviour
 
     public void OnChooseButton()
     {
-        CharacterInfoWindow.Instance.OnPreviewButton(userCharIndex);
+        CharacterInfoWindow.Instance.OnPreviewButton(charIndex);
     }
 
     public void DisableAllBorders()
@@ -43,10 +41,12 @@ public class CharacterInfoUnit : MonoBehaviour
     public void OnSelectingBorder()
     {
         selectingBorder.SetActive(true);
+        unchoosableBorder.SetActive(false);
     }
 
     public void OnUnchoosableBorder()
     {
         unchoosableBorder.SetActive(true);
+        selectingBorder.SetActive(false);
     }
 }

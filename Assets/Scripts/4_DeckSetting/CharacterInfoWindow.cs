@@ -16,12 +16,14 @@ public class CharacterInfoWindow : MonoBehaviour
     public Image infoBackground;
     public Image infoPreviewImage;
     int selectedGroundIndex = -1;
-    int curUnitIndex = -1;
+    int curCharIndex = -1;
+    int tempIndex = -1;
 
     [Header("Units")]
     public CharacterInfoUnit unitPrefab;
     public Transform unitParent;
     public List<CharacterInfoUnit> unitList = new List<CharacterInfoUnit>();
+
 
     private void Start()
     {
@@ -42,76 +44,92 @@ public class CharacterInfoWindow : MonoBehaviour
     public void OpenInfoWindow(int groundIndex)
     {
         gameObject.SetActive(true);
+
+        curCharIndex = TempData.Instance.charDeckIndex[groundIndex];
         selectedGroundIndex = groundIndex;
+
+        tempIndex = curCharIndex;
+        TempData.Instance.charDeckIndex[groundIndex] = -1;
+
         InitInfoUnits();
         InitUI();
     }
 
     public void OnCloseButton()
     {
-
+        TempData.Instance.charDeckIndex[selectedGroundIndex] = tempIndex;
+        Close();
     }
-
     public void OnConfirmButton()
     {
-        if (curUnitIndex != -1)
-        {
-            TempData.Instance.charDeckIndex[selectedGroundIndex] = unitList[curUnitIndex].userCharIndex;
-        }
-        else
-        {
-            TempData.Instance.charDeckIndex[selectedGroundIndex] = -1;
-        }
+        TempData.Instance.charDeckIndex[selectedGroundIndex] = curCharIndex; // -1 °¡´É
+        DeckSettingManager.Instance.InitUI();
+        Close();
+    }
+    void Close()
+    {
+        tempIndex = -1;
+        gameObject.SetActive(false);
     }
 
-    public void OnPreviewButton(int index)
+    public void OnPreviewButton(int charIdx)
     {
-        if (curUnitIndex != index)
-            curUnitIndex = index;
-        else if (curUnitIndex == index)
-            curUnitIndex = -1;
+        if (IsExistInUnits(charIdx) && charIdx != curCharIndex) return;
+
+        if (curCharIndex != charIdx)
+            curCharIndex = charIdx;
+        else if (curCharIndex == charIdx)
+            curCharIndex = -1;
 
         InitUI();
     }
-
 
     void InitInfoUnits()
     {
         for (int i = 0; i < unitList.Count; i++)
         {
             if (i < UserData.Instance.characters.Count)
-                unitList[i].InitInfoUnit(UserData.Instance.characters[i], i, i);
+            {
+                unitList[i].InitInfoUnit(i);
+            }
         }
     }
     void InitUI()
     {
         initUnitButton();
-        if (curUnitIndex == -1)
+        if (curCharIndex == -1)
         {
             infoPreviewImage.gameObject.SetActive(false);
             return;
         }
 
         infoPreviewImage.gameObject.SetActive(true);
-        infoPreviewImage.sprite = SpriteManager.GetCharacterUnitSprite(unitList[curUnitIndex].linkedData.keyIndex);
+        infoPreviewImage.sprite = SpriteManager.GetCharacterUnitSprite(UserData.Instance.characters[curCharIndex].keyIndex);
 
-        void initUnitButton()
+    }
+    void initUnitButton()
+    {
+        for (int i = 0; i < unitList.Count; i++)
         {
-            for (int i = 0; i < unitList.Count; i++)
+            var unit = unitList[i];
+
+            if (unit.charIndex == curCharIndex)
             {
-                if (i == curUnitIndex)
-                {
-                    unitList[i].OnSelectingBorder();
-                }
-                else if (TempData.Instance.charDeckIndex.Contains(unitList[i].linkedData.keyIndex))
-                {
-                    unitList[i].OnUnchoosableBorder();
-                }
-                else
-                {
-                    unitList[i].DisableAllBorders();
-                }
+                unit.OnSelectingBorder();
+            }
+            else if (IsExistInUnits(unit.charIndex))
+            {
+                unit.OnUnchoosableBorder();
+            }
+            else
+            {
+                unit.DisableAllBorders();
             }
         }
+    }
+
+    bool IsExistInUnits(int charIdx)
+    {
+        return TempData.Instance.charDeckIndex.Contains(charIdx);
     }
 }

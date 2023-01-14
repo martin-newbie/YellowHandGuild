@@ -32,7 +32,7 @@ public class DeckSettingManager : MonoBehaviour
             CharacterData data = null;
             if (TempData.Instance.charDeckIndex[i] != -1)
             {
-                data = UserData.Instance.GetCharacterByKey(TempData.Instance.charDeckIndex[i]);
+                data = UserData.Instance.characters[TempData.Instance.charDeckIndex[i]];
             }
             units[i].UnitInit(data, i);
         }

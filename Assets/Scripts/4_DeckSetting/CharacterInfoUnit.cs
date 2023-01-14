@@ -14,10 +14,27 @@ public class CharacterInfoUnit : MonoBehaviour
     [SerializeField] GameObject selectingBorder;
     [SerializeField] GameObject unchoosableBorder;
 
-    CharacterData linkedData;
+    [HideInInspector] public CharacterData linkedData;
+    [HideInInspector] public int userCharIndex;
 
-    public void InitInfoUnit(CharacterData data)
+    public void InitInfoUnit(CharacterData data, int index)
     {
         linkedData = data;
+        userCharIndex = index;
+    }
+
+    public void DisableAllBorders()
+    {
+
+    }
+
+    public void OnSelectingBorder()
+    {
+
+    }
+
+    public void OnUnchoosableBorder()
+    {
+
     }
 }

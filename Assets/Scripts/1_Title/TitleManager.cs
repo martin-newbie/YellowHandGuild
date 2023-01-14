@@ -24,6 +24,10 @@ public class TitleManager : MonoBehaviour
             return total <= cur;
         });
 
+
+        UserData.Instance.characters.Add(new CharacterData(15));
+        UserData.Instance.characters.Add(new CharacterData(16));
+        UserData.Instance.characters.Add(new CharacterData(17));
         SceneManager.LoadScene("StageSelect");
     }
 }

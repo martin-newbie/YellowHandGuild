@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageInfoManager : MonoBehaviour
@@ -48,7 +49,6 @@ public class StageInfoManager : MonoBehaviour
         mapIndex--;
         InitUI();
     }
-
     public void OnRightButton()
     {
         if (mapIndex >= StaticDataManager.Instance.mapData.datas.Count - 1)
@@ -116,5 +116,15 @@ public class StageInfoManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void LoadStage(int stageIdx)
+    {
+        // 노말 스테이지일 경우만 만들고
+        // 이후 스테이지 종류가 추가됐을 때 메서드 추상화로 추상 클래스의 메서드로 받아와서 사용
+
+        TempData.Instance.stageIdx = stageIdx;
+        TempData.Instance.gameMode = EGameMode.NORMAL;
+        SceneManager.LoadScene("DeckSetting");
     }
 }

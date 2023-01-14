@@ -177,6 +177,32 @@ MonoBehaviour:
   mapSprites:
   - {fileID: 21300000, guid: a607c31f76ccd5048b3671b493135fca, type: 3}
   - {fileID: 21300000, guid: 9c028d9259f71c94c9e4b6de29d99940, type: 3}
+  jobSprites:
+  - {fileID: 21300000, guid: a74f57275038c2043aff5b79616e7062, type: 3}
+  - {fileID: 21300000, guid: fb57a116408767f449cc63f53041bdc4, type: 3}
+  - {fileID: 21300000, guid: d47e843199922734cbb87d42e51855f0, type: 3}
+  characterUnitSprite:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: b7c6369adc3540641bcbaf870d057cab, type: 3}
+  - {fileID: 21300000, guid: 096b4f8666e6f2a49ac9fb22d752ddbb, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: f87302ae0cfd98143a616afca470e188, type: 3}
+  - {fileID: 21300000, guid: 45f2c3979143ff044b72562b843a6c01, type: 3}
+  - {fileID: 21300000, guid: b12ab9c7a02458d4793abe21d51f9618, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &176890722
 Transform:
   m_ObjectHideFlags: 0
@@ -222,8 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   stageIdx: 0
-  charIndex: 00000000
-  charPosIndex: 01000000
+  charDeckIndex: 
 --- !u!4 &186953284
 Transform:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ public class DeckSettingManager : MonoBehaviour
     public List<DeckGroundUnit> units = new List<DeckGroundUnit>();
     public int curSelectingUnit;
 
+    [Header("Info")]
+    public CharacterInfoWindow infoWindow;
+
     private void Start()
     {
         InitUI();
@@ -27,9 +30,9 @@ public class DeckSettingManager : MonoBehaviour
         for (int i = 0; i < units.Count; i++)
         {
             CharacterData data = null;
-            if (TempData.Instance.charIndex[i] != -1)
+            if (TempData.Instance.charDeckIndex[i] != -1)
             {
-                data = UserData.Instance.characters[TempData.Instance.charIndex[i]];
+                data = UserData.Instance.GetCharacterByKey(TempData.Instance.charDeckIndex[i]);
             }
             units[i].UnitInit(data, i);
         }
@@ -37,6 +40,6 @@ public class DeckSettingManager : MonoBehaviour
 
     public void OpenGroundUnitInfo(int groundIndex)
     {
-
+        infoWindow.OpenInfoWindow(groundIndex);
     }
 }

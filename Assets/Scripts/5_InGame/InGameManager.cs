@@ -65,7 +65,7 @@ public class InGameManager : MonoBehaviour
     void InitStageInfo()
     {
         stageIdx = TempData.Instance.stageIdx;
-        charsIndex = TempData.Instance.charIndex;
+        charsIndex = TempData.Instance.charDeckIndex;
     }
     void InitCharacters()
     {
@@ -119,7 +119,7 @@ public class InGameManager : MonoBehaviour
             }
 
         }
-        clearInfo = gameMode.GetResult(gameClear, gameTime, TempData.Instance.charIndex.Count - curChars.Count);
+        clearInfo = gameMode.GetResult(gameClear, gameTime, TempData.Instance.charDeckIndex.Count - curChars.Count);
         yield break;
 
         void SpawnWaveMonster()

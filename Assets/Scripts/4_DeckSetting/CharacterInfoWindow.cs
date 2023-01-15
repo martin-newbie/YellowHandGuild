@@ -24,6 +24,9 @@ public class CharacterInfoWindow : MonoBehaviour
     public Transform unitParent;
     public List<CharacterInfoUnit> unitList = new List<CharacterInfoUnit>();
 
+    [Header("UI")]
+    public Button confirmButton;
+
 
     private void Start()
     {
@@ -62,7 +65,12 @@ public class CharacterInfoWindow : MonoBehaviour
     }
     public void OnConfirmButton()
     {
-        TempData.Instance.charDeckIndex[selectedGroundIndex] = curCharIndex; // -1 °¡´É
+        if (!TempData.Instance.IsDeckAddable())
+        {
+            return;
+        }
+
+        TempData.Instance.charDeckIndex[selectedGroundIndex] = curCharIndex;
         GroundUnitManager.Instance.InitUI();
         Close();
     }
@@ -96,7 +104,8 @@ public class CharacterInfoWindow : MonoBehaviour
     }
     void InitUI()
     {
-        initUnitButton();
+        InitUnitButton();
+        InitConfirmButton();
         if (curCharIndex == -1)
         {
             infoPreviewImage.gameObject.SetActive(false);
@@ -107,7 +116,7 @@ public class CharacterInfoWindow : MonoBehaviour
         infoPreviewImage.sprite = SpriteManager.GetCharacterUnitSprite(UserData.Instance.characters[curCharIndex].keyIndex);
 
     }
-    void initUnitButton()
+    void InitUnitButton()
     {
         for (int i = 0; i < unitList.Count; i++)
         {
@@ -126,6 +135,10 @@ public class CharacterInfoWindow : MonoBehaviour
                 unit.DisableAllBorders();
             }
         }
+    }
+    void InitConfirmButton()
+    {
+        confirmButton.image.sprite = TempData.Instance.IsDeckAddable() ? SpriteManager.Instance.possibleButton : SpriteManager.Instance.impossibleButton;
     }
 
     bool IsExistInUnits(int charIdx)

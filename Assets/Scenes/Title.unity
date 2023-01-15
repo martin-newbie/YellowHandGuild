@@ -203,6 +203,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  possibleButton: {fileID: 21300000, guid: 2f6b4cec9fa67a642af99fc371626758, type: 3}
+  impossibleButton: {fileID: 0}
+  positiveButton: {fileID: 0}
+  negativeButton: {fileID: 0}
 --- !u!4 &176890722
 Transform:
   m_ObjectHideFlags: 0

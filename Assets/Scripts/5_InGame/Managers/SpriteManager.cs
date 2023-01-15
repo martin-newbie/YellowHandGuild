@@ -38,4 +38,11 @@ public class SpriteManager : MonoBehaviour
     {
         return instance.characterUnitSprite[index];
     }
+
+
+    public Sprite possibleButton;
+    public Sprite impossibleButton;
+
+    public Sprite positiveButton;
+    public Sprite negativeButton;
 }

@@ -31,4 +31,19 @@ public class TempData : MonoBehaviour
     {
         charDeckIndex = new List<int>(Enumerable.Repeat(-1, 9));
     }
+
+    public bool IsDeckAddable()
+    {
+        bool result;
+
+        int count = 0;
+        for (int i = 0; i < charDeckIndex.Count; i++)
+        {
+            if (charDeckIndex[i] != -1) count++;
+        }
+
+        result = count < 5;
+
+        return result;
+    }
 }

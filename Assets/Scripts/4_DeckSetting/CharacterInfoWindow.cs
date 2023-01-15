@@ -12,6 +12,8 @@ public class CharacterInfoWindow : MonoBehaviour
         instance = this;
     }
 
+    [SerializeField] DeckSceneManager deckManager;
+
     [Header("Info")]
     public Image infoBackground;
     public Image infoPreviewImage;
@@ -77,6 +79,7 @@ public class CharacterInfoWindow : MonoBehaviour
     void Close()
     {
         tempIndex = -1;
+        deckManager.InitButton();
         gameObject.SetActive(false);
     }
 

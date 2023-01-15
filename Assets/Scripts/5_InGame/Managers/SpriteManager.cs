@@ -49,6 +49,13 @@ public class SpriteManager : MonoBehaviour
 
     public static void SetConfirmSprite(Button button, bool condition)
     {
-        button.image.sprite = condition ? instance.possibleButton : instance.impossibleButton;
+        try // todo: remove when all sprites are ready
+        {
+            button.image.sprite = condition ? instance.possibleButton : instance.impossibleButton;
+        }
+        catch (System.Exception)
+        {
+
+        }
     }
 }

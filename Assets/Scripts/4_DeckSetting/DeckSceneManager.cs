@@ -8,6 +8,11 @@ public class DeckSceneManager : MonoBehaviour
     [Header("UI")]
     public Button gameStartButton;
 
+    private void Start()
+    {
+        InitButton();
+    }
+
     public void InitButton()
     {
         SpriteManager.SetConfirmSprite(gameStartButton, TempData.Instance.IsGameStartAble());

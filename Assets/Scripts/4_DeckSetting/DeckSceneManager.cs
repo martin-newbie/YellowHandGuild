@@ -1,12 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DeckSceneManager : MonoBehaviour
 {
+    [Header("UI")]
+    public Button gameStartButton;
+
+    public void InitButton()
+    {
+        SpriteManager.SetConfirmSprite(gameStartButton, TempData.Instance.IsGameStartAble());
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene("InGame");
+        if (!TempData.Instance.IsGameStartAble())
+        {
+            return;
+        }
+
+        LoadingManager.LoadScene("InGame");
     }
 }

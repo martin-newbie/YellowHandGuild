@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageInfoManager : MonoBehaviour
@@ -125,6 +124,6 @@ public class StageInfoManager : MonoBehaviour
 
         TempData.Instance.stageIdx = stageIdx;
         TempData.Instance.gameMode = EGameMode.NORMAL;
-        SceneManager.LoadScene("DeckSetting");
+        LoadingManager.LoadScene("DeckSetting");
     }
 }

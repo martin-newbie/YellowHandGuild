@@ -46,4 +46,17 @@ public class TempData : MonoBehaviour
 
         return result;
     }
+
+    public bool IsGameStartAble()
+    {
+        bool result;
+        int count = 0;
+
+        for (int i = 0; i < charDeckIndex.Count; i++)
+        {
+            if (charDeckIndex[i] != -1) count++;
+        }
+        result = count > 0;
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpriteManager : MonoBehaviour
 {
@@ -45,4 +46,9 @@ public class SpriteManager : MonoBehaviour
 
     public Sprite positiveButton;
     public Sprite negativeButton;
+
+    public static void SetConfirmSprite(Button button, bool condition)
+    {
+        button.image.sprite = condition ? instance.possibleButton : instance.impossibleButton;
+    }
 }

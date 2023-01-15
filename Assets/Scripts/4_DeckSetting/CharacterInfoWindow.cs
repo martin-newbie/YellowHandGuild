@@ -138,7 +138,7 @@ public class CharacterInfoWindow : MonoBehaviour
     }
     void InitConfirmButton()
     {
-        confirmButton.image.sprite = TempData.Instance.IsDeckAddable() ? SpriteManager.Instance.possibleButton : SpriteManager.Instance.impossibleButton;
+        SpriteManager.SetConfirmSprite(confirmButton, TempData.Instance.IsDeckAddable());
     }
 
     bool IsExistInUnits(int charIdx)

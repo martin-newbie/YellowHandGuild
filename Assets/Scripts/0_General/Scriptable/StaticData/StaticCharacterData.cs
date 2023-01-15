@@ -17,7 +17,10 @@ public struct StatusData
     public float missRate;
     public float hitRate;
 
-    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit)
+    public EDamageType dmgType;
+    public EDefenseType defType;
+
+    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit, EDamageType _dmgType, EDefenseType _defType)
     {
         hp = _hp;
         dmg = _dmg;
@@ -28,6 +31,8 @@ public struct StatusData
         criDmg = _criDmg;
         missRate = _miss;
         hitRate = _hit;
+        dmgType = _dmgType;
+        defType = _defType;
     }
 }
 
@@ -58,7 +63,7 @@ public class StaticCharacterData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType);
         return result;
     }
 }

@@ -43,7 +43,7 @@ public class Skeleton : HostileAI
 
             if (result.Count <= 0) return;
 
-            result[0].GetComponent<CharacterGameObject>().OnDamage(statusData.dmg, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
+            DamageToTarget(result[0].GetComponent<CharacterGameObject>(), ERangeType.SHORT_DISTANCE_ATK);
         }
     }
 

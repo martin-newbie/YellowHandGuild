@@ -51,7 +51,7 @@ public class Shogun : CharacterAI
         if (target != null)
         {
             dustEffect.PlayEffect(comboCount % 2 + 1);
-            DamageToTarget(target, EAttackHitType.SHORT_DISTANCE_ATK);
+            DamageToTarget(target, ERangeType.SHORT_DISTANCE_ATK);
             cutoffEffect.transform.position = target.transform.position + new Vector3(0, 1, 0);
             isCri = target.IsCritical();
 

@@ -13,13 +13,15 @@ public class BountyHunterHurlbat : SkillBase
     Vector2 dir;
     float moveSpeed;
     StatusData data;
+    AI_Base subject;
 
-    public void Init(Vector2 _dir, float _speed, StatusData _data)
+    public void Init(Vector2 _dir, float _speed, StatusData _data, AI_Base _subject)
     {
         isInit = true;
         dir = _dir;
         moveSpeed = _speed;
         data = _data;
+        subject = _subject;
     }
 
     private void Update()
@@ -37,7 +39,7 @@ public class BountyHunterHurlbat : SkillBase
     {
         if (collision.CompareTag("Hostile"))
         {
-            collision.GetComponent<HostileGameObject>().OnDamage(data.dmg, EAttackHitType.LONG_DISTANCE_ATK, data.hitRate, data.cri, data.criDmg, data.defBreak);
+            collision.GetComponent<HostileGameObject>().OnDamage(ERangeType.LONG_DISTANCE_ATK, data, subject);
             InGameManager.Instance.PlayEffect(0, collision.transform.position + new Vector3(0, 1));
             isArrive = true;
             Destroy(gameObject);

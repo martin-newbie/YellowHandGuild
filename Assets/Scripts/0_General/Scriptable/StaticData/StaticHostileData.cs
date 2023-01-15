@@ -28,7 +28,7 @@ public class StaticHostileData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate);
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType);
         return result;
     }
 }

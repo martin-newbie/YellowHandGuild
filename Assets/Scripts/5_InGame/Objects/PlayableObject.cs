@@ -26,9 +26,9 @@ public abstract class PlayableObject : MonoBehaviour
         focusModel.SetFocus(active);
     }
 
-    public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
+    public virtual void OnDamage(ERangeType _atkType, StatusData _data, AI_Base _subject)
     {
-        thisAI.OnDamage(_dmg, _atkType, _hitRate, _criChance, _criDmg, _defBreak);
+        thisAI.OnDamage(_atkType, _data, _subject);
     }
 
     public virtual bool IsCritical()
@@ -89,7 +89,7 @@ public enum ECharacterState
     DEAD,
 }
 
-public enum EAttackHitType
+public enum ERangeType
 {
     SHORT_DISTANCE_ATK,
     LONG_DISTANCE_ATK,

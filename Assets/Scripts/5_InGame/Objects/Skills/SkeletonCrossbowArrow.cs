@@ -8,12 +8,14 @@ public class SkeletonCrossbowArrow : SkillBase
     bool isInit = false;
     StatusData data;
     Vector2 dir;
+    AI_Base subject;
 
-    public void ArrowShoot(Vector2 _dir, StatusData _data)
+    public void ArrowShoot(Vector2 _dir, StatusData _data, AI_Base _subject)
     {
         isInit = true;
         dir = _dir;
         data = _data;
+        subject = _subject;
     }
 
     void Update()
@@ -27,7 +29,7 @@ public class SkeletonCrossbowArrow : SkillBase
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayableObject>()?.OnDamage(data.dmg, EAttackHitType.LONG_DISTANCE_ATK, data.hitRate, data.cri, data.criDmg, data.defBreak);
+            collision.GetComponent<PlayableObject>()?.OnDamage(ERangeType.LONG_DISTANCE_ATK, data, subject);
             Destroy(gameObject);
         }
     }

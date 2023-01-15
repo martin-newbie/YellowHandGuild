@@ -5,14 +5,16 @@ using UnityEngine;
 public class OccultistMeteor : SkillBase
 {
     Collider2D atkCol;
+    AI_Base subject;
     [SerializeField] ContactFilter2D filter;
 
     StatusData data;
 
-    public void Init(StatusData _data)
+    public void Init(StatusData _data, AI_Base _subject)
     {
         atkCol = GetComponent<Collider2D>();
         data = _data;
+        subject = _subject;
     }
 
     void AttackFrame()
@@ -24,7 +26,7 @@ public class OccultistMeteor : SkillBase
 
         foreach (var item in hostiles)
         {
-            item.GetComponent<HostileGameObject>().OnDamage(data.dmg, EAttackHitType.LONG_DISTANCE_ATK, data.hitRate, data.cri, data.criDmg, data.defBreak);
+            item.GetComponent<HostileGameObject>().OnDamage(ERangeType.LONG_DISTANCE_ATK, data, subject);
         }
     }
 

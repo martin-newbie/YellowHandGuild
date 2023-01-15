@@ -25,7 +25,7 @@ public class Occultist : CharacterAI
     IEnumerator AttackCoroutine()
     {
         var obj = Instantiate(meteor, targeted.transform.position, Quaternion.identity) as OccultistMeteor;
-        obj.Init(statusData);
+        obj.Init(statusData, this);
 
         Play("Attack");
 

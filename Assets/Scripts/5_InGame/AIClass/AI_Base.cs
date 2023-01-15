@@ -173,9 +173,16 @@ public abstract class AI_Base
     }
 
     bool isCri = false;
-    public virtual void OnDamage(float _dmg, EAttackHitType _atkType, float _hitRate, float _criChance, float _criDmg, float _defBreak)
+    public virtual void OnDamage(ERangeType _atkType, StatusData _data, AI_Base _subject)
     {
-        float calcMiss = Mathf.Clamp(statusData.missRate - _hitRate, 0f, float.MaxValue);
+        float dmg = _data.dmg;
+        float hitRate = _data.hitRate;
+        float cri = _data.cri;
+        float criDmg = _data.criDmg;
+        float defBreak = _data.defBreak;
+        EDamageType dmgType = _data.dmgType;
+
+        float calcMiss = Mathf.Clamp(statusData.missRate - hitRate, 0f, float.MaxValue);
         float missRate = calcMiss / (calcMiss + 450);
         isCri = false;
 
@@ -184,22 +191,22 @@ public abstract class AI_Base
             return;
         }
 
-        float calcCri = Mathf.Clamp(_criChance - statusData.criBreak, 0f, float.MaxValue);
+        float calcCri = Mathf.Clamp(cri - statusData.criBreak, 0f, float.MaxValue);
         float criRate = calcCri / (calcCri + 650);
         if (Random.Range(0f, 1f) <= criRate)
         {
-            _dmg *= _criDmg * 0.01f;
+            dmg *= criDmg * 0.01f;
             isCri = true;
         }
 
-        float calcDef = Mathf.Clamp(statusData.def - _defBreak, 0f, float.MaxValue);
-        _dmg = _dmg / (1 + calcDef / 1500);
+        float calcDef = Mathf.Clamp(statusData.def - defBreak, 0f, float.MaxValue);
+        dmg = dmg / (1 + calcDef / 1500);
 
-        statusData.hp -= _dmg;
+        statusData.hp -= dmg;
     }
-    protected virtual void DamageToTarget(PlayableObject target, EAttackHitType _atkType)
+    protected virtual void DamageToTarget(PlayableObject target, ERangeType _atkType)
     {
-        target.OnDamage(statusData.dmg, _atkType, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
+        target.OnDamage(_atkType, statusData, this);
     }
 
     public bool IsCritical()

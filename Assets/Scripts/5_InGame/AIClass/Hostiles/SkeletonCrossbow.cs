@@ -72,7 +72,7 @@ public class SkeletonCrossbow : HostileAI
             Quaternion axisRot = Quaternion.AngleAxis(angle - 180f, Vector3.forward);
 
             var arrow = Instantiate(arrowPref, transform.position + new Vector3(0, 1), axisRot) as SkeletonCrossbowArrow;
-            arrow.ArrowShoot(dir, statusData);
+            arrow.ArrowShoot(dir, statusData, this);
         }
         void bayonet()
         {
@@ -82,7 +82,10 @@ public class SkeletonCrossbow : HostileAI
             if (result.Count <= 0) return;
 
             var target = result[Random.Range(0, result.Count)].GetComponent<PlayableObject>();
-            target.OnDamage(statusData.dmg / 2, EAttackHitType.SHORT_DISTANCE_ATK, statusData.hitRate, statusData.cri, statusData.criDmg, statusData.defBreak);
+
+            var statusCopy = statusData;
+            statusCopy.dmg /= 2;
+            target.OnDamage(ERangeType.SHORT_DISTANCE_ATK, statusCopy, this);
             target.GiveKnockback(0.5f, GetTargetDir(transform.position, targeted.transform.position));
         }
 

@@ -39,17 +39,7 @@ public class BountyHunter : CharacterAI
 
     public override void GiveDamage()
     {
-        GetAttackColliderEnemy()?.OnDamage(ERangeType.SHORT_DISTANCE_ATK, statusData, this);
-    }
-
-    HostileGameObject GetAttackColliderEnemy()
-    {
-        List<Collider2D> enemies = new List<Collider2D>();
-        Physics2D.OverlapCollider(atkCol, subject.filter, enemies);
-
-        if (enemies.Count <= 0) return null;
-
-        return enemies[0].GetComponent<HostileGameObject>();
+        GetColliderHostile()?.OnDamage(ERangeType.SHORT_DISTANCE_ATK, statusData, this);
     }
 
     public override void AutoSkill()
@@ -64,11 +54,16 @@ public class BountyHunter : CharacterAI
         atkCoroutine = StartCoroutine(BountyHunt());
     }
 
+    PlayableObject GetColliderHostile()
+    {
+        return InGameManager.Instance.GetNearestColliderTarget(atkCol, subject.filter, transform.position);
+    }
+
     IEnumerator BountyHunt()
     {
         void nockbackAttack()
         {
-            var enemy = GetAttackColliderEnemy();
+            var enemy = GetColliderHostile();
 
             if (enemy)
             {

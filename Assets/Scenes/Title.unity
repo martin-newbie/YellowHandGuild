@@ -195,7 +195,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 959e7f3c40a348a47aba0ce13bc35731, type: 3}
   - {fileID: 0}
   - {fileID: 21300000, guid: 3c9274094b97d274c807409b8150865d, type: 3}
   - {fileID: 21300000, guid: 45f2c3979143ff044b72562b843a6c01, type: 3}
@@ -204,7 +204,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   possibleButton: {fileID: 21300000, guid: 2f6b4cec9fa67a642af99fc371626758, type: 3}
-  impossibleButton: {fileID: 0}
+  impossibleButton: {fileID: 21300000, guid: b30906df8f96c6a418a7988cf8992965, type: 3}
   positiveButton: {fileID: 0}
   negativeButton: {fileID: 0}
 --- !u!4 &176890722

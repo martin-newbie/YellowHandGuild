@@ -1706,7 +1706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charsIndex: 
-  charsPosIndex: 
   charsPosTr:
   - {fileID: 1233737390}
   - {fileID: 1039584068}
@@ -1844,6 +1843,8 @@ MonoBehaviour:
   - {fileID: 5068318486993258942, guid: df51db2617b30eb44b74c7e6374c1569, type: 3}
   - {fileID: 9013675976868637374, guid: 652c7c3dd9c83c74397415e110891d17, type: 3}
   - {fileID: 5203194219426001577, guid: 80fb6f7afcad5124dba7b2fad2e7b09c, type: 3}
+  - {fileID: 4098949142616290543, guid: e28d3feb17836e04897bf0bc4e3767d8, type: 3}
+  - {fileID: 2314754538432541431, guid: 0cbb4ee9ead5b2e409f3283d04101ead, type: 3}
 --- !u!1 &2128554979
 GameObject:
   m_ObjectHideFlags: 0

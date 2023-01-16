@@ -34,7 +34,7 @@ public class WarMachine : CharacterAI
         yield return new WaitForSeconds(0.5f);
         combo++;
         subject.state = ECharacterState.IDLE;
-        
+
         yield break;
     }
 
@@ -101,16 +101,47 @@ public class WarMachine : CharacterAI
 
     public override void SearchTargeting()
     {
-        subject.state = ECharacterState.IDLE;
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
     }
 
     public override void SelectTargeting()
     {
-        subject.state = ECharacterState.IDLE;
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
+        if (target == null) return;
+
+        Cancel();
+        SetTargetingSkillTarget(target);
     }
 
     public override void TargetingSkill()
     {
+        atkCor = StartCoroutine(RocketPunch());
+    }
+
+    IEnumerator RocketPunch()
+    {
+        subject.state = ECharacterState.ON_ACTION;
+
+        Play("Rocket_Move");
+        do
+        {
+            SetCombatMovePos();
+
+            Vector2 dir = (targetPos - transform.position).normalized;
+            transform.Translate(dir * Time.deltaTime * statusData.moveSpeed * 2f);
+            SetRotation(transform.position, targeted.transform.position);
+            yield return null;
+
+        } while (Vector3.Distance(transform.position, targetPos) > 0.1f);
+
+        Play("Rocket_Attack");
+        HitAtAll();
+        yield return new WaitForSeconds(0.5f);
+
+        Play("Idle");
+        yield return new WaitForSeconds(1f);
+
         subject.state = ECharacterState.IDLE;
+        yield break;
     }
 }

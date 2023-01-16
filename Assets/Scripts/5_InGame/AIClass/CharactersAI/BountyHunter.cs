@@ -146,12 +146,12 @@ public class BountyHunter : CharacterAI
 
     public override void SearchTargeting()
     {
-        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillRange, statusData.maxRange);
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
     }
 
     public override void SelectTargeting()
     {
-        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillRange, statusData.maxRange);
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
         if (target == null) return;
         SetTargetingSkillTarget(target);
     }

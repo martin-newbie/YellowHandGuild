@@ -20,6 +20,7 @@ public class Skeleton : HostileAI
 
     IEnumerator AttackCoroutine()
     {
+        SetRotation(transform.position, targeted.transform.position);
         subject.state = ECharacterState.STAND_BY;
         Play("Ready");
         yield return new WaitForSeconds(0.5f);

@@ -231,6 +231,7 @@ public class InGameManager : MonoBehaviour
     // targeting
     public void SearchNearestTargetCharacter(int index)
     {
+        Time.timeScale = 0.3f;
         curChars[index].SearchTargetSkill();
     }
     public void SelectNearestTargetCharacter(int index)
@@ -312,6 +313,7 @@ public class InGameManager : MonoBehaviour
     }
     public void OffTargeting()
     {
+        Time.timeScale = 1f;
         TargetingCanvasObj.SetActive(false);
         OffFriendlyTargetFocus();
         OffHostileTargetFocus();

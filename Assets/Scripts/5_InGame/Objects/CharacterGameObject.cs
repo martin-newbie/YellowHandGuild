@@ -35,7 +35,6 @@ public class CharacterGameObject : PlayableObject
                 thisAI.MoveToTarget();
                 if (thisAI.IsArriveAtTarget())
                 {
-                    thisAI.IsArriveAtTarget();
                     state = ECharacterState.IDLE;
                 }
                 break;

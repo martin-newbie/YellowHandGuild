@@ -7,7 +7,7 @@ using UnityEngine;
 public class StaticCharacterSkillData : SheetDataBase
 {
     protected override string gid => "1427760322";
-    protected override string range => "C3:H999";
+    protected override string range => "C3:I999";
 
     public List<cCharacterSkillData> datas;
 
@@ -35,7 +35,8 @@ public class cCharacterSkillData
     public float autoSkillCool;
     public float autoSkillDmg;
     public float targetSkillCool;
-    public float targetSkillRange;
+    public float targetSkillMaxRange;
+    public float targetSkillMinRange;
     public float targetSkillDmg;
 
     public cCharacterSkillData(string[] args)
@@ -45,7 +46,8 @@ public class cCharacterSkillData
         autoSkillCool = float.Parse(args[index++]);
         autoSkillDmg = float.Parse(args[index++]);
         targetSkillCool = float.Parse(args[index++]);
-        targetSkillRange = float.Parse(args[index++]);
+        targetSkillMaxRange = float.Parse(args[index++]);
+        targetSkillMinRange = float.Parse(args[index++]);
         targetSkillDmg = float.Parse(args[index++]);
     }
 }

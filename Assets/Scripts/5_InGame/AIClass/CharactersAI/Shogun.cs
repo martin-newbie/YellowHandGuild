@@ -17,7 +17,6 @@ public class Shogun : CharacterAI
         dustEffect = InGameManager.Instance.GetSpawnSkill(5, model.transform) as ShogunDustEffect;
         cutoffEffect = InGameManager.Instance.GetSpawnSkill(4, null) as ShogunCutoffEffect;
 
-        atkType = AttackType.SHORT;
         maxRange = 2f;
         minRange = 1.5f;
         moveSpeed = 2.3f;

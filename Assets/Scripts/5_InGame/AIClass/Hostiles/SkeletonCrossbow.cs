@@ -13,7 +13,6 @@ public class SkeletonCrossbow : HostileAI
         atkCol = InGameManager.Instance.GetAttackCollider(1, transform);
         atkCol.transform.SetParent(model.transform);
 
-        atkType = AttackType.SHORT;
         maxRange = 8f;
         moveSpeed = 1.5f;
         minRange = 2f;

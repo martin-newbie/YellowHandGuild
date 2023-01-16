@@ -12,7 +12,6 @@ public class Occultist : CharacterAI
     {
         meteor = InGameManager.Instance.GetSkill(0).GetComponent<OccultistMeteor>();
 
-        atkType = AttackType.LONG;
         maxRange = 10f;
         moveSpeed = 1f;
     }

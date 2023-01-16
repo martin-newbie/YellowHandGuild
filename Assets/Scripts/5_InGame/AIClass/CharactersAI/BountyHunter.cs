@@ -24,7 +24,6 @@ public class BountyHunter : CharacterAI
         hook.transform.localPosition = new Vector3(0.4f, 0.8f);
         hook.gameObject.SetActive(false);
 
-        atkType = AttackType.SHORT;
         maxRange = 1.5f;
         minRange = 1f;
         moveSpeed = 1.5f;

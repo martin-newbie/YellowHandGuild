@@ -18,8 +18,6 @@ public abstract class AI_Base
     protected Animator animator;
     protected SpriteRenderer model;
 
-    protected AttackType atkType;
-
     public int keyIndex;
     public float minRange;
     public float maxRange;

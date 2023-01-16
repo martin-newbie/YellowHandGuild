@@ -12,7 +12,6 @@ public class Skeleton : HostileAI
         atkCol = InGameManager.Instance.GetAttackCollider(1, transform);
         atkCol.transform.SetParent(model.transform);
 
-        atkType = AttackType.SHORT;
         maxRange = 1.5f;
         moveSpeed = 1.5f;
     }

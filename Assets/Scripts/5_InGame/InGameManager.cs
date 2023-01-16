@@ -163,7 +163,11 @@ public class InGameManager : MonoBehaviour
             {
                 if (item.state != ECharacterState.IDLE)
                     result = false;
-                else
+            }
+
+            foreach (var item in curChars)
+            {
+                if (result)
                     item.MoveToInitialPoint();
             }
 

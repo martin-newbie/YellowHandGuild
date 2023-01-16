@@ -66,7 +66,26 @@ public class WarMachine : CharacterAI
     {
         subject.state = ECharacterState.ON_ACTION;
 
+        Play("Skill_Ready");
+        yield return new WaitForSeconds(0.5f);
 
+        Play("Skill_Play");
+        var enemies = new List<Collider2D>();
+        Physics2D.OverlapCollider(skillCol, subject.filter, enemies);
+
+        foreach (var item in enemies)
+        {
+            var hostile = item.GetComponent<HostileGameObject>();
+
+            hostile.ai.Cancel();
+            hostile.ai.targeted = subject;
+            hostile.state = ECharacterState.IDLE;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        Play("Skill_End");
+        yield return new WaitForSeconds(1f);
         subject.state = ECharacterState.IDLE;
         yield break;
     }

@@ -19,9 +19,6 @@ public abstract class AI_Base
     protected SpriteRenderer model;
 
     public int keyIndex;
-    public float minRange;
-    public float maxRange;
-    public float moveSpeed;
     public StatusData statusData;
 
 
@@ -52,7 +49,7 @@ public abstract class AI_Base
 
         if (YDone(dir.y)) dir.y = 0f;
         if (XDone(dir.x)) dir.x = 0f;
-        transform.Translate(dir * moveSpeed * Time.deltaTime);
+        transform.Translate(dir * statusData.moveSpeed * Time.deltaTime);
     }
     public virtual bool IsArriveAtTarget()
     {
@@ -62,13 +59,13 @@ public abstract class AI_Base
     protected virtual void SetCombatMovePos()
     {
         float x = 0f;
-        if (Mathf.Abs(transform.position.x - targeted.transform.position.x) < minRange)
+        if (Mathf.Abs(transform.position.x - targeted.transform.position.x) < statusData.minRange)
         {
-            x = minRange;
+            x = statusData.minRange;
         }
-        else if (Mathf.Abs(transform.position.x - targeted.transform.position.x) > maxRange)
+        else if (Mathf.Abs(transform.position.x - targeted.transform.position.x) > statusData.maxRange)
         {
-            x = maxRange;
+            x = statusData.maxRange;
         }
         else
         {

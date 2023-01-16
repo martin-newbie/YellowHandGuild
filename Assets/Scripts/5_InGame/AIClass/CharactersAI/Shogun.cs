@@ -16,10 +16,6 @@ public class Shogun : CharacterAI
         atkCol = InGameManager.Instance.GetAttackCollider(2, model.transform);
         dustEffect = InGameManager.Instance.GetSpawnSkill(5, model.transform) as ShogunDustEffect;
         cutoffEffect = InGameManager.Instance.GetSpawnSkill(4, null) as ShogunCutoffEffect;
-
-        maxRange = 2f;
-        minRange = 1.5f;
-        moveSpeed = 2.3f;
     }
 
     public override void Attack()

@@ -24,10 +24,6 @@ public class BountyHunter : CharacterAI
         hook.transform.localPosition = new Vector3(0.4f, 0.8f);
         hook.gameObject.SetActive(false);
 
-        maxRange = 1.5f;
-        minRange = 1f;
-        moveSpeed = 1.5f;
-
         wait = new WaitForSeconds(1f);
     }
 
@@ -158,12 +154,12 @@ public class BountyHunter : CharacterAI
 
     public override void SearchTargeting()
     {
-        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillRange, maxRange);
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillRange, statusData.maxRange);
     }
 
     public override void SelectTargeting()
     {
-        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillRange, maxRange);
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillRange, statusData.maxRange);
         if (target == null) return;
         SetTargetingSkillTarget(target);
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class StaticHostileData : SheetDataBase
 {
     protected override string gid => "1410749516";
-    protected override string range => "C3:R999";
+    protected override string range => "C3:U999";
 
     public List<cHostileStatus> datas;
 
@@ -28,7 +28,7 @@ public class StaticHostileData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType);
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType, dt.maxRange, dt.minRange, dt.moveSpeed);
         return result;
     }
 }
@@ -57,6 +57,10 @@ public class cHostileStatus
     public EDamageType dmgType;
     public EDefenseType defType;
 
+    public float maxRange;
+    public float minRange;
+    public float moveSpeed;
+
     public cHostileStatus(string[] args)
     {
         int index = 0;
@@ -80,5 +84,9 @@ public class cHostileStatus
 
         dmgType = (EDamageType)int.Parse(args[index++]);
         defType = (EDefenseType)int.Parse(args[index++]);
+
+        maxRange = float.Parse(args[index++]);
+        minRange = float.Parse(args[index++]);
+        moveSpeed = float.Parse(args[index++]);
     }
 }

@@ -12,10 +12,6 @@ public class SkeletonCrossbow : HostileAI
         arrowPref = InGameManager.Instance.GetSkill(3) as SkeletonCrossbowArrow;
         atkCol = InGameManager.Instance.GetAttackCollider(1, transform);
         atkCol.transform.SetParent(model.transform);
-
-        maxRange = 8f;
-        moveSpeed = 1.5f;
-        minRange = 2f;
     }
 
     Coroutine atkCoroutine;
@@ -31,7 +27,7 @@ public class SkeletonCrossbow : HostileAI
         subject.state = ECharacterState.STAND_BY;
 
         float dist = Mathf.Abs(transform.position.x - targeted.transform.position.x);
-        if (dist <= minRange)
+        if (dist <= statusData.minRange)
         {
             yield return StartCoroutine(BayonetAttack());
         }

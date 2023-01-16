@@ -20,7 +20,11 @@ public struct StatusData
     public EDamageType dmgType;
     public EDefenseType defType;
 
-    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit, EDamageType _dmgType, EDefenseType _defType)
+    public float maxRange;
+    public float minRange;
+    public float moveSpeed;
+
+    public StatusData(float _hp, float _dmg, float _def, float _defBreak, float _cri, float _criBreak, float _criDmg, float _miss, float _hit, EDamageType _dmgType, EDefenseType _defType, float _maxRange, float _minRange, float _moveSpeed)
     {
         hp = _hp;
         dmg = _dmg;
@@ -33,6 +37,9 @@ public struct StatusData
         hitRate = _hit;
         dmgType = _dmgType;
         defType = _defType;
+        maxRange = _maxRange;
+        minRange = _minRange;
+        moveSpeed = _moveSpeed;
     }
 }
 
@@ -40,7 +47,7 @@ public struct StatusData
 public class StaticCharacterData : SheetDataBase
 {
     protected override string gid => "0";
-    protected override string range => "C3:V999";
+    protected override string range => "C3:Y999";
 
     public List<cCharacterStatus> datas;
 
@@ -63,7 +70,7 @@ public class StaticCharacterData : SheetDataBase
         float def = dt.defaultDef + dt.defUp * level;
         float defBrk = dt.defaultDefBreak + dt.defBreakUp * level;
 
-        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType);
+        StatusData result = new StatusData(hp, dmg, def, defBrk, dt.criChance, dt.criBreak, dt.criDmg, dt.missRate, dt.hitRate, dt.dmgType, dt.defType, dt.maxRange, dt.minRange, dt.moveSpeed);
         return result;
     }
 }
@@ -96,8 +103,11 @@ public class cCharacterStatus
 
     public EDamageType dmgType;
     public EDefenseType defType;
-
     public EPosType posType;
+
+    public float maxRange;
+    public float minRange;
+    public float moveSpeed;
     
     public cCharacterStatus(string[] args)
     {
@@ -124,7 +134,10 @@ public class cCharacterStatus
 
         dmgType = (EDamageType)int.Parse(args[index++]);
         defType = (EDefenseType)int.Parse(args[index++]);
-
         posType = (EPosType)int.Parse(args[index++]);
+
+        maxRange = float.Parse(args[index++]);
+        minRange = float.Parse(args[index++]);
+        moveSpeed = float.Parse(args[index++]);
     }
 }

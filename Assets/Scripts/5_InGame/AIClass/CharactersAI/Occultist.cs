@@ -11,9 +11,6 @@ public class Occultist : CharacterAI
     public Occultist(CharacterGameObject character) : base(character)
     {
         meteor = InGameManager.Instance.GetSkill(0).GetComponent<OccultistMeteor>();
-
-        maxRange = 10f;
-        moveSpeed = 1f;
     }
 
     public override void Attack()

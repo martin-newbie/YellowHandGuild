@@ -1533,12 +1533,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aef594933ae2084bb3e2b89634770dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckManager: {fileID: 1520483455}
   infoBackground: {fileID: 1502015019}
   infoPreviewImage: {fileID: 136388541}
   unitPrefab: {fileID: 1817556124589232022}
   unitParent: {fileID: 2133099082}
   unitList: []
-  confirmButton: {fileID: 0}
+  confirmButton: {fileID: 875584115}
 --- !u!1 &1045007822
 GameObject:
   m_ObjectHideFlags: 0

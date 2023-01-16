@@ -10,7 +10,6 @@ public class BountyHunter : CharacterAI
     BountyHunterHurlbat hurlbat;
     BountyHunterHook hook;
 
-    WaitForSeconds wait;
     bool isAutoAble;
 
     public BountyHunter(CharacterGameObject character) : base(character)
@@ -23,8 +22,6 @@ public class BountyHunter : CharacterAI
         hook.transform.SetParent(model.transform); // 사이즈 유지하면서 각도 변화도 넣기 위해, 지우지 말것
         hook.transform.localPosition = new Vector3(0.4f, 0.8f);
         hook.gameObject.SetActive(false);
-
-        wait = new WaitForSeconds(1f);
     }
 
     public override void Attack()

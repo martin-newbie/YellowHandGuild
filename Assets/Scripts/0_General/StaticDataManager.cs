@@ -59,8 +59,12 @@ public class StaticDataManager : MonoBehaviour
         totalDatasCount = datas.Count;
         foreach (var item in datas)
         {
-            yield return item.LoadDataCor();
-            currentLoadDataCount++;
+            StartCoroutine(item.LoadDataCor(() => { currentLoadDataCount++; }));
+        }
+
+        while (currentLoadDataCount >= totalDatasCount)
+        {
+            yield return null;
         }
 
         yield break;

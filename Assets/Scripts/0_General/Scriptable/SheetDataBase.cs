@@ -39,7 +39,7 @@ public abstract class SheetDataBase : ScriptableObject
         }
     }
 
-    public IEnumerator LoadDataCor()
+    public IEnumerator LoadDataCor(Action onEnd = null)
     {
         string URL = GetURL();
 
@@ -47,6 +47,8 @@ public abstract class SheetDataBase : ScriptableObject
         {
             yield return www.SendWebRequest();
             SetData(www.downloadHandler.text);
+
+            onEnd?.Invoke();
         }
     }
 

@@ -58,11 +58,22 @@ public class WarMachine : CharacterAI
 
     public override void AutoSkill()
     {
+        StopCoroutine(atkCor);
+        atkCor = StartCoroutine(AutoSkillCor());
+    }
+
+    IEnumerator AutoSkillCor()
+    {
+        subject.state = ECharacterState.ON_ACTION;
+
+
         subject.state = ECharacterState.IDLE;
+        yield break;
     }
 
     public override void Cancel()
     {
+        StopCoroutine(atkCor);
     }
 
     public override void GiveDamage()

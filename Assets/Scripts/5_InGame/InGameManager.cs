@@ -103,13 +103,18 @@ public class InGameManager : MonoBehaviour
         for (int i = 0; i < gameMode.GetWaveCount(stageIdx); i++)
         {
             gameMode.OnStageStart();
+
             yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.IDLE));
+            setCharactersActive(true);
+
             yield return new WaitForSeconds(2f);
             SpawnWaveMonster();
+
             yield return new WaitUntil(() => waitUntilWaveEnd());
 
             if (curHostiles.Count <= 0)
             {
+                setCharactersActive(false);
                 yield return new WaitUntil(() => setCharsInitPos());
                 yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave
@@ -201,6 +206,13 @@ public class InGameManager : MonoBehaviour
             }
 
             return curHostiles.Count <= 0 || curChars.Count <= 0;
+        }
+        void setCharactersActive(bool active)
+        {
+            foreach (var item in curChars)
+            {
+                item.ai.gameActive = active;
+            }
         }
     }
 

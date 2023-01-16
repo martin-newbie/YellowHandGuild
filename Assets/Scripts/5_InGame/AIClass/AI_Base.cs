@@ -19,6 +19,7 @@ public abstract class AI_Base
     protected SpriteRenderer model;
 
     public int keyIndex;
+    public bool gameActive = false;
     public StatusData statusData;
 
 
@@ -291,7 +292,7 @@ public abstract class CharacterAI : AI_Base
     }
     protected virtual void UseAutoSkill()
     {
-        if (curAutoSkillCool >= skillData.autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION)
+        if (curAutoSkillCool >= skillData.autoSkillCool && subject.state != ECharacterState.STAND_BY && subject.state != ECharacterState.ON_ACTION && gameActive)
         {
             subject.state = ECharacterState.AUTO_SKILL;
             curAutoSkillCool = 0f;

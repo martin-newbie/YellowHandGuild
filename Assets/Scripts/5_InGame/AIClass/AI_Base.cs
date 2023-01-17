@@ -209,6 +209,13 @@ public abstract class AI_Base
     {
         return isCri;
     }
+
+    public void CrowdControl(PlayableObject target)
+    {
+        Cancel();
+        targeted = target;
+        subject.state = ECharacterState.MOVE;
+    }
 }
 
 public abstract class CharacterAI : AI_Base

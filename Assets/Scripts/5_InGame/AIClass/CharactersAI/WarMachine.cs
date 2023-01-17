@@ -12,7 +12,7 @@ public class WarMachine : CharacterAI
     public WarMachine(PlayableObject character) : base(character)
     {
         atkCol = InGameManager.Instance.GetAttackCollider(3, model.transform);
-        skillCol = InGameManager.Instance.GetAttackCollider(4, transform);
+        skillCol = InGameManager.Instance.GetAttackCollider(4, model.transform);
     }
 
     int combo = 0;
@@ -76,10 +76,7 @@ public class WarMachine : CharacterAI
         foreach (var item in enemies)
         {
             var hostile = item.GetComponent<HostileGameObject>();
-
-            hostile.ai.Cancel();
-            hostile.ai.targeted = subject;
-            hostile.state = ECharacterState.IDLE;
+            hostile.ai.CrowdControl(subject);
         }
 
         yield return new WaitForSeconds(1f);

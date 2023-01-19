@@ -77,6 +77,9 @@ public class CharacterGameObject : PlayableObject
             case 17:
                 ai = new BountyHunter(this);
                 break;
+            case 20:
+                ai = new Musketeer(this);
+                break;
         }
 
         ai.targetPos = startPos;
@@ -112,6 +115,7 @@ public class CharacterGameObject : PlayableObject
 
     public void MoveToInitialPoint()
     {
+        state = ECharacterState.MOVE;
         thisAI.targetPos = startPos;
         thisAI.targeted = null;
     }

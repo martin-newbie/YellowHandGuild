@@ -12,11 +12,11 @@ public enum AttackType
 public abstract class AI_Base
 {
     // components
-    protected PlayableObject subject;
-    protected GameObject gameobject;
-    protected Transform transform;
-    protected Animator animator;
-    protected SpriteRenderer model;
+    public PlayableObject subject;
+    public GameObject gameobject;
+    public Transform transform;
+    public Animator animator;
+    public SpriteRenderer model;
 
     public int keyIndex;
     public bool gameActive = false;

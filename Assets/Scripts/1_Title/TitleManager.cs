@@ -29,6 +29,7 @@ public class TitleManager : MonoBehaviour
         UserData.Instance.characters.Add(new CharacterData(16));
         UserData.Instance.characters.Add(new CharacterData(17));
         UserData.Instance.characters.Add(new CharacterData(13));
+        UserData.Instance.characters.Add(new CharacterData(20));
         SceneManager.LoadScene("StageSelect");
     }
 }

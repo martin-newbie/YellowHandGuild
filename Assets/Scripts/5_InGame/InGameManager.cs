@@ -116,7 +116,6 @@ public class InGameManager : MonoBehaviour
             {
                 setCharactersActive(false);
                 yield return new WaitUntil(() => setCharsInitPos());
-                yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave
             }
             else if (curChars.Count <= 0)
@@ -357,6 +356,25 @@ public class InGameManager : MonoBehaviour
         {
             float calc = Vector3.Distance(pos, item.transform.position);
             if (calc < dist)
+            {
+                dist = calc;
+                result = item;
+            }
+        }
+
+        return result;
+    }
+    public CharacterGameObject GetFarestCharacter(Vector3 pos)
+    {
+        if (curChars.Count <= 0) return null;
+
+        float dist = float.MinValue;
+        CharacterGameObject result = null;
+
+        foreach (var item in curChars)
+        {
+            float calc = Vector3.Distance(pos, item.transform.position);
+            if (calc > dist)
             {
                 dist = calc;
                 result = item;

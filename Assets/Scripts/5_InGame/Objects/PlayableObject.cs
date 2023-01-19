@@ -93,4 +93,5 @@ public enum ERangeType
 {
     SHORT_DISTANCE_ATK,
     LONG_DISTANCE_ATK,
+    ETC,
 }

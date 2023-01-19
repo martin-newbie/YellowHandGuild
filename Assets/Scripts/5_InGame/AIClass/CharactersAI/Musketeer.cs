@@ -66,17 +66,17 @@ public class Musketeer : CharacterAI
             subject.state = ECharacterState.STAND_BY;
 
             SetRotation(transform.position, _subject.transform.position);
-            Play("Reposte_Ready");
+            Play("Riposte_Ready");
             yield return new WaitForSeconds(0.3f);
 
             switch (_atkType)
             {
                 case ERangeType.SHORT_DISTANCE_ATK:
-                    Play("Reposte_Short");
+                    Play("Riposte_Short");
                     reposteDamage();
                     break;
                 case ERangeType.LONG_DISTANCE_ATK:
-                    Play("Reposte_Long");
+                    Play("Riposte_Long");
                     var temp = Instantiate(reposteEffect, null) as MusketeerReposte;
                     temp.InitReposteEffect(transform.position + new Vector3(1.4f, 0.75f), _subject.transform.position + new Vector3(0, 1), () => reposteDamage());
                     break;

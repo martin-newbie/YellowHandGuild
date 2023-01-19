@@ -252,16 +252,16 @@ public class InGameManager : MonoBehaviour
             }
         }
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float dist = float.MaxValue;
         HostileGameObject result = null;
 
         foreach (var item in hostiles)
         {
-            float calc = Vector3.Distance(item.transform.position, mousePos);
+            float calc = Vector2.Distance(item.transform.position, mousePos);
             if (calc < dist)
             {
-                calc = dist;
+                dist = calc;
                 result = item;
             }
         }
@@ -290,7 +290,7 @@ public class InGameManager : MonoBehaviour
             float calc = Vector3.Distance(item.transform.position, mousePos);
             if (calc < dist)
             {
-                calc = dist;
+                dist = calc;
                 result = item;
             }
         }

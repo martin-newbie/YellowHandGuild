@@ -67,6 +67,7 @@ public class Musketeer : CharacterAI
 
             SetRotation(transform.position, _subject.transform.position);
             Play("Reposte_Ready");
+            yield return new WaitForSeconds(0.3f);
 
             switch (_atkType)
             {
@@ -82,7 +83,7 @@ public class Musketeer : CharacterAI
             }
 
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.7f);
             subject.state = ECharacterState.IDLE;
             yield break;
         }

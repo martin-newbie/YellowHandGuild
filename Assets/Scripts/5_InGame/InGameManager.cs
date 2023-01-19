@@ -116,6 +116,7 @@ public class InGameManager : MonoBehaviour
             {
                 setCharactersActive(false);
                 yield return new WaitUntil(() => setCharsInitPos());
+                yield return new WaitUntil(() => waitUntilCharsState(ECharacterState.MOVE));
                 // next wave
             }
             else if (curChars.Count <= 0)

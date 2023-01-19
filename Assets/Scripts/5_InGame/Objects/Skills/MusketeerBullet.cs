@@ -6,7 +6,6 @@ public class MusketeerBullet : SkillBase
 {
     float speed = 45f;
 
-    SpriteRenderer sprite;
     Vector2 dir;
     StatusData data;
     CharacterAI subject;
@@ -15,8 +14,6 @@ public class MusketeerBullet : SkillBase
 
     public void BulletInit(Vector2 _dir, StatusData _data, CharacterAI _subject)
     {
-        sprite = GetComponent<SpriteRenderer>();
-
         dir = _dir;
         data = _data;
         subject = _subject;
@@ -41,7 +38,10 @@ public class MusketeerBullet : SkillBase
     IEnumerator DestroyAction()
     {
         isEnd = true;
-        sprite.enabled = false;
+        
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

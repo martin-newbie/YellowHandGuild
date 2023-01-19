@@ -128,12 +128,13 @@ public class BountyHunter : CharacterAI
 
         Play("Hurlbat_Ready");
         subject.state = ECharacterState.ON_ACTION;
+        var dir = ((transform.position + new Vector3(0, 1)) - (targeted.transform.position + new Vector3(0, 1))).normalized;
+
         yield return new WaitForSeconds(1f);
 
         Play("Hurlbat_Attack");
 
         var axe = Instantiate(hurlbat, transform.position + new Vector3(0, 1), Quaternion.identity) as BountyHunterHurlbat;
-        var dir = ((transform.position + new Vector3(0, 1)) - (targeted.transform.position + new Vector3(0, 1))).normalized;
         axe.Init(dir, 5f, statusData, this);
 
         yield return new WaitForSeconds(1f);

@@ -127,7 +127,7 @@ public class Musketeer : CharacterAI
     {
         subject.state = ECharacterState.ON_ACTION;
 
-        float range = (skillData.targetSkillMinRange + skillData.targetSkillMaxRange) / 2f;
+        float range = skillData.targetSkillMinRange + skillData.targetSkillMinRange / 2f;
         Vector3 targetPos = targeted.transform.position;
 
         range *= transform.position.x > targetPos.x ? 1 : -1;
@@ -140,7 +140,7 @@ public class Musketeer : CharacterAI
         float term = 0.03f;
         int count = 0;
 
-        while (timer / duration < 0.4f)
+        while (timer / duration < 0.3f)
         {
             transform.position = Vector3.Lerp(startPos, finalPos, 1 - Mathf.Pow(1 - (timer / duration), 5));
             var nor = (finalPos - transform.position).normalized;

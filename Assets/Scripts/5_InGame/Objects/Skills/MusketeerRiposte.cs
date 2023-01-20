@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MusketeerReposte : SkillBase
+public class MusketeerRiposte : SkillBase
 {
 
     ParticleSystem particle;

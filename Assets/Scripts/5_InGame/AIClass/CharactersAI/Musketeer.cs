@@ -7,14 +7,18 @@ public class Musketeer : CharacterAI
     Coroutine atkCor;
 
     MusketeerBullet bullet;
-    MusketeerReposte reposteEffect;
+    MusketeerRiposte riposteEffect;
+    MusketeerRiposteGauge riposteGauge;
 
-    int reposteCount = 0;
+    int riposteCount = 0;
 
     public Musketeer(PlayableObject character) : base(character)
     {
         bullet = InGameManager.Instance.GetSkill(6) as MusketeerBullet;
-        reposteEffect = InGameManager.Instance.GetSkill(7) as MusketeerReposte;
+        riposteEffect = InGameManager.Instance.GetSkill(7) as MusketeerRiposte;
+        riposteGauge = InGameManager.Instance.GetSpawnSkill(8, InGameManager.Instance.skillObjectsCanvas.transform) as MusketeerRiposteGauge;
+        riposteGauge.InitGauge(transform);
+        riposteGauge.SetGaugeCount(riposteCount);
     }
 
     public override void Attack()
@@ -41,13 +45,17 @@ public class Musketeer : CharacterAI
 
     public override void AutoSkill()
     {
-        if (reposteCount < 3) reposteCount++;
+        if (riposteCount < 3)
+        {
+            riposteCount++;
+            riposteGauge.SetGaugeCount(riposteCount);
+        }
         subject.state = ECharacterState.IDLE;
     }
 
     public override void OnDamage(ERangeType _atkType, StatusData _data, AI_Base _subject)
     {
-        if (reposteCount <= 0 || subject.state == ECharacterState.STAND_BY)
+        if (riposteCount <= 0 || subject.state == ECharacterState.ON_ACTION)
         {
             base.OnDamage(_atkType, _data, _subject);
             return;
@@ -63,6 +71,8 @@ public class Musketeer : CharacterAI
                 _subject.OnDamage(ERangeType.ETC, statusData, this);
             }
 
+            riposteCount--;
+            riposteGauge.SetGaugeCount(riposteCount);
             subject.state = ECharacterState.STAND_BY;
 
             SetRotation(transform.position, _subject.transform.position);
@@ -77,7 +87,7 @@ public class Musketeer : CharacterAI
                     break;
                 case ERangeType.LONG_DISTANCE_ATK:
                     Play("Riposte_Long");
-                    var temp = Instantiate(reposteEffect, null) as MusketeerReposte;
+                    var temp = Instantiate(riposteEffect, null) as MusketeerRiposte;
                     temp.InitReposteEffect(transform.position + new Vector3(1.4f, 0.75f), _subject.transform.position + new Vector3(0, 1), () => reposteDamage());
                     break;
             }

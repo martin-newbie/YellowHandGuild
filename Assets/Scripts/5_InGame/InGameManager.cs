@@ -44,6 +44,7 @@ public class InGameManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject TargetingCanvasObj;
+    public Canvas skillObjectsCanvas;
 
     Coroutine mainLogic;
 

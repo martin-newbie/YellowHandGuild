@@ -92,10 +92,6 @@ public class WarMachine : CharacterAI
         StopCoroutine(atkCor);
     }
 
-    public override void GiveDamage()
-    {
-    }
-
     public override void SearchTargeting()
     {
         InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);

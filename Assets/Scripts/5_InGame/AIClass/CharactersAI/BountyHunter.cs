@@ -37,11 +37,6 @@ public class BountyHunter : CharacterAI
         StopCoroutine(atkCoroutine);
     }
 
-    public override void GiveDamage()
-    {
-        GetColliderHostile()?.OnDamage(ERangeType.SHORT_DISTANCE_ATK, statusData, this);
-    }
-
     public override void AutoSkill()
     {
         isAutoAble = true;
@@ -90,7 +85,7 @@ public class BountyHunter : CharacterAI
         if (target)
         {
             animator.Play("Hunt_Attack_1");
-            GiveDamage();
+            DamageToTarget(targeted, ERangeType.SHORT_DISTANCE_ATK);
             yield return new WaitForSeconds(0.35f);
 
             animator.Play("Hunt_Attack_2");
@@ -111,7 +106,7 @@ public class BountyHunter : CharacterAI
         Play("Ready");
         yield return new WaitForSeconds(0.3f);
 
-        GiveDamage();
+        DamageToTarget(targeted, ERangeType.SHORT_DISTANCE_ATK);
         Play("Attack");
         yield return new WaitForSeconds(0.5f);
 

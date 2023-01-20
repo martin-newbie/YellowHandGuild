@@ -99,10 +99,6 @@ public class Shogun : CharacterAI
     {
     }
 
-    public override void GiveDamage()
-    {
-    }
-
     public override void SearchTargeting()
     {
     }

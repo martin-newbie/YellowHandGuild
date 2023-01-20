@@ -227,6 +227,37 @@ public class InGameManager : MonoBehaviour
         Gizmos.DrawWireCube(fieldCenter, fieldSize);
     }
 
+    public bool IsOutOfBoundaryX(float x, float add = 0f)
+    {
+        float max = fieldCenter.x + fieldSize.x / 2f;
+        float min = fieldCenter.x - fieldSize.x / 2f;
+
+        if(x > max && add > 0f)
+        {
+            return true;
+        }
+        if(x < min && add < 0f)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool IsOutOfBoundaryY(float y, float add = 0f)
+    {
+        float max = fieldCenter.y + fieldSize.y / 2f;
+        float min = fieldCenter.y - fieldSize.y / 2f;
+
+        if (y > max && add > 0f)
+        {
+            return true;
+        }
+        if (y < min && add < 0f)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public CharacterGameObject GetCharacterObject(int idx) => curChars[idx];
 
     // targeting

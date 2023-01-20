@@ -48,8 +48,8 @@ public abstract class AI_Base
         var dir = (targetPos - transform.position).normalized;
         SetRotation(transform.position, targetPos);
 
-        if (YDone(dir.y)) dir.y = 0f;
-        if (XDone(dir.x)) dir.x = 0f;
+        if (YDone(dir.y * statusData.moveSpeed * Time.deltaTime)) dir.y = 0f;
+        if (XDone(dir.x * statusData.moveSpeed * Time.deltaTime)) dir.x = 0f;
         transform.Translate(dir * statusData.moveSpeed * Time.deltaTime);
     }
     public virtual bool IsArriveAtTarget()
@@ -80,29 +80,15 @@ public abstract class AI_Base
         targetPos = targeted.transform.position + new Vector3(dir * x, 0, 0);
     }
 
-    bool YDone(float dir)
+    bool YDone(float move)
     {
-        bool result;
         float yDist = Mathf.Abs(transform.position.y - targetPos.y);
-
-        var size = InGameManager.Instance.fieldSize;
-        var center = InGameManager.Instance.fieldCenter;
-
-        result = transform.position.y + dir > center.y + (size.y / 2f) || transform.position.y + dir < center.y - (size.y / 2f);
-
-        return result || yDist <= 0.1f;
+        return InGameManager.Instance.IsOutOfBoundaryY(transform.position.y, move) || yDist <= 0.1f;
     }
-    bool XDone(float dir)
+    bool XDone(float move)
     {
-        bool result;
         float xDist = Mathf.Abs(transform.position.x - targetPos.x);
-
-        var size = InGameManager.Instance.fieldSize;
-        var center = InGameManager.Instance.fieldCenter;
-
-        result = transform.position.x + dir > center.x + (size.x / 2f) || transform.position.x + dir < center.x - (size.x / 2f);
-
-        return result || xDist <= 0.1f;
+        return InGameManager.Instance.IsOutOfBoundaryX(transform.position.x, move) || xDist <= 0.1f;
     }
 
     public virtual void SetRotation(Vector3 prev, Vector3 target)
@@ -239,7 +225,6 @@ public abstract class CharacterAI : AI_Base
 
     // abstract method
     public abstract void Attack();
-    public abstract void GiveDamage();
     public abstract void AutoSkill();
     public abstract void TargetingSkill();
     public virtual void SkillCharge()

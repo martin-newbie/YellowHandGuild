@@ -37,10 +37,6 @@ public class Occultist : CharacterAI
         StopCoroutine(atkCor);
     }
 
-    public override void GiveDamage()
-    {
-    }
-
     public override void AutoSkill()
     {
         subject.state = ECharacterState.IDLE;

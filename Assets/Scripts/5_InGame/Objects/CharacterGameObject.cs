@@ -95,10 +95,6 @@ public class CharacterGameObject : PlayableObject
     {
         ai.SelectTargeting();
     }
-    public void Attack()
-    {
-        ai.GiveDamage();
-    }
 
     public float GetTargetSkillGauge()
     {

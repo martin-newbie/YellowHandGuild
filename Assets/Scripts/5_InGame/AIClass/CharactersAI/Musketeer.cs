@@ -73,7 +73,7 @@ public class Musketeer : CharacterAI
 
             riposteCount--;
             riposteGauge.SetGaugeCount(riposteCount);
-            subject.state = ECharacterState.STAND_BY;
+            subject.state = ECharacterState.ON_ACTION;
 
             SetRotation(transform.position, _subject.transform.position);
             Play("Riposte_Ready");
@@ -104,20 +104,75 @@ public class Musketeer : CharacterAI
         StopCoroutine(atkCor);
     }
 
-    public override void GiveDamage()
-    {
-    }
-
     public override void SearchTargeting()
     {
+        InGameManager.Instance.TargetFocusOnEnemy(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
     }
 
     public override void SelectTargeting()
     {
+        var target = InGameManager.Instance.GetSelectHostileTargets(transform.position, skillData.targetSkillMaxRange, skillData.targetSkillMinRange);
+        if (target == null) return;
+
+        Cancel();
+        SetTargetingSkillTarget(target);
     }
 
     public override void TargetingSkill()
     {
+        atkCor = StartCoroutine(EnGarde());
+    }
+
+    IEnumerator EnGarde()
+    {
+        subject.state = ECharacterState.ON_ACTION;
+
+        float range = (skillData.targetSkillMinRange + skillData.targetSkillMaxRange) / 2f;
+        Vector3 targetPos = targeted.transform.position;
+
+        range *= transform.position.x > targetPos.x ? 1 : -1;
+        Vector3 finalPos = targetPos + new Vector3(range, 0f);
+
+        float duration = Vector3.Distance(finalPos, transform.position) * statusData.moveSpeed;
+        float timer = 0f;
+
+        Vector3 startPos = transform.position;
+        float term = 0.03f;
+        int count = 0;
+
+        while (timer / duration < 0.4f)
+        {
+            transform.position = Vector3.Lerp(startPos, finalPos, 1 - Mathf.Pow(1 - (timer / duration), 5));
+            var nor = (finalPos - transform.position).normalized;
+            int dir = (int)(nor.x / Mathf.Abs(nor.x));
+
+            switch (dir)
+            {
+                case 1:
+                    Play("EnGarde_Front");
+                    SetRotation(transform.position, finalPos);
+                    break;
+                case -1:
+                    Play("EnGarde_Back");
+                    SetRotation(transform.position, -finalPos);
+                    break;
+            }
+
+            if (timer / duration >= term && count < 3)
+            {
+                BulletShoot(targetPos + new Vector3(0, 1));
+                term += 0.07f;
+                count++;
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+
+
+        subject.state = ECharacterState.IDLE;
+        yield break;
     }
 
 

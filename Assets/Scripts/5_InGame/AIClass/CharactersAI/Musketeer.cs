@@ -127,7 +127,7 @@ public class Musketeer : CharacterAI
     {
         subject.state = ECharacterState.ON_ACTION;
 
-        float range = skillData.targetSkillMinRange + skillData.targetSkillMinRange / 2f;
+        float range = skillData.targetSkillMaxRange;
         Vector3 targetPos = targeted.transform.position;
 
         range *= transform.position.x > targetPos.x ? 1 : -1;

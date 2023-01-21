@@ -15,6 +15,11 @@ public class InGameManager : MonoBehaviour
     // chars == characters의 줄임
     // char == character의 줄임
 
+    [Header("Targeting")]
+    [SerializeField] SpriteRenderer maxRangeCircle;
+    [SerializeField] SpriteRenderer minRangeCircle;
+    [SerializeField] SpriteRenderer targetRangeCircle;
+
     [Header("Play Info")]
     [SerializeField] List<int> charsIndex = new List<int>();
     [SerializeField] List<Transform> charsPosTr = new List<Transform>();
@@ -330,12 +335,12 @@ public class InGameManager : MonoBehaviour
         return result;
     }
 
-    public void TargetFocusOnEnemy(Vector3 originPos, float radius, float minRange = 0f)
+    public void TargetFocusOnEnemy(Vector3 originPos, float maxRange, float minRange = 0f)
     {
         foreach (var item in curHostiles)
         {
             float calc = Vector3.Distance(item.transform.position, originPos);
-            if (calc <= radius && calc >= minRange) item.SetFocus(true);
+            if (calc <= maxRange && calc >= minRange) item.SetFocus(true);
             else item.SetFocus(false);
         }
     }
@@ -343,10 +348,50 @@ public class InGameManager : MonoBehaviour
     {
         curChars.ForEach((item) => item.SetFocus(true));
     }
+    public void TargetFocusOnField(Vector3 originPos, float maxRange, float minRange = 0f, float radius = 0f)
+    {
+        minRangeCircle.gameObject.SetActive(true);
+        maxRangeCircle.gameObject.SetActive(true);
+        targetRangeCircle.gameObject.SetActive(true);
+
+        Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dist = Vector3.Distance(originPos, inputPos);
+
+        var relative = (inputPos - originPos);
+        float deg = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg;
+
+        Vector3 finalPos = inputPos;
+
+        if(dist > maxRange)
+        {
+            finalPos = getPosByCircle(deg, maxRange);
+        }
+        if(dist < minRange)
+        {
+            finalPos = getPosByCircle(deg, minRange);
+        }
+
+        targetRangeCircle.transform.position = finalPos;
+        targetRangeCircle.size = new Vector2(radius, radius);
+
+        maxRangeCircle.size = new Vector2(maxRange, maxRange);
+        minRangeCircle.size = new Vector2(minRange, minRange);
+
+        Vector2 getPosByCircle(float degree, float range)
+        {
+            float x = Mathf.Cos(degree * Mathf.Deg2Rad) * range;
+            float y = Mathf.Sin(degree * Mathf.Deg2Rad) * range;
+
+            return new Vector2(x, y);
+        }
+    }
+
     public void OffTargeting()
     {
         Time.timeScale = 1f;
         TargetingCanvasObj.SetActive(false);
+        minRangeCircle.gameObject.SetActive(false);
+        maxRangeCircle.gameObject.SetActive(false);
         OffFriendlyTargetFocus();
         OffHostileTargetFocus();
     }

@@ -348,27 +348,29 @@ public class InGameManager : MonoBehaviour
     {
         curChars.ForEach((item) => item.SetFocus(true));
     }
-    public void TargetFocusOnField(Vector3 originPos, float maxRange, float minRange = 0f, float radius = 0f)
+    public void TargetFocusOnField(Vector2 originPos, float maxRange, float minRange = 0f, float radius = 2f)
     {
         minRangeCircle.gameObject.SetActive(true);
         maxRangeCircle.gameObject.SetActive(true);
         targetRangeCircle.gameObject.SetActive(true);
 
-        Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        minRangeCircle.transform.position = maxRangeCircle.transform.position = originPos;
+
+        Vector2 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float dist = Vector3.Distance(originPos, inputPos);
 
-        var relative = (inputPos - originPos);
-        float deg = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg;
+        var relative = inputPos - originPos;
+        float deg = Mathf.Atan2(relative.y, relative.x);
 
-        Vector3 finalPos = inputPos;
+        Vector2 finalPos = inputPos;
 
-        if(dist > maxRange)
+        if(dist > maxRange / 2f)
         {
-            finalPos = getPosByCircle(deg, maxRange);
+            finalPos = originPos + getPosByCircle(deg, maxRange / 2f);
         }
-        if(dist < minRange)
+        if(dist < minRange / 2f)
         {
-            finalPos = getPosByCircle(deg, minRange);
+            finalPos = originPos + getPosByCircle(deg, minRange / 2f);
         }
 
         targetRangeCircle.transform.position = finalPos;
@@ -379,9 +381,9 @@ public class InGameManager : MonoBehaviour
 
         Vector2 getPosByCircle(float degree, float range)
         {
-            float x = Mathf.Cos(degree * Mathf.Deg2Rad) * range;
-            float y = Mathf.Sin(degree * Mathf.Deg2Rad) * range;
-
+            float x = Mathf.Cos(degree) * range;
+            float y = Mathf.Sin(degree) * range;
+            Debug.Log(new Vector2(x, y));
             return new Vector2(x, y);
         }
     }

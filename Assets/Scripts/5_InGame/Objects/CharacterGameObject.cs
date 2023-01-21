@@ -68,6 +68,9 @@ public class CharacterGameObject : PlayableObject
             case 13:
                 ai = new WarMachine(this);
                 break;
+            case 14:
+                ai = new ElectricGirl(this);
+                break;
             case 15:
                 ai = new Shogun(this);
                 break;

@@ -25,6 +25,7 @@ public class TitleManager : MonoBehaviour
         });
 
 
+        UserData.Instance.characters.Add(new CharacterData(14));
         UserData.Instance.characters.Add(new CharacterData(15));
         UserData.Instance.characters.Add(new CharacterData(16));
         UserData.Instance.characters.Add(new CharacterData(17));
